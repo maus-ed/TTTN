@@ -62,31 +62,31 @@
     <h1>Thay đổi vai trò quản lý bài viết</h1>
     <div class="roles">
         <div class="role">
-            <a th:href="@{/admin}">
+            <a th:href="@{/index/{role}(role=${admin})}">
                 <img src="admin.png" alt="Admin">
                 <h2>Admin</h2>
             </a>
         </div>
         <div class="role">
-            <a th:href="@{/teacher}">
+            <a th:href="@{/index/{role}(role=${giangVienBoMon})}">
                 <img src="teacher.png" alt="Giảng viên bộ môn">
                 <h2>Giảng viên bộ môn</h2>
             </a>
         </div>
         <div class="role">
-            <a th:href="@{/pr_manager}">
+            <a th:href="@{/index/{role}(role=${truongPhongPR})}">
                 <img src="pr_manager.png" alt="Trưởng phòng PR">
                 <h2>Trưởng phòng PR</h2>
             </a>
         </div>
         <div class="role">
-            <a th:href="@{/pr_staff}">
+            <a th:href="@{/index/{role}(role=${nhanVienPR})}">
                 <img src="pr_staff.png" alt="Nhân viên PR">
                 <h2>Nhân viên PR</h2>
             </a>
         </div>
         <div class="role">
-            <a th:href="@{/department_manager}">
+            <a th:href="@{/index/{role}(role=${quanLiBoMon})}">
                 <img src="pr_staff.png" alt="Quản lý bộ môn">
                 <h2>Quản lý bộ môn</h2>
             </a>
