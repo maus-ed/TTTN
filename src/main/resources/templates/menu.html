@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thay đổi vai trò quản lý bài viết</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .container {
+            margin: 50px auto;
+            max-width: 1200px;
+        }
+
+        h1 {
+            color: #d52b1e;
+        }
+
+        .roles {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .role {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 23%;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+
+        .role:hover {
+            transform: scale(1.05);
+        }
+
+        .role img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .role h2 {
+            margin: 15px 0 10px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Thay đổi vai trò quản lý bài viết</h1>
+    <div class="roles">
+        <div class="role">
+            <a th:href="@{/admin}">
+                <img src="admin.png" alt="Admin">
+                <h2>Admin</h2>
+            </a>
+        </div>
+        <div class="role">
+            <a th:href="@{/teacher}">
+                <img src="teacher.png" alt="Giảng viên bộ môn">
+                <h2>Giảng viên bộ môn</h2>
+            </a>
+        </div>
+        <div class="role">
+            <a th:href="@{/pr_manager}">
+                <img src="pr_manager.png" alt="Trưởng phòng PR">
+                <h2>Trưởng phòng PR</h2>
+            </a>
+        </div>
+        <div class="role">
+            <a th:href="@{/pr_staff}">
+                <img src="pr_staff.png" alt="Nhân viên PR">
+                <h2>Nhân viên PR</h2>
+            </a>
+        </div>
+        <div class="role">
+            <a th:href="@{/department_manager}">
+                <img src="pr_staff.png" alt="Quản lý bộ môn">
+                <h2>Quản lý bộ môn</h2>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
