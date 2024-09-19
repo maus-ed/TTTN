@@ -1,0 +1,100 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sidebar">
+    <div class="sidebar">
+        <ul>
+            <!-- Sidebar for Admin -->
+            <li th:if="${role == 'admin'}">
+                <a href="#" th:href="@{/admin/thong-ke}"><i class="fas fa-chart-pie"></i> Thống kê</a>
+            </li>
+            <li th:if="${role == 'admin'}">
+                <a href="#" th:href="@{/admin/phe-duyet-bai-viet}"><i class="fas fa-check-circle"></i> Phê duyện bài viết</a>
+            </li>
+            <li th:if="${role == 'admin'}">
+                <a href="#" th:href="@{/admin/dot-dang-ky}"><i class="fas fa-calendar-check"></i> Quản lý đợt đăng ký</a>
+            </li>
+            <li th:if="${role == 'admin'}">
+                <a href="#" th:href="@{/admin/kho-luu-tru}"><i class="fas fa-archive"></i> Kho lưu trữ</a>
+            </li>
+            <li th:if="${role == 'admin'}">
+                <a href="#" th:href="@{/admin/lich-su-phe-duyet}"><i class="fas fa-history"></i> Lịch sử phê duyệt</a>
+            </li>
+
+            <!-- Sidebar for Lecturer -->
+            <li th:if="${role == 'lecturer'}">
+                <a href="#" th:href="@{/giang-vien/dang-ky-bai-viet}"><i class="fas fa-pencil-alt"></i> Đăng ký bài viết</a>
+            </li>
+            <li th:if="${role == 'lecturer'}">
+                <a href="#" th:href="@{/giang-vien/tao-bai-viet}"><i class="fas fa-edit"></i> Tạo bài viết</a>
+            </li>
+            <li th:if="${role == 'lecturer'}">
+                <a href="#" th:href="@{/giang-vien/danh-sach-bai-viet}"><i class="fas fa-list"></i> Danh sách bài viết</a>
+            </li>
+            <li th:if="${role == 'lecturer'}">
+                <a href="#" th:href="@{/giang-vien/bai-viet-cua-toi}"><i class="fas fa-user-circle"></i> Bài viết của tôi</a>
+            </li>
+            <li th:if="${role == 'lecturer'}">
+                <a href="#" th:href="@{/giang-vien/bai-viet-yeu-thich}"><i class="fas fa-star"></i> Bài viết yêu thích</a>
+            </li>
+            <li th:if="${role == 'lecturer'}">
+                <a href="#" th:href="@{/giang-vien/album}"><i class="fas fa-images"></i> Album</a>
+            </li>
+            <li th:if="${role == 'lecturer'}">
+                <a href="#" th:href="@{/giang-vien/lich-su-da-xem}"><i class="fas fa-eye"></i> Lịch sử đã xem</a>
+            </li>
+
+            <!-- Sidebar for PR Head -->
+            <li th:if="${role == 'pr-head'}">
+                <a href="#" th:href="@{/truong-phong-pr/quan-ly-chu-de}"><i class="fas fa-tasks"></i> Quản lý chủ đề</a>
+            </li>
+            <li th:if="${role == 'pr-head'}">
+                <a href="#" th:href="@{/truong-phong-pr/thong-ke}"><i class="fas fa-chart-bar"></i> Thống kê</a>
+            </li>
+            <li th:if="${role == 'pr-head'}">
+                <a href="#" th:href="@{/truong-phong-pr/danh-sach-bai-viet}"><i class="fas fa-book"></i> Danh sách bài viết</a>
+            </li>
+            <li th:if="${role == 'pr-head'}">
+                <a href="#" th:href="@{/truong-phong-pr/danh-sach-nhan-vien-pr}"><i class="fas fa-users"></i> Danh sách nhân viên PR</a>
+            </li>
+
+            <!-- Sidebar for PR Staff -->
+            <li th:if="${role == 'pr-staff'}">
+                <a href="#" th:href="@{/nhan-vien-pr/quan-ly-danh-sach-bai-viet-pr}"><i class="fas fa-list-alt"></i> Danh sách bài viết</a>
+            </li>
+        </ul>
+    </div>
+
+    <style>
+        .sidebar {
+            width: 200px;
+            height: 100%;
+            background-color: #343a40;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+            transition: width 0.3s;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar ul li a:hover {
+            background-color: #007bff;
+        }
+        .sidebar ul li a i {
+            margin-right: 10px;
+        }
+        .sidebar ul li a.active {
+            font-weight: bold;
+            background-color: #0056b3;
+        }
+    </style>
+</div>
