@@ -17,13 +17,20 @@ public class Album {
     @Column(name = "ten")
     private String ten;
 
-    @Column(name = "ngay_tao")
-    private Date ngayTao;
-
-    @Column(name = "ngay_sua")
-    private Date ngaySua;
-
+    @Column(name = "trang_thai")
+    private String trangThai;
     @ManyToOne
     @JoinColumn(name = "giang_vien_id")
-    private GiangVienChuDe giangVienChuDe;
+    private NguoiDung GiangVien;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_at")
+    private Date createAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "update_at")
+    private Date updateAt;
+
+    @Column(name = "delete_at")
+    private Integer deleteAt;
 }

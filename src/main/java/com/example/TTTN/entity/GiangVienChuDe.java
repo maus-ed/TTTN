@@ -16,18 +16,27 @@ public class GiangVienChuDe {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "nguoi_dung_id")
-    private NguoiDung nguoiDung;
+    @JoinColumn(name = "giang_vien_id")
+    private NguoiDung giangVien;
 
     @ManyToOne
-    @JoinColumn(name = "chu_de_id")
-    private ChuDe chuDe;
+    @JoinColumn(name = "phan_cong_pr_id")
+    private ThongBao thongBao;
 
-    @Column(name = "ngay_phan_cong")
-    private Date ngayPhanCong;
+    @Column(name = "ngay_dang_ky")
+    private Date ngayDangKy;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private String trangThai;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_at")
+    private java.util.Date createAt;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "update_at")
+    private java.util.Date updateAt;
+
+    @Column(name = "delete_at")
+    private Integer deleteAt;
 }

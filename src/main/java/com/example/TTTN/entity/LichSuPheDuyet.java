@@ -31,4 +31,18 @@ public class LichSuPheDuyet {
 
     @Column(name = "ghi_chu", columnDefinition = "TEXT")
     private String ghiChu;
+
+    @Column(name = "trangThai")
+    private String trangThai;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_at")
+    private Date createAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "update_at")
+    private Date updateAt;
+
+    @Column(name = "delete_at")
+    private Integer deleteAt;
 }
