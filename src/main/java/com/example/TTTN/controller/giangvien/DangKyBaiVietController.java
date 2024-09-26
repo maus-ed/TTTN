@@ -11,24 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class DangKyBaiVietController {
-    @Autowired
-    BaiVietRepository baiVietRepository;
 
-    @Autowired
-    DotDangKyRepository dotDangKyRepository;
-
-    @GetMapping("/view")
-    public ResponseEntity<?> view(){
-        return ResponseEntity.ok(baiVietRepository.findAll());
-    }
-
-    @GetMapping("/giang-vien/list-dot-dang-ky")
-    public ResponseEntity<?> dotdangky(){
-        return ResponseEntity.ok(dotDangKyRepository.getDotDangKyList());
-    }
-
-    @GetMapping("/giang-vien/list-bai-viet")
-    public ResponseEntity<?> danhsachbaiviet(){
-        return ResponseEntity.ok(dotDangKyRepository.getBaiVietList());
-    }
 }
