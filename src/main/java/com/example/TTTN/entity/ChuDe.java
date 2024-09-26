@@ -26,5 +26,5 @@ public class ChuDe {
     private String moTa;
 
     @Column(name = "trang_thai")
-    private Integer trangThai;
+    private String trangThai;
 }

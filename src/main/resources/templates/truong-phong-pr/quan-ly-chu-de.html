@@ -6,13 +6,96 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<div th:replace="navbar :: navbar"></div>
+<!-- Navbar -->
+<th:block th:replace="~{navbar}"></th:block>
 
-<div th:replace="sidebar :: sidebar"></div>
 
+<!-- Sidebar -->
+<th:block th:replace="~{sidebar}"></th:block>
+
+
+<!-- Main Content -->
 <div class="content" style="margin-left: 220px; padding: 20px;">
-    <h1> Chủ để nhân viên pr</h1>
+    <!-- Header Section -->
+    <h3 class="text-muted">Quản lý chủ đề</h3>
+
+    <!-- Filter Section -->
+    <div class="card mb-4">
+        <div class="card-header">Bộ lọc</div>
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="filterName">Tên chủ đề:</label>
+                        <input type="text" class="form-control" id="filterName" placeholder="Nhập mã hoặc tên chủ đề">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterStatus">Trạng thái:</label>
+                        <select class="form-control" id="filterStatus">
+                            <option>Tất cả</option>
+                            <option>Hoạt động</option>
+                            <option>Ngừng hoạt động</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label >Nhuận bút:</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="filterPayFrom" placeholder="Từ">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="filterPayTo" placeholder="Đến">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-dark mr-2"><i class="fas fa-search"></i> Tìm kiếm</button>
+                        <button type="reset" class="btn btn-light"><i class="fas fa-sync-alt"></i> Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Topic List Section -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Danh sách chủ đề</span>
+            <button class="btn btn-dark"><i class="fas fa-plus"></i> Thêm chủ đề</button>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mã</th>
+                    <th>Tên chủ đề</th>
+                    <th>Nhuận bút</th>
+                    <th>Mô tả</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each=" s: ${listCD}">
+                    <td th:text="${s.id}"></td>
+                    <td th:text="${s.ten}"></td>
+                    <td th:text="${s.nhuanBut}"></td>
+                    <td th:text="${s.moTa}"></td>
+                    <td th:text="${s.trangThai}"></td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                        <a href="#" class="btn btn-sm btn-secondary"><i class="fas fa-sync-alt"></i></a>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
