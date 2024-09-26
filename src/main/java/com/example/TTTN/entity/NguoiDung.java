@@ -22,7 +22,7 @@ public class NguoiDung {
     private String ten;
 
     @Column(name = "vai_tro")
-    private Integer vaiTro;
+    private String vaiTro;
 
     @Column(name = "so_dien_thoai")
     private Integer soDienThoai;

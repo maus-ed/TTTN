@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "album_bai_viet")
+@IdClass(AlbumBaiVietId.class)  // Khóa chính phức hợp
 public class AlbumBaiViet {
     @Column(name = "trang_thai")
     private String trangThai;
