@@ -3,6 +3,7 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -29,14 +30,14 @@ public class LichSuXem {
     @Column(name = "trang_thai")
     private String trangThai;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "create_at")
-    private java.util.Date createAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "update_at")
-    private java.util.Date updateAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    @Column(name = "delete_at")
-    private Integer deleteAt;
+    @Column(name = "deleted_at")
+    private Boolean deletedAt;
 }
