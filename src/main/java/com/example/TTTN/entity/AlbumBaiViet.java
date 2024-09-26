@@ -12,6 +12,7 @@ public class AlbumBaiViet {
     @Column(name = "trang_thai")
     private String trangThai;
 
+
     @Id
     @ManyToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id")

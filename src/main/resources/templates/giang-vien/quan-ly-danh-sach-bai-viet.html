@@ -1,96 +1,242 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>UDPM</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
 <div th:replace="navbar :: navbar"></div>
 
 <div th:replace="sidebar :: sidebar"></div>
 
-<div class="content" style="margin-left: 220px; padding: 20px;">
-    <h1>Danh sách bài viết</h1>
-    <div class="container mt-4">
-        <h3>Danh sách bài viết</h3>
-        <div class="card">
-            <div class="card-header">
-                <h5><i class="fas fa-filter"></i> Bộ lọc</h5>
-            </div>
-            <div class="card-body">
-                <form th:action="@{/tim-kiem}" method="get">
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label for="tieuDe" class="form-label">Tiêu đề</label>
-                            <input type="text" class="form-control" id="tieuDe" name="tieuDe" placeholder="Nhập tiêu đề">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="chuDe" class="form-label">Chủ đề</label>
-                            <input type="text" class="form-control" id="chuDe" name="chuDe" placeholder="Nhập chủ đề">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="dotVietBai" class="form-label">Đợt viết bài</label>
-                            <input type="text" class="form-control" id="dotVietBai" name="dotVietBai" placeholder="Nhập đợt">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="trangThai" class="form-label">Trạng thái</label>
-                            <select class="form-select" id="trangThai" name="trangThai">
-                                <option value="">Chọn trạng thái bài viết</option>
-                                <option value="1">Đã đăng</option>
-                                <option value="0">Chưa đăng</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label for="ngayTao" class="form-label">Ngày tạo</label>
-                            <input type="date" class="form-control" id="ngayTao" name="ngayTao">
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="reset" class="btn btn-secondary me-2">Làm mới</button>
-                        <button type="submit" class="btn btn-dark">Tìm kiếm</button>
-                    </div>
-                </form>
-            </div>
-        </div>
 
-        <div class="mt-4">
-            <table class="table table-bordered">
-                <thead class="table-light">
-                <tr>
-                    <th>#</th>
-                    <th>Tiêu đề</th>
-                    <th>Chủ đề</th>
-                    <th>Ngày tạo</th>
-                    <th>Đợt</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="baiViet, stat : ${danhSachBaiViet}">
-                    <td th:text="${stat.count}"></td>
-                    <td th:text="${baiViet.tieuDe}">Lập trình Java</td>
-                    <td th:text="${baiViet.chuDe}">Lập trình Java</td>
-                    <td th:text="${#dates.format(baiViet.ngayTao, 'dd/MM/yyyy HH:mm')}">28/08/2024</td>
-                    <td th:text="${baiViet.dot}">Tháng 09 (01/09/2024 - 30/09/2024)</td>
-                    <td>
-                            <span th:text="${baiViet.trangThai == 1 ? 'Đã đăng' : 'Chưa đăng'}"
-                                  th:classappend="${baiViet.trangThai == 1 ? 'text-success' : 'text-danger'}"></span>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+<div class="content" style="margin-left: 220px; padding: 20px;">
+    <h1 th:if="${baiViet == null}">Danh sách bài viết</h1>
+
+    <!-- Bộ lọc -->
+    <div id="filterSection" class="card" th:if="${baiViet == null}">
+        <div class="card-header">
+            <h5><i class="fas fa-filter"></i> Bộ lọc</h5>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/tim-kiem}" method="get">
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="tieuDe" class="form-label">Tiêu đề</label>
+                        <input type="text" class="form-control" id="tieuDe" name="tieuDe"
+                               placeholder="Nhập tiêu đề">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="chuDe" class="form-label">Chủ đề</label>
+                        <input type="text" class="form-control" id="chuDe" name="chuDe" placeholder="Nhập chủ đề">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="dotVietBai" class="form-label">Đợt viết bài</label>
+                        <input type="text" class="form-control" id="dotVietBai" name="dotVietBai"
+                               placeholder="Nhập đợt">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="trangThai" class="form-label">Trạng thái</label>
+                        <select class="custom-select" id="trangThai" name="trangThai">
+                            <option value="">Chọn trạng thái bài viết</option>
+                            <option value="1">Đã đăng</option>
+                            <option value="0">Chưa đăng</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ngayTao" class="form-label">Ngày tạo</label>
+                        <input type="date" class="form-control" id="ngayTao" name="ngayTao">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a th:href="@{/giang-vien/danh-sach-bai-viet}"></a>
+                    <button type="reset" class="btn btn-dark mx-2"><i class="fa-solid fa-rotate-right"></i> Làm mới
+                    </button>
+                    <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                    </button>
+                </div>
+
+            </form>
         </div>
     </div>
+    <div class="d-flex justify-content-end" style="padding-top: 20px;" th:if="${baiViet == null}">
+        <button class="btn btn-sm btn-light mx-2" th:onclick="showTable()"><i
+                class="fa-solid fa-table-cells-large"></i></button>
+        <button class="btn btn-sm btn-light" th:onclick="showCard()"><i
+                class="fa-solid fa-bars"></i></button>
+    </div>
+    <!-- Bảng danh sách bài viết -->
+    <div id="tableSection" class="mt-4" th:if="${baiViet == null}">
+        <table class="table table-bordered">
+            <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Tiêu đề</th>
+                <th>Chủ đề</th>
+                <th>Ngày tạo</th>
+                <th>Đợt</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="baiViet, stat : ${danhSachBaiViet}">
+                <td th:text="${stat.count}"></td>
+                <td th:text="${baiViet.tieuDe}">Tiêu đề bài viết</td>
+                <td th:text="${baiViet.chuDe}">Chủ đề bài viết</td>
+                <td th:text="${#dates.format(baiViet.createdAt, 'dd/MM/yyyy')}">Ngày tạo bài viết</td>
+                <td th:text="${baiViet.dot}">Đợt viết bài</td>
+                <td>
+                    <h5 class="badge btn disabled" style="border-radius: 100px"
+                        th:text="${baiViet.trangThai == 1 ? 'Đã đăng' : 'Chưa đăng'}"
+                        th:classappend="${baiViet.trangThai == 1 ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                    </h5>
+                </td>
+                <td>
+                    <!-- Chuyển hướng tới trang chi tiết bài viết -->
+                    <a th:href="@{/giang-vien/danh-sach-bai-viet/{id}(id=${baiViet.id})}" class="btn btn-sm">
+                        <i class="fas fa-eye"></i> Xem thêm
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <p class="text-muted">Hiển thị 1 đến 10 trong 50 mục</p>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    <div id="cardSection" class="mt-4" th:if="${baiViet == null}" style="display: none;">
+        <div class="row">
+            <div th:each="baiViet, stat : ${danhSachBaiViet}" class="col-md-6">
+                <div class="card" style="margin-top: 20px;">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h5 class="card-title mx-2" th:text="${baiViet.nguoiTao}">Người tạo</h5>
+                            <span class="card-text mx-2"
+                                  th:text="${#dates.format(baiViet.createdAt, 'dd/MM/yyyy')}">Ngày tạo bài viết</span>
+                            <h5>⭐
+                            </h5>
+                            <span class="card-text mx-2" th:text="${baiViet.chuDe}">Chủ đề bài viết</span>
+                        </div>
+                        <h3 class="card-title" th:text="${baiViet.tieuDe}">Tiêu đề bài viết</h3>
+                        <a style="color: gray; text-decoration: underline;"
+                           th:href="@{/giang-vien/danh-sach-bai-viet/{id}(id=${baiViet.id})}">
+                            Xem thêm
+                        </a>
+                        <p class="card-text">
+                        <h5 class="badge btn disabled" style="border-radius: 100px;"
+                            th:text="${baiViet.trangThai == 1 ? 'Đã đăng' : 'Chưa đăng'}"
+                            th:classappend="${baiViet.trangThai == 1 ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                        </h5>
+                        </p>
+                        <p class="card-text">
+                            <a href="#">
+                            <button class="btn btn-light">
+                                <h4>
+                                    <i class="fa-regular fa-heart"></i>
+                                </h4>
+                            </button>
+                            </a>
+                            <a href="#">
+                            <button class="btn btn-light">
+                                <h4>
+                                    <i class="fa-regular fa-folder"></i>
+                                </h4>
+                            </button>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="detailSection" th:if="${baiViet != null}">
+        <div class="d-flex justify-content-end">
+            <a th:href="@{/giang-vien/danh-sach-bai-viet}" class="btn btn-sm btn-outline-dark my-2">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+        <div class="rounded-pill">
+            <h3 class="btn btn-outline-success disabled" style="border-radius: 100px"
+                th:text="${#dates.format(baiViet.createdAt, 'dd/MM/yyyy')}">Ngày tạo</h3>
+            <h3 class="btn btn-outline-success disabled" style="border-radius: 100px" th:text="${baiViet.chuDe}">Chủ
+                đề</h3>
+        </div>
+        <h1 th:text="${baiViet.tieuDe}">Tiêu đề bài viết</h1>
+        <p style="color: red;" th:text="${baiViet.nguoiTao}">Người tạo</p>
+        <p th:text="${baiViet.noiDung}">Nội dung bài viết</p>
+        <!-- Thêm các thông tin khác về bài viết nếu cần -->
+    </div>
 </div>
+
+<script>
+    // Kiểm tra cookie để hiển thị bảng hoặc card
+    function checkCookie() {
+        var cookie = getCookie("displayType");
+        if (cookie == "table") {
+            showTable();
+        } else if (cookie == "card") {
+            showCard();
+        } else {
+            showTable(); // Mặc định hiển thị bảng
+        }
+    }
+
+    // Hàm hiển thị bảng
+    function showTable() {
+        document.getElementById("tableSection").style.display = "block";
+        document.getElementById("cardSection").style.display = "none";
+        setCookie("displayType", "table", 30); // Lưu trữ cookie trong 30 ngày
+    }
+
+    // Hàm hiển thị card
+    function showCard() {
+        document.getElementById("tableSection").style.display = "none";
+        document.getElementById("cardSection").style.display = "block";
+        setCookie("displayType", "card", 30); // Lưu trữ cookie trong 30 ngày
+    }
+
+    // Hàm lấy cookie
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+
+    // Hàm lưu trữ cookie
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    checkCookie();
+</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>

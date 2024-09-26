@@ -22,7 +22,7 @@ public class NguoiDung {
     private String ten;
 
     @Column(name = "vai_tro")
-    private Integer vaiTro;
+    private String vaiTro;
 
     @Column(name = "so_dien_thoai")
     private Integer soDienThoai;
@@ -34,13 +34,13 @@ public class NguoiDung {
     private String trangThai;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "create_at")
-    private Date createAt;
+    @Column(name = "created_at")
+    private Date createdAt;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "update_at")
-    private Date updateAt;
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
-    @Column(name = "delete_at")
-    private Integer deleteAt;
+    @Column(name = "deleted_at")
+    private Integer deletedAt;
 }
