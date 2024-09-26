@@ -22,23 +22,24 @@ public class BaiViet {
     private String noiDung;
 
     @Column(name = "trang_thai")
-    private Integer trangThai;
-
-    @Column(name = "ngay_tao")
-    private Date ngayTao;
-
-    @Column(name = "ngay_sua")
-    private Date ngaySua;
+    private String trangThai;
 
     @ManyToOne
-    @JoinColumn(name = "nguoi_dung_id")
-    private NguoiDung nguoiDung;
-
-    @ManyToOne
-    @JoinColumn(name = "chu_de_id")
-    private ChuDe chude;
+    @JoinColumn(name = "nguoi_tao_id")
+    private NguoiDung nguoiTao;
 
     @ManyToOne
     @JoinColumn(name = "dot_viet_bai_id")
     private DotVietBai dotVietBai;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_at")
+    private Date createAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "update_at")
+    private Date updateAt;
+
+    @Column(name = "delete_at")
+    private Integer deleteAt;
 }
