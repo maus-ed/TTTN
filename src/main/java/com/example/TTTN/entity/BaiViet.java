@@ -3,7 +3,6 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -33,14 +32,14 @@ public class BaiViet {
     @JoinColumn(name = "dot_viet_bai_id")
     private DotVietBai dotVietBai;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private Date updatedAt;
 
     @Column(name = "deleted_at")
-    private Boolean deletedAt;
+    private Integer deletedAt;
 }
