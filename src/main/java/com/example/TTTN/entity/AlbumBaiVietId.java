@@ -1,16 +1,15 @@
 package com.example.TTTN.entity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Objects;
+
+@Data@AllArgsConstructor@NoArgsConstructor
 public class AlbumBaiVietId implements Serializable{
     private Integer album;   // Phải trùng với kiểu của thuộc tính album_id
     private Integer baiViet; // Phải trùng với kiểu của thuộc tính bai_viet_id
-
-    public AlbumBaiVietId() {}
-
-    public AlbumBaiVietId(Integer album, Integer baiViet) {
-        this.album = album;
-        this.baiViet = baiViet;
-    }
 
     // Phải override equals() và hashCode() cho khóa chính phức hợp
     @Override
