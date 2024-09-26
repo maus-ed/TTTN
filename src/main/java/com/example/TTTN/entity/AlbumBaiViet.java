@@ -3,11 +3,13 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "album_bai_viet")
+@IdClass(AlbumBaiVietId.class)  // Khóa chính phức hợp
 public class AlbumBaiViet {
     @Column(name = "trang_thai")
     private String trangThai;
@@ -23,14 +25,14 @@ public class AlbumBaiViet {
     @JoinColumn(name = "bai_viet_id", referencedColumnName = "id")
     private BaiViet baiViet;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "create_at")
-    private Date createAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "update_at")
-    private Date updateAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    @Column(name = "delete_at")
-    private Integer deleteAt;
+    @Column(name = "deleted_at")
+    private Boolean deletedAt;
 }
