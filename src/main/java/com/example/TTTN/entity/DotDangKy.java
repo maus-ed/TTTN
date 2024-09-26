@@ -3,7 +3,7 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity
@@ -34,5 +34,20 @@ public class DotDangKy {
     private Date ngayKetThucDk;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private String trangThai;
+
+    @ManyToOne
+    @JoinColumn(name = "chu_de_id")
+    private ChuDe chuDe;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    @Column(name = "deleted_at")
+    private Integer deletedAt;
 }

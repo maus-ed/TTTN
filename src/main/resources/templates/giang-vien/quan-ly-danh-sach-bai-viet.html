@@ -12,6 +12,82 @@
 
 <div class="content" style="margin-left: 220px; padding: 20px;">
     <h1>Danh sách bài viết</h1>
+    <div class="container mt-4">
+        <h3>Danh sách bài viết</h3>
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-filter"></i> Bộ lọc</h5>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/tim-kiem}" method="get">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="tieuDe" class="form-label">Tiêu đề</label>
+                            <input type="text" class="form-control" id="tieuDe" name="tieuDe" placeholder="Nhập tiêu đề">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="chuDe" class="form-label">Chủ đề</label>
+                            <input type="text" class="form-control" id="chuDe" name="chuDe" placeholder="Nhập chủ đề">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="dotVietBai" class="form-label">Đợt viết bài</label>
+                            <input type="text" class="form-control" id="dotVietBai" name="dotVietBai" placeholder="Nhập đợt">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="trangThai" class="form-label">Trạng thái</label>
+                            <select class="form-select" id="trangThai" name="trangThai">
+                                <option value="">Chọn trạng thái bài viết</option>
+                                <option value="1">Đã đăng</option>
+                                <option value="0">Chưa đăng</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="ngayTao" class="form-label">Ngày tạo</label>
+                            <input type="date" class="form-control" id="ngayTao" name="ngayTao">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="reset" class="btn btn-secondary me-2">Làm mới</button>
+                        <button type="submit" class="btn btn-dark">Tìm kiếm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Tiêu đề</th>
+                    <th>Chủ đề</th>
+                    <th>Ngày tạo</th>
+                    <th>Đợt</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="baiViet, stat : ${danhSachBaiViet}">
+                    <td th:text="${stat.count}"></td>
+                    <td th:text="${baiViet.tieuDe}">Lập trình Java</td>
+                    <td th:text="${baiViet.chuDe}">Lập trình Java</td>
+                    <td th:text="${#dates.format(baiViet.ngayTao, 'dd/MM/yyyy HH:mm')}">28/08/2024</td>
+                    <td th:text="${baiViet.dot}">Tháng 09 (01/09/2024 - 30/09/2024)</td>
+                    <td>
+                            <span th:text="${baiViet.trangThai == 1 ? 'Đã đăng' : 'Chưa đăng'}"
+                                  th:classappend="${baiViet.trangThai == 1 ? 'text-success' : 'text-danger'}"></span>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

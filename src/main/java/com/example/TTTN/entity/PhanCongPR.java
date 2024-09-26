@@ -5,33 +5,24 @@ import lombok.Data;
 
 import java.util.Date;
 
-@Data
-@Entity
-@Table(name = "nguoi_dung")
-public class NguoiDung {
-
+@Data@Entity@Table(name = "phan_cong_pr")
+public class PhanCongPR {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "ma")
-    private String ma;
+    @ManyToOne
+    @JoinColumn(name = "chu_de_id")
+    private ChuDe chuDe;
 
-    @Column(name = "ten")
-    private String ten;
+    @ManyToOne
+    @JoinColumn(name = "nguoi_dung_id")
+    private NguoiDung nguoiDung;
 
-    @Column(name = "vai_tro")
-    private String vaiTro;
-
-    @Column(name = "so_dien_thoai")
-    private Integer soDienThoai;
-
-    @Column(name = "chu_de")
-    private String chuDe;
-
-    @Column(name = "trang_thai")
-    private String trangThai;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "ngay_phan_cong")
+    private Date ngayPhanCong;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
