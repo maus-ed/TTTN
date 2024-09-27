@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -34,4 +35,7 @@ public class Album {
 
     @Column(name = "deleted_at")
     private Boolean deletedAt;
+
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    private List<AlbumBaiViet> albumBaiViets;
 }

@@ -22,13 +22,11 @@
             <h5><i class="fas fa-filter"></i> Bộ lọc</h5>
         </div>
         <div class="card-body">
-            <form th:action="@{/tim-kiem}" method="get">
-
+            <form th:action="@{/giang-vien/danh-sach-bai-viet/tim-kiem}" method="get">
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="tieuDe" class="form-label">Tiêu đề</label>
-                        <input type="text" class="form-control" id="tieuDe" name="tieuDe"
-                               placeholder="Nhập tiêu đề">
+                        <input type="text" class="form-control" id="tieuDe" name="tieuDe" placeholder="Nhập tiêu đề">
                     </div>
                     <div class="col-md-4">
                         <label for="chuDe" class="form-label">Chủ đề</label>
@@ -36,31 +34,35 @@
                     </div>
                     <div class="col-md-4">
                         <label for="dotVietBai" class="form-label">Đợt viết bài</label>
-                        <input type="text" class="form-control" id="dotVietBai" name="dotVietBai"
+                        <input type="text" class="form-control" id="dotVietBai" name="dotVietBaiId"
                                placeholder="Nhập đợt">
                     </div>
-                    <div class="col-md-4">
-                        <label for="trangThai" class="form-label">Trạng thái</label>
-                        <select class="custom-select" id="trangThai" name="trangThai">
-                            <option value="">Chọn trạng thái bài viết</option>
-                            <option value="1">Đã đăng</option>
-                            <option value="0">Chưa đăng</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="ngayTao" class="form-label">Ngày tạo</label>
-                        <input type="date" class="form-control" id="ngayTao" name="ngayTao">
-                    </div>
+                    <!--                    <div class="col-md-4">-->
+                    <!--                        <label for="trangThai" class="form-label">Trạng thái</label>-->
+                    <!--                        <select class="custom-select" id="trangThai" name="trangThai">-->
+                    <!--                            <option value="">Chọn trạng thái bài viết</option>-->
+                    <!--                            <option value="Đã đăng">Đã đăng</option>-->
+                    <!--                            <option value="Ðang x? lý">Đang xử lý</option>-->
+                    <!--                        </select>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="col-md-4">-->
+                    <!--                        <label for="ngayTao" class="form-label">Ngày tạo</label>-->
+                    <!--                        <input type="date" class="form-control" id="ngayTao" name="ngayTao">-->
+                    <!--                    </div>-->
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a th:href="@{/giang-vien/danh-sach-bai-viet}"></a>
-                    <button type="reset" class="btn btn-dark mx-2"><i class="fa-solid fa-rotate-right"></i> Làm mới
-                    </button>
-                    <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                    <a th:href="@{/giang-vien/danh-sach-bai-viet}">
+                        <button type="button" class="btn btn-dark mx-2">
+                            <i class="fa-solid fa-rotate-right"></i> Làm mới
+                        </button>
+                    </a>
+                    <button type="submit" class="btn btn-dark">
+                        <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
                     </button>
                 </div>
 
             </form>
+
         </div>
     </div>
     <div class="d-flex justify-content-end" style="padding-top: 20px;" th:if="${baiViet == null}">
@@ -88,12 +90,14 @@
                 <td th:text="${stat.count}"></td>
                 <td th:text="${baiViet.tieuDe}">Tiêu đề bài viết</td>
                 <td th:text="${baiViet.chuDe}">Chủ đề bài viết</td>
-                <td th:text="${#dates.format(baiViet.createdAt, 'dd/MM/yyyy')}">Ngày tạo bài viết</td>
+                <td th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">
+                    Ngày tạo bài viết
+                </td>
                 <td th:text="${baiViet.dot}">Đợt viết bài</td>
                 <td>
                     <h5 class="badge btn disabled" style="border-radius: 100px"
-                        th:text="${baiViet.trangThai == 1 ? 'Đã đăng' : 'Chưa đăng'}"
-                        th:classappend="${baiViet.trangThai == 1 ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                        th:text="${baiViet.trangThai}"
+                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
                     </h5>
                 </td>
                 <td>
@@ -129,7 +133,7 @@
                         <div class="d-flex">
                             <h5 class="card-title mx-2" th:text="${baiViet.nguoiTao}">Người tạo</h5>
                             <span class="card-text mx-2"
-                                  th:text="${#dates.format(baiViet.createdAt, 'dd/MM/yyyy')}">Ngày tạo bài viết</span>
+                                  th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
                             <h5>⭐
                             </h5>
                             <span class="card-text mx-2" th:text="${baiViet.chuDe}">Chủ đề bài viết</span>
@@ -140,26 +144,61 @@
                             Xem thêm
                         </a>
                         <p class="card-text">
-                        <h5 class="badge btn disabled" style="border-radius: 100px;"
-                            th:text="${baiViet.trangThai == 1 ? 'Đã đăng' : 'Chưa đăng'}"
-                            th:classappend="${baiViet.trangThai == 1 ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                        <h5 class="badge btn disabled" style="border-radius: 100px"
+                            th:text="${baiViet.trangThai}"
+                            th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
                         </h5>
                         </p>
                         <p class="card-text">
-                            <a href="#">
-                            <button class="btn btn-light">
-                                <h4>
-                                    <i class="fa-regular fa-heart"></i>
-                                </h4>
-                            </button>
+                            <a>
+                                <button class="btn btn-light">
+                                    <h4>
+                                        <i class="fa-regular fa-heart"></i>
+                                    </h4>
+                                </button>
                             </a>
-                            <a href="#">
-                            <button class="btn btn-light">
-                                <h4>
-                                    <i class="fa-regular fa-folder"></i>
-                                </h4>
-                            </button>
+                            <!-- Nút mở modal -->
+                            <!-- Nút mở modal -->
+                            <!-- Nút mở modal với baiVietId -->
+                            <a>
+                                <button class="btn btn-light" data-toggle="modal" th:data-target="'#albumModal' + ${baiViet.id}">
+                                    <h4>
+                                        <i class="fa-regular fa-folder"></i> Album
+                                    </h4>
+                                </button>
                             </a>
+
+                            <!-- Modal riêng cho mỗi bài viết -->
+                        <div class="modal fade" th:id="'albumModal' + ${baiViet.id}" tabindex="-1" role="dialog" aria-labelledby="albumModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="albumModalLabel">Danh sách album</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form id="albumForm" th:action="@{/giang-vien/danh-sach-bai-viet/luu-album-bai-viet}" method="post">
+                                        <div class="modal-body">
+                                            <!-- Truyền đúng bài viết ID vào form -->
+                                            <input type="hidden" id="baiVietId" name="baiVietId" th:value="${baiViet.id}">
+                                            <!-- Danh sách album -->
+                                            <ul class="list-group">
+                                                <li class="list-group-item" th:each="album : ${danhSachAlbum}">
+                                                    <input type="checkbox" th:id="${album.id}" name="albumIds" th:value="${album.id}">
+                                                    <label th:for="${album.id}" th:text="${album.ten}">Album</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-primary">Chọn album</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         </p>
                     </div>
                 </div>
@@ -176,14 +215,14 @@
         </div>
         <div class="rounded-pill">
             <h3 class="btn btn-outline-success disabled" style="border-radius: 100px"
-                th:text="${#dates.format(baiViet.createdAt, 'dd/MM/yyyy')}">Ngày tạo</h3>
+                th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">
+                Ngày tạo</h3>
             <h3 class="btn btn-outline-success disabled" style="border-radius: 100px" th:text="${baiViet.chuDe}">Chủ
                 đề</h3>
         </div>
         <h1 th:text="${baiViet.tieuDe}">Tiêu đề bài viết</h1>
         <p style="color: red;" th:text="${baiViet.nguoiTao}">Người tạo</p>
         <p th:text="${baiViet.noiDung}">Nội dung bài viết</p>
-        <!-- Thêm các thông tin khác về bài viết nếu cần -->
     </div>
 </div>
 
@@ -231,6 +270,13 @@
         }
         document.cookie = name + "=" + (value || "") + expires + "; path=/";
     }
+    function openAlbumModal(baiVietId) {
+        // Gắn giá trị baiVietId cho input ẩn trong modal
+        document.getElementById('baiVietId').value = baiVietId;
+        // Hiển thị modal
+        $('#albumModal' + baiVietId).modal('show');
+    }
+
 
     checkCookie();
 </script>
@@ -238,5 +284,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
-
 </html>
+

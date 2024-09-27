@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,4 +25,14 @@ public class QuanLyBaiVietRest {
         List<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiViet();
         return ResponseEntity.ok(danhSachBaiViet);
     }
+//
+//    @GetMapping("/danh-sach-bai-viet/tim-kiema")
+//    public ResponseEntity<?> searchBaiViet(
+//            @RequestParam(value = "trangThai", required = false) String trangThai,
+//            Model model) {
+//
+//        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiVietByFilters(trangThai);
+//        return ResponseEntity.ok(danhSachBaiViet);
+//    }
+
 }

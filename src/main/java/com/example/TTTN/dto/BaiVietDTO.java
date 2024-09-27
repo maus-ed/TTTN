@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -19,8 +20,8 @@ public class BaiVietDTO {
     private String chuDe;
     private String noiDung;
 
-    @Temporal(TemporalType.DATE)
-    private Date createdAt; // Thay ngayTao bằng createAt
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt; // Thay ngayTao bằng createAt
 
     private String nguoiTao;
     private int dot;
