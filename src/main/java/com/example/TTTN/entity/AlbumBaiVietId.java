@@ -6,19 +6,24 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Data@AllArgsConstructor@NoArgsConstructor
-public class AlbumBaiVietId implements Serializable{
-    private Integer album;   // Phải trùng với kiểu của thuộc tính album_id
-    private Integer baiViet; // Phải trùng với kiểu của thuộc tính bai_viet_id
+public class AlbumBaiVietId implements Serializable {
+    private Integer album;  // Tên thuộc tính phải giống với tên thuộc tính trong entity AlbumBaiViet
+    private Integer baiViet;
 
-    // Phải override equals() và hashCode() cho khóa chính phức hợp
+    public AlbumBaiVietId() {}
+
+    public AlbumBaiVietId(Integer album, Integer baiViet) {
+        this.album = album;
+        this.baiViet = baiViet;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AlbumBaiVietId that = (AlbumBaiVietId) o;
         return Objects.equals(album, that.album) &&
-                Objects.equals(baiViet, that.baiViet);
+               Objects.equals(baiViet, that.baiViet);
     }
 
     @Override
