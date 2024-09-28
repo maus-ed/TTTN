@@ -67,12 +67,12 @@ public class DashBoardController {
         model.addAttribute("role", role); // Truyền role xuống view
         return "/giang-vien/quan-ly-bai-viet-yeu-thich";  // Trả về file HTML trong folder templates/admin
     }
-    @GetMapping("/giang-vien/danh-sach-bai-viet")
-    public String dsbv(Model model) {
-        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        return "/giang-vien/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
-    }
+//    @GetMapping("/giang-vien/danh-sach-bai-viet")
+//    public String dsbv(Model model) {
+//        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "/giang-vien/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
+//    }
     @GetMapping("/giang-vien/lich-su-da-xem")
     public String lsdx(Model model) {
         String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service

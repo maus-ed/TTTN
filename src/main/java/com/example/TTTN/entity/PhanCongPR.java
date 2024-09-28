@@ -21,6 +21,7 @@ public class PhanCongPR {
     @JoinColumn(name = "nguoi_dung_id")
     private NguoiDung nguoiDung;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_phan_cong")
     private Date ngayPhanCong;
 

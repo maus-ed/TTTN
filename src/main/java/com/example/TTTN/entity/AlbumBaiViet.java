@@ -9,8 +9,9 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "album_bai_viet")
-@IdClass(AlbumBaiVietId.class)  // Khóa chính phức hợp
+@IdClass(AlbumBaiVietId.class)
 public class AlbumBaiViet {
+
     @Column(name = "trang_thai")
     private String trangThai;
 
@@ -24,14 +25,24 @@ public class AlbumBaiViet {
     @JoinColumn(name = "bai_viet_id", referencedColumnName = "id")
     private BaiViet baiViet;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
-    private Boolean deletedAt;
+    private LocalDateTime deletedAt; // Nên là LocalDateTime
+
+    // Tự động set thời gian khi tạo mới
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    // Tự động set thời gian khi update
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
