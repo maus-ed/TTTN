@@ -20,11 +20,11 @@ public class QuanLyBaiVietRest {
     @Autowired
     private BaiVietRepository baiVietRepository;
 
-    @GetMapping("/danh-sach-bai-viet111")
-    public ResponseEntity<?> listBaiViet() {
-        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiViet();
-        return ResponseEntity.ok(danhSachBaiViet);
-    }
+//    @GetMapping("/danh-sach-bai-viet111")
+//    public ResponseEntity<?> listBaiViet() {
+//        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiViet();
+//        return ResponseEntity.ok(danhSachBaiViet);
+//    }
 //
 //    @GetMapping("/danh-sach-bai-viet/tim-kiema")
 //    public ResponseEntity<?> searchBaiViet(
