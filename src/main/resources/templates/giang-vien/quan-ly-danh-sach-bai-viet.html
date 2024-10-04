@@ -97,14 +97,21 @@
                 <td>
                     <h5 class="badge btn disabled" style="border-radius: 100px"
                         th:text="${baiViet.trangThai}"
-                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
                     </h5>
                 </td>
                 <td>
                     <!-- Chuyển hướng tới trang chi tiết bài viết -->
-                    <a th:href="@{/giang-vien/danh-sach-bai-viet/{id}(id=${baiViet.id}, pageNum=${danhSachBaiViet.number})}" class="btn btn-sm">
+                    <a th:href="@{/giang-vien/danh-sach-bai-viet/{id}(
+    id=${baiViet.id},
+    pageNum=${danhSachBaiViet.number},
+    tieuDe=${tieuDe},
+    chuDe=${chuDe},
+    dotVietBaiId=${dotVietBaiId})}"
+                       class="btn btn-sm">
                         <i class="fas fa-eye"></i> Xem thêm
                     </a>
+
                 </td>
             </tr>
             </tbody>
@@ -115,14 +122,18 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li class="page-item" th:classappend="${danhSachBaiViet.first ? 'disabled' : ''}">
-                        <a class="page-link" th:href="@{/giang-vien/danh-sach-bai-viet(pageNum=${danhSachBaiViet.number - 1}, pageSize=${danhSachBaiViet.size})}">«</a>
+                        <a class="page-link"
+                           th:href="@{/giang-vien/danh-sach-bai-viet/tim-kiem(pageNum=${danhSachBaiViet.number - 1}, pageSize=${danhSachBaiViet.size}, tieuDe=${tieuDe}, chuDe=${chuDe}, dotVietBaiId=${dotVietBaiId})}">«</a>
                     </li>
                     <li class="page-item" th:each="i : ${#numbers.sequence(1, danhSachBaiViet.totalPages)}"
                         th:classappend="${i == danhSachBaiViet.number + 1} ? 'active' : ''">
-                        <a class="page-link" th:text="${i}" th:href="@{/giang-vien/danh-sach-bai-viet(pageNum=${i - 1}, pageSize=${danhSachBaiViet.size})}"></a>
+                        <a class="page-link"
+                           th:text="${i}"
+                           th:href="@{/giang-vien/danh-sach-bai-viet/tim-kiem(pageNum=${i - 1}, pageSize=${danhSachBaiViet.size}, tieuDe=${tieuDe}, chuDe=${chuDe}, dotVietBaiId=${dotVietBaiId})}"></a>
                     </li>
                     <li class="page-item" th:classappend="${danhSachBaiViet.last ? 'disabled' : ''}">
-                        <a class="page-link" th:href="@{/giang-vien/danh-sach-bai-viet(pageNum=${danhSachBaiViet.number + 1}, pageSize=${danhSachBaiViet.size})}">»</a>
+                        <a class="page-link"
+                           th:href="@{/giang-vien/danh-sach-bai-viet/tim-kiem(pageNum=${danhSachBaiViet.number + 1}, pageSize=${danhSachBaiViet.size}, tieuDe=${tieuDe}, chuDe=${chuDe}, dotVietBaiId=${dotVietBaiId})}">»</a>
                     </li>
                 </ul>
             </nav>
@@ -146,13 +157,18 @@
                         </div>
                         <h3 class="card-title" th:text="${baiViet.tieuDe}">Tiêu đề bài viết</h3>
                         <a style="color: gray; text-decoration: underline;"
-                           th:href="@{/giang-vien/danh-sach-bai-viet/{id}(id=${baiViet.id})}">
+                           th:href="@{/giang-vien/danh-sach-bai-viet/{id}(
+       id=${baiViet.id},
+       tieuDe=${tieuDe},
+       chuDe=${chuDe},
+       dotVietBaiId=${dotVietBaiId})}">
                             Xem thêm
                         </a>
+
                         <p class="card-text">
                         <h5 class="badge btn disabled" style="border-radius: 100px"
                             th:text="${baiViet.trangThai}"
-                            th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                            th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
                         </h5>
                         </p>
                         <p class="card-text">
@@ -215,10 +231,24 @@
 
     <div id="detailSection" th:if="${baiViet != null}">
         <div class="d-flex justify-content-end">
-            <a th:href="@{/giang-vien/danh-sach-bai-viet(pageNum=${pageNum})}" class="btn btn-sm btn-outline-dark my-2">
+            <!-- Nếu không có tham số tìm kiếm, trở về danh sách bài viết -->
+            <a th:if="${tieuDe == null and chuDe == null and dotVietBaiId == null}"
+               th:href="@{/giang-vien/danh-sach-bai-viet(pageNum=${pageNum})}"
+               class="btn btn-sm btn-outline-dark my-2">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+            <!-- Nếu có tham số tìm kiếm, trở về kết quả tìm kiếm -->
+            <a th:if="${tieuDe != null or chuDe != null or dotVietBaiId != null}"
+               th:href="@{/giang-vien/danh-sach-bai-viet/tim-kiem(
+           pageNum=${pageNum},
+           tieuDe=${tieuDe},
+           chuDe=${chuDe},
+           dotVietBaiId=${dotVietBaiId})}"
+               class="btn btn-sm btn-outline-dark my-2">
                 <i class="fas fa-arrow-left"></i> Quay lại
             </a>
         </div>
+
         <div class="rounded-pill">
             <h3 class="btn btn-outline-success disabled" style="border-radius: 100px"
                 th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">

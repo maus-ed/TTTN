@@ -52,11 +52,22 @@ public class QuanLyBaiVietController {
     }
 
     @GetMapping("/danh-sach-bai-viet/{id}")
-    public String chiTietBaiViet(@PathVariable("id") Integer id, @RequestParam(value = "pageNum", defaultValue = "0") int pageNum, Model model) {
+    public String chiTietBaiViet(
+            @PathVariable("id") Integer id,
+            @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(value = "tieuDe", required = false) String tieuDe,
+            @RequestParam(value = "chuDe", required = false) String chuDe,
+            @RequestParam(value = "dotVietBaiId", required = false) Integer dotVietBaiId,
+            Model model) {
+
         String role = "lecturer";
         model.addAttribute("role", role);
-
         model.addAttribute("pageNum", pageNum);
+
+        // Thêm các tham số tìm kiếm vào model
+        model.addAttribute("tieuDe", tieuDe);
+        model.addAttribute("chuDe", chuDe);
+        model.addAttribute("dotVietBaiId", dotVietBaiId);
 
         // Lấy chi tiết bài viết theo ID
         BaiVietDTO baiViet = baiVietRepository.findBaiVietById(id);
@@ -65,16 +76,12 @@ public class QuanLyBaiVietController {
         }
         model.addAttribute("baiViet", baiViet);
 
-        // Lấy danh sách album bài viết đã thuộc về
-        List<Album> danhSachAlbumDaThuoc = albumRepository.findAlbumsByBaiVietId(id);
-        model.addAttribute("danhSachAlbumDaThuoc", danhSachAlbumDaThuoc);
+        // Các phần khác của phương thức
+        // ...
 
-        // Lấy tất cả album để hiển thị trong modal
-        List<Album> danhSachAlbum = albumRepository.findAll();
-        model.addAttribute("danhSachAlbum", danhSachAlbum);
-
-        return "giang-vien/quan-ly-chi-tiet-bai-viet";
+        return "giang-vien/quan-ly-danh-sach-bai-viet";
     }
+
 
     @GetMapping("/danh-sach-bai-viet/tim-kiem")
     public String searchBaiViet(
@@ -90,6 +97,11 @@ public class QuanLyBaiVietController {
 
         Pageable pageable = PageRequest.of(pageNum, pageSize);
 
+        // Thêm các tham số tìm kiếm vào model để trả lại cho view
+        model.addAttribute("tieuDe", tieuDe);
+        model.addAttribute("chuDe", chuDe);
+        model.addAttribute("dotVietBaiId", dotVietBaiId);
+
         Page<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiVietByFilters1(pageable, tieuDe, chuDe, dotVietBaiId);
         model.addAttribute("danhSachBaiViet", danhSachBaiViet);
 
@@ -101,4 +113,5 @@ public class QuanLyBaiVietController {
 
         return "giang-vien/quan-ly-danh-sach-bai-viet";
     }
+
 }

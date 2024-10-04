@@ -75,4 +75,29 @@ public interface BaiVietRepository extends JpaRepository<BaiViet,Integer> {
             @Param("dotVietBaiId") Integer dotVietBaiId
     );
 
+    @Query("""
+    SELECT COUNT(*)
+    FROM BaiViet bv
+    WHERE bv.nguoiTao.id = :id
+""")
+    Long tongBaiViet(@Param("id") Integer id);
+
+    @Query("""
+    SELECT COUNT(*)
+    FROM BaiViet bv
+    WHERE bv.nguoiTao.id = :id
+    AND bv.trangThai = :trangThai
+""")
+    Long baiVietTrangThai(@Param("id") Integer id, @Param("trangThai") String trangThai);
+
+    @Query("""
+    SELECT new com.example.TTTN.dto.BaiVietDTO(bv.id, bv.tieuDe, cd.ten, bv.noiDung, bv.createdAt, bv.nguoiTao.ten, dvb.id, bv.trangThai) 
+    FROM BaiViet bv
+    join DotVietBai dvb on bv.dotVietBai.id = dvb.id
+    join DotDangKy ddk on dvb.dotDangKy.id = ddk.id
+    join ChuDe cd on ddk.chuDe.id = cd.id
+    WHERE bv.nguoiTao.id = :id
+    AND (:trangThai IS NULL OR bv.trangThai = :trangThai)
+""")
+    List<BaiVietDTO> baiVietCuaToiTrangThai(@Param("id") Integer id, @Param("trangThai") String trangThai);
 }

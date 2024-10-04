@@ -4,15 +4,251 @@
     <title>UDPM</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .info-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .info-box ul li {
+            padding: 8px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        .post-list-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .post-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+        .post-status {
+            font-size: 14px;
+            color: #888;
+        }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .profile-section img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+        }
+        .active-link {
+            font-weight: bold;
+            color: #007bff;
+            background-color: #f0f8ff; /* Màu nền nhẹ để dễ nhận biết */
+        }
+
+    </style>
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
-
 <div th:replace="sidebar :: sidebar"></div>
 
-<div class="content" style="margin-left: 220px; padding: 20px;">
-    <h1>Bài viết của tôi</h1>
+<div class="dashboard-container">
+
+    <div class="profile-section">
+        <img src="https://danviet.mediacdn.vn/upload/2-2019/images/2019-04-02/Vi-sao-Kha-Banh-tro-thanh-hien-tuong-dinh-dam-tren-mang-xa-hoi-khabanh-1554192528-width660height597.jpg" alt="Avatar">
+        <h2>thinh dep trai</h2>
+    </div>
+    <!-- Tab navigation -->
+    <ul th:if="${baiViet == null}" class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="thongtin-tab" data-toggle="tab" href="#thongtin" role="tab" aria-controls="thongtin" aria-selected="true">Thông tin</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="danhsach-tab" data-toggle="tab" href="#danhsach" role="tab" aria-controls="danhsach" aria-selected="false" th:text="'Danh sách ' + ${trangThai}">Danh sách</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <!-- Tab content: Thông tin -->
+        <div th:if="${baiViet == null}" class="tab-pane fade show active" id="thongtin" role="tabpanel" aria-labelledby="thongtin-tab">
+            <!-- Sử dụng Bootstrap grid để tạo hàng có 3 cột -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <h3>Danh sách thống kê</h3>
+                        <ul>
+                            <li>
+                                <a style="text-decoration: none; color: #333333"
+                                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai=null)}">
+                                    Tổng số lượng bài viết: <span th:text="${tongBaiViet}">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a style="text-decoration: none; color: #333333"
+                                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai='Từ chối')}"
+                                   th:text="'Tổng số lượng bài viết từ chối: ' + ${baiVietTuChoi}">
+                                    Tổng số lượng bài viết từ chối: 2
+                                </a>
+                            </li>
+                            <li>
+                                <a style="text-decoration: none; color: #333333"
+                                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai='Đã đăng')}"
+                                   th:text="'Tổng số lượng bài viết đã đăng: ' + ${baiVietDaDang}">
+                                    Tổng số lượng bài viết đã đăng: 2
+                                </a>
+                            </li>
+                            <li>
+                                <a style="text-decoration: none; color: #333333"
+                                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai='Đang xử lý')}"
+                                   th:text="'Tổng số lượng bài viết đang xử lý: ' + ${baiVietDangXuLy}">
+                                    Tổng số lượng bài viết đang xử lý: 2
+                                </a>
+                            </li>
+                            <li>
+                                <a style="text-decoration: none; color: #333333"
+                                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai='Không đăng')}"
+                                   th:text="'Tổng số lượng bài viết không đăng: ' + ${baiVietKhongDang}">
+                                    Tổng số lượng bài viết không đăng: 2
+                                </a>
+                            </li>
+                            <li>
+                                <a style="text-decoration: none; color: #333333"
+                                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai='Đã phê duyệt')}"
+                                   th:text="'Tổng số lượng bài viết đã phê duyệt: ' + ${baiVietDaPheDuyet}">
+                                    Tổng số lượng bài viết đã phê duyệt: 2
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <h3>Đợt viết bài hiện tại</h3>
+                        <p>Không có đợt viết bài nào.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <h3>Danh sách bài viết yêu thích</h3>
+                        <p>Chưa có bài viết yêu thích nào.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab content: Danh sách -->
+        <div th:if="${baiViet == null}" class="tab-pane fade" id="danhsach" role="tabpanel" aria-labelledby="danhsach-tab">
+            <div class="post-list-box">
+                <h3>Danh sách bài viết</h3>
+                <div id="cardSection" class="mt-4">
+                    <div class="row">
+                        <div th:each="baiViet : ${danhSachBaiViet}" class="col-md-6">
+                            <div class="card" style="margin-top: 20px;">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <h5 class="card-title mx-2" th:text="${baiViet.nguoiTao}">Người tạo</h5>
+                                        <span class="card-text mx-2" th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
+                                        <h5>⭐</h5>
+                                        <span class="card-text mx-2" th:text="${baiViet.chuDe}">Chủ đề bài viết</span>
+                                    </div>
+                                    <h3 class="card-title" th:text="${baiViet.tieuDe}">Tiêu đề bài viết</h3>
+                                    <a style="color: gray; text-decoration: underline;"
+                                       th:href="@{/giang-vien/bai-viet-cua-toi/loc/{id}(id=${baiViet.id},
+           trangThai=${trangThai})}">
+                                        Xem thêm
+                                    </a>
+                                    <p class="card-text">
+                                    <h5 class="badge btn disabled" style="border-radius: 100px"
+                                        th:text="${baiViet.trangThai}"
+                                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
+                                    </h5>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="detailSection" th:if="${baiViet != null}">
+            <div class="d-flex justify-content-end">
+                <!-- Nếu không có tham số tìm kiếm, trở về danh sách bài viết -->
+                <a
+                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(
+           id=${id},
+           trangThai=${trangThai})}"
+                   class="btn btn-sm btn-outline-dark my-2">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+            </div>
+
+            <div class="rounded-pill">
+                <h3 class="btn btn-outline-success disabled" style="border-radius: 100px"
+                    th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">
+                    Ngày tạo
+                </h3>
+                <h3 class="btn btn-outline-success disabled" style="border-radius: 100px" th:text="${baiViet.chuDe}">
+                    Chủ đề
+                </h3>
+            </div>
+            <h1 th:text="${baiViet.tieuDe}">Tiêu đề bài viết</h1>
+            <p style="color: red;" th:text="${baiViet.nguoiTao}">Người tạo</p>
+            <p th:text="${baiViet.noiDung}">Nội dung bài viết</p>
+        </div>
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy tất cả các thẻ a trong danh sách
+        var links = document.querySelectorAll('.info-box a');
+
+        // Lắng nghe sự kiện click trên mỗi thẻ a
+        links.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                // Ngăn chặn hành động mặc định của thẻ a
+                event.preventDefault();
+
+                // Loại bỏ class active-link khỏi tất cả các thẻ a
+                links.forEach(function(item) {
+                    item.classList.remove('active-link');
+                });
+
+                // Thêm class active-link cho mục đã chọn
+                this.classList.add('active-link');
+
+                // Điều hướng đến href của thẻ a đã được nhấp
+                window.location.href = this.getAttribute('href');
+            });
+        });
+    });
+</script>
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
