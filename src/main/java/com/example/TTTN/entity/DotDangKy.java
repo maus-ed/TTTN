@@ -13,41 +13,46 @@ public class DotDangKy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
+
+    @Column(name = "ngay_chinh_sua_cuoi")
+    private Date ngayChinhSuaCuoi;
 
     @Column(name = "ma")
     private String ma;
 
+    @Column(name = "ngay_ket_thuc_dang_ky")
+    private Date ngayKetThucDangKy;
+
+    @Column(name = "tu_ngay")
+    private Date tuNgay;
+
+    @Column(name = "co_mo_dang_ky_khong")
+    private Boolean coMoDangKyKhong;
+
     @Column(name = "ten")
     private String ten;
 
-    @Column(name = "ngay_bat_dau")
-    private Date ngayBatDau;
+    @Column(name = "so_luong_bai_viet")
+    private Integer soLuongBaiViet;
 
-    @Column(name = "ngay_ket_thuc")
-    private Date ngayKetThuc;
+    @Column(name = "trang_thai_dot_dang_ky")
+    private Integer trangThaiDotDangKy;
 
-    @Column(name = "ngay_bat_dau_dk")
-    private Date ngayBatDauDk;
+    @Column(name = "ngay_bat_dau_dang_ky")
+    private Date ngayBatDauDangKy;
 
-    @Column(name = "ngay_ket_thuc_dk")
-    private Date ngayKetThucDk;
+    @Column(name = "den_ngay")
+    private Date denNgay;
 
-    @Column(name = "trang_thai")
-    private String trangThai;
+    @Column(name = "ma_dang_ky_nguoi_dung")
+    private String maDangKyNguoiDung;
 
-    @ManyToOne
-    @JoinColumn(name = "chu_de_id")
-    private ChuDe chuDe;
+    @Column(name = "ma_co_so_dao_tao_nguoi_dung")
+    private String maCoSoDaoTaoNguoiDung;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @Column(name = "deleted_at")
-    private Boolean deletedAt;}
+    // Getters and Setters
+}
