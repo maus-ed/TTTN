@@ -22,8 +22,8 @@ public class ChuDe {
     @Column(name = "ngay_chinh_sua_cuoi")
     private Date ngayChinhSuaCuoi;
 
-    @Column(name = "trang_thai_the_loai")
-    private Integer trangThaiTheLoai;
+    @Column(name = "trang_thai")
+    private String trangThai;
 
     @Column(name = "ma")
     private String ma;

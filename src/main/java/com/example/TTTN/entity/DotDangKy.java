@@ -39,8 +39,8 @@ public class DotDangKy {
     @Column(name = "so_luong_bai_viet")
     private Integer soLuongBaiViet;
 
-    @Column(name = "trang_thai_dot_dang_ky")
-    private Integer trangThaiDotDangKy;
+    @Column(name = "trang_thai")
+    private String trangThai;
 
     @Column(name = "ngay_bat_dau_dang_ky")
     private Date ngayBatDauDangKy;

@@ -43,7 +43,7 @@ public class NguoiDung {
     private Integer vaiTro;
 
     @Column(name = "trang_thai")
-    private Integer trangThai;
+    private String trangThai;
 
     @Column(name = "ma_dang_ky_nguoi_dung")
     private String maDangKyNguoiDung;

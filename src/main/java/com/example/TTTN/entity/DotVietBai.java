@@ -34,8 +34,8 @@ public class DotVietBai {
     @JoinColumn(name = "dot_dang_ky_id")
     private DotDangKy dotDangKy;
 
-    @Column(name = "trang_thai_dot_viet_bai")
-    private Integer trangThaiDotVietBai;
+    @Column(name = "trang_thai")
+    private String trangThai;
 
     @Column(name = "den_ngay")
     private Date denNgay;
