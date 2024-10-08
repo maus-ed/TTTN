@@ -16,14 +16,25 @@ import java.util.Date;
 @NoArgsConstructor
 public class BaiVietDTO {
     private int id;
-    private String tieuDe;
+
+    @Temporal(TemporalType.DATE)
+    private Date ngayTao; // Thay ngayTao bằng createAt
+
     private String chuDe;
+
+    private String tieuDe;
+
     private String noiDung;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt; // Thay ngayTao bằng createAt
+    private String noiDungMoTa;
+
+    private String moTaNgan;
 
     private String nguoiTao;
-    private int dot;
+
+    private String dot;
+
+    private Integer nhanVienPrId;
+
     private String trangThai;
 }

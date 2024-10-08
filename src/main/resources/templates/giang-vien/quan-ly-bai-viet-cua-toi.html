@@ -171,7 +171,7 @@
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <h5 class="card-title mx-2" th:text="${baiViet.nguoiTao}">Người tạo</h5>
-                                        <span class="card-text mx-2" th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
+                                        <span class="card-text mx-2" th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
                                         <h5>⭐</h5>
                                         <span class="card-text mx-2" th:text="${baiViet.chuDe}">Chủ đề bài viết</span>
                                     </div>
@@ -205,7 +205,7 @@
 
             <div class="rounded-pill">
                 <h3 class="btn btn-outline-success disabled" style="border-radius: 100px"
-                    th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">
+                    th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">
                     Ngày tạo
                 </h3>
                 <h3 class="btn btn-outline-success disabled" style="border-radius: 100px" th:text="${baiViet.chuDe}">

@@ -27,6 +27,7 @@ public class QuanLyBaiVietController {
     @GetMapping("/danh-sach-bai-viet")
     public String listBaiViet(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                              @RequestParam(required = false) String displayType,
                               Model model) {
         String role = "lecturer";
         model.addAttribute("role", role);
@@ -40,10 +41,13 @@ public class QuanLyBaiVietController {
         Page<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiViet(pageable);
         model.addAttribute("danhSachBaiViet", danhSachBaiViet);
 
+
+
         // Truyền thêm thông tin phân trang
         model.addAttribute("pageNum", pageNum);
         model.addAttribute("pageSize", pageSize);
 
+        model.addAttribute("displayType", displayType);
         // Lấy danh sách album
         List<Album> danhSachAlbum = albumRepository.findAll();
         model.addAttribute("danhSachAlbum", danhSachAlbum);
@@ -58,6 +62,7 @@ public class QuanLyBaiVietController {
             @RequestParam(value = "tieuDe", required = false) String tieuDe,
             @RequestParam(value = "chuDe", required = false) String chuDe,
             @RequestParam(value = "dotVietBaiId", required = false) Integer dotVietBaiId,
+            @RequestParam(value = "displayType", defaultValue = "table") String displayType,
             Model model) {
 
         String role = "lecturer";
@@ -68,6 +73,8 @@ public class QuanLyBaiVietController {
         model.addAttribute("tieuDe", tieuDe);
         model.addAttribute("chuDe", chuDe);
         model.addAttribute("dotVietBaiId", dotVietBaiId);
+
+        model.addAttribute("displayType", displayType);
 
         // Lấy chi tiết bài viết theo ID
         BaiVietDTO baiViet = baiVietRepository.findBaiVietById(id);
@@ -90,6 +97,7 @@ public class QuanLyBaiVietController {
             @RequestParam(value = "tieuDe", required = false) String tieuDe,
             @RequestParam(value = "chuDe", required = false) String chuDe,
             @RequestParam(value = "dotVietBaiId", required = false) Integer dotVietBaiId,
+            @RequestParam(value = "displayType", defaultValue = "table") String displayType,
             Model model) {
 
         String role = "lecturer";
@@ -110,6 +118,8 @@ public class QuanLyBaiVietController {
 
         List<Album> danhSachAlbum = albumRepository.findAll();
         model.addAttribute("danhSachAlbum", danhSachAlbum);
+
+        model.addAttribute("displayType", displayType);
 
         return "giang-vien/quan-ly-danh-sach-bai-viet";
     }

@@ -90,7 +90,7 @@
                 <td th:text="${stat.index}"></td>
                 <td th:text="${baiViet.tieuDe}">Tiêu đề bài viết</td>
                 <td th:text="${baiViet.chuDe}">Chủ đề bài viết</td>
-                <td th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">
+                <td th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">
                     Ngày tạo bài viết
                 </td>
                 <td th:text="${baiViet.dot}">Đợt viết bài</td>
@@ -150,7 +150,7 @@
                         <div class="d-flex">
                             <h5 class="card-title mx-2" th:text="${baiViet.nguoiTao}">Người tạo</h5>
                             <span class="card-text mx-2"
-                                  th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
+                                  th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
                             <h5>⭐
                             </h5>
                             <span class="card-text mx-2" th:text="${baiViet.chuDe}">Chủ đề bài viết</span>
@@ -201,23 +201,23 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form id="albumForm" th:action="@{/giang-vien/danh-sach-bai-viet/luu-album-bai-viet}" method="post">
-                                        <div class="modal-body">
-                                            <!-- Truyền đúng bài viết ID vào form -->
-                                            <input type="hidden" id="baiVietId" name="baiVietId" th:value="${baiViet.id}">
-                                            <!-- Danh sách album -->
-                                            <ul class="list-group">
-                                                <li class="list-group-item" th:each="album : ${danhSachAlbum}">
-                                                    <input type="checkbox" th:id="${album.id}" name="albumIds" th:value="${album.id}">
-                                                    <label th:for="${album.id}" th:text="${album.ten}">Album</label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                            <button type="submit" class="btn btn-primary">Chọn album</button>
-                                        </div>
-                                    </form>
+<!--                                    <form id="albumForm" th:action="@{/giang-vien/danh-sach-bai-viet/luu-album-bai-viet}" method="post">-->
+<!--                                        <div class="modal-body">-->
+<!--                                            &lt;!&ndash; Truyền đúng bài viết ID vào form &ndash;&gt;-->
+<!--                                            <input type="hidden" id="baiVietId" name="baiVietId" th:value="${baiViet.id}">-->
+<!--                                            &lt;!&ndash; Danh sách album &ndash;&gt;-->
+<!--                                            <ul class="list-group">-->
+<!--                                                <li class="list-group-item" th:each="album : ${danhSachAlbum}">-->
+<!--                                                    <input type="checkbox" th:id="${album.id}" name="albumIds" th:value="${album.id}">-->
+<!--                                                    <label th:for="${album.id}" th:text="${album.ten}">Album</label>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                        <div class="modal-footer">-->
+<!--                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>-->
+<!--                                            <button type="submit" class="btn btn-primary">Chọn album</button>-->
+<!--                                        </div>-->
+<!--                                    </form>-->
                                 </div>
                             </div>
                         </div>
@@ -251,7 +251,7 @@
 
         <div class="rounded-pill">
             <h3 class="btn btn-outline-success disabled" style="border-radius: 100px"
-                th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">
+                th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">
                 Ngày tạo</h3>
             <h3 class="btn btn-outline-success disabled" style="border-radius: 100px" th:text="${baiViet.chuDe}">Chủ
                 đề</h3>
