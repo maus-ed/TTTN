@@ -17,9 +17,9 @@ import java.util.List;
 @RequestMapping("/giang-vien")
 public class QuanLyBaiVietRest {
 
-    @Autowired
-    private BaiVietRepository baiVietRepository;
-
+//    @Autowired
+//    private BaiVietRepository baiVietRepository;
+//
 //    @GetMapping("/danh-sach-bai-viet111")
 //    public ResponseEntity<?> listBaiViet() {
 //        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiViet();
@@ -32,7 +32,7 @@ public class QuanLyBaiVietRest {
 //            Model model) {
 //
 //        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiVietByFilters(trangThai);
-//        return ResponseEntity.ok(danhSachBaiViet);
+//        return ResponseEntity.status(200).body(danhSachBaiViet);
 //    }
 
 }

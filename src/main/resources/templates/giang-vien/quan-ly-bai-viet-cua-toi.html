@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .dashboard-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         .info-box {
@@ -85,13 +85,14 @@
             <a class="nav-link active" id="thongtin-tab" data-toggle="tab" href="#thongtin" role="tab" aria-controls="thongtin" aria-selected="true">Thông tin</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="danhsach-tab" data-toggle="tab" href="#danhsach" role="tab" aria-controls="danhsach" aria-selected="false" th:text="'Danh sách ' + ${trangThai}">Danh sách</a>
+            <a class="nav-link" id="danhsach-tab" data-toggle="tab" href="#danhsach" role="tab" aria-controls="danhsach" aria-selected="false"
+               th:text="'Danh sách ' + (${trangThai != null ? trangThai : ''})">Danh sách</a>
         </li>
     </ul>
 
     <div class="tab-content" id="myTabContent">
         <!-- Tab content: Thông tin -->
-        <div th:if="${baiViet == null}" class="tab-pane fade show active" id="thongtin" role="tabpanel" aria-labelledby="thongtin-tab">
+        <div th:if="${baiViet == null}" class="tab-pane show active" id="thongtin" role="tabpanel" aria-labelledby="thongtin-tab">
             <!-- Sử dụng Bootstrap grid để tạo hàng có 3 cột -->
             <div class="row">
                 <div class="col-md-4">
@@ -160,7 +161,7 @@
         </div>
 
         <!-- Tab content: Danh sách -->
-        <div th:if="${baiViet == null}" class="tab-pane fade" id="danhsach" role="tabpanel" aria-labelledby="danhsach-tab">
+        <div th:if="${baiViet == null}" class="tab-pane" id="danhsach" role="tabpanel" aria-labelledby="danhsach-tab">
             <div class="post-list-box">
                 <h3>Danh sách bài viết</h3>
                 <div id="cardSection" class="mt-4">
@@ -197,11 +198,7 @@
         <div id="detailSection" th:if="${baiViet != null}">
             <div class="d-flex justify-content-end">
                 <!-- Nếu không có tham số tìm kiếm, trở về danh sách bài viết -->
-                <a
-                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(
-           id=${id},
-           trangThai=${trangThai})}"
-                   class="btn btn-sm btn-outline-dark my-2">
+                <a th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai=${trangThai})}" class="btn btn-sm btn-outline-dark my-2" onclick="handleBack()">
                     <i class="fas fa-arrow-left"></i> Quay lại
                 </a>
             </div>
@@ -246,6 +243,27 @@
             });
         });
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lưu trạng thái tab vào Local Storage
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var activeTab = $(e.target).attr('id'); // Lấy ID của tab hiện tại
+            localStorage.setItem('activeTab', activeTab); // Lưu vào Local Storage
+        });
+
+        // Kiểm tra xem có tab nào được lưu trong Local Storage không
+        var activeTab = localStorage.getItem('activeTab');
+        if (activeTab) {
+            $('#' + activeTab).tab('show'); // Kích hoạt tab đã lưu
+        }
+    });
+    function handleBack() {
+        var activeTab = localStorage.getItem('activeTab');
+        if (activeTab) {
+            // Điều hướng quay lại và đảm bảo tab được kích hoạt
+            $('#' + activeTab).tab('show');
+        }
+    }
+
 </script>
 
 
