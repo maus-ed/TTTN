@@ -29,7 +29,7 @@ public class LichSuXem {
     private String ghiChu;
 
     @Column(name = "trang_thai")
-    private Integer trangThai;
+    private String trangThai;
 
     @Column(name = "kieu")
     private String kieu;

@@ -20,8 +20,8 @@ public class GuiBieuMau {
     @Column(name = "ngay_chinh_sua_cuoi")
     private Date ngayChinhSuaCuoi;
 
-    @Column(name = "trang_thai_mac_dinh")
-    private Boolean trangThaiMacDinh;
+    @Column(name = "trang_thai")
+    private String trangThai;
 
     @Column(name = "ma_nguoi_dung")
     private Integer maNguoiDung;

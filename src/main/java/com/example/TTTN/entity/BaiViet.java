@@ -43,7 +43,7 @@ public class BaiViet {
     private Date ngayDanhGia;
 
     @Column(name = "trang_thai")
-    private Integer trangThai;
+    private String trangThai;
 
     @Column(name = "tieu_de")
     private String tieuDe;
