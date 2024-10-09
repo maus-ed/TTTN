@@ -87,12 +87,12 @@ public class DashBoardController {
     }
 
     // Danh sách bài viết cho nhân viên PR
-    @GetMapping("/nhan-vien-pr/quan-ly-danh-sach-bai-viet-pr")
-    public String quanlydanhsach(Model model) {
-        String role = "pr-staff"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        return "/nhan-vien-pr/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
-    }
+//    @GetMapping("/nhan-vien-pr/quan-ly-danh-sach-bai-viet-pr")
+//    public String quanlydanhsach(Model model) {
+//        String role = "pr-staff"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "/nhan-vien-pr/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
+//    }
 
     // Quản lý chủ đề cho trưởng phòng
     @GetMapping("/truong-phong-pr/quan-ly-chu-de")
