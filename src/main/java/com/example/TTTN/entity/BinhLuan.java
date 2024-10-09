@@ -3,13 +3,12 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "lich_su_xem")
-public class LichSuXem {
+@Table(name = "binh_luan")
+public class BinhLuan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,14 +24,11 @@ public class LichSuXem {
     @JoinColumn(name = "bai_viet_id")
     private BaiViet baiViet;
 
-    @Column(name = "ghi_chu")
-    private String ghiChu;
+    @Column(name = "noi_dung")
+    private String noiDung;
 
-    @Column(name = "trang_thai")
-    private String trangThai;
-
-    @Column(name = "kieu")
-    private String kieu;
+    @Column(name = "tra_loi")
+    private String traLoi;
 
     @ManyToOne
     @JoinColumn(name = "nguoi_dung_id")
