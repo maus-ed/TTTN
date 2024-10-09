@@ -2,19 +2,17 @@ package com.example.TTTN.controller.giangvien;
 
 import com.example.TTTN.dto.BaiVietDTO;
 import com.example.TTTN.entity.Album;
-import com.example.TTTN.entity.AlbumBaiViet;
-import com.example.TTTN.entity.BaiViet;
-import com.example.TTTN.repository.AlbumBaiVietRepository;
 import com.example.TTTN.repository.AlbumRepository;
 import com.example.TTTN.repository.BaiVietRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/giang-vien")
@@ -26,99 +24,104 @@ public class QuanLyBaiVietController {
     @Autowired
     private AlbumRepository albumRepository;
 
-    @Autowired
-    private AlbumBaiVietRepository albumBaiVietRepository;
-
     @GetMapping("/danh-sach-bai-viet")
-    public String listBaiViet(Model model) {
-        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        // Lấy danh sách bài viết từ repository
-        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiViet();
+    public String listBaiViet(@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
+                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                              @RequestParam(required = false) String displayType,
+                              Model model) {
+        String role = "lecturer";
+        model.addAttribute("role", role);
+
+        // Lấy danh sách bài viết không phân trang (dùng cho phần card view)
+        List<BaiVietDTO> danhSachBaiViet1 = baiVietRepository.findBaiViet1();
+        model.addAttribute("danhSachBaiViet1", danhSachBaiViet1);
+
+        // Lấy danh sách bài viết có phân trang
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Page<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiViet(pageable);
         model.addAttribute("danhSachBaiViet", danhSachBaiViet);
 
+
+
+        // Truyền thêm thông tin phân trang
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("pageSize", pageSize);
+
+        model.addAttribute("displayType", displayType);
+        // Lấy danh sách album
         List<Album> danhSachAlbum = albumRepository.findAll();
         model.addAttribute("danhSachAlbum", danhSachAlbum);
-        // Trả về view để hiển thị danh sách bài viết
+
         return "giang-vien/quan-ly-danh-sach-bai-viet";
     }
 
     @GetMapping("/danh-sach-bai-viet/{id}")
-    public String chiTietBaiViet(@PathVariable("id") Integer id, Model model) {
+    public String chiTietBaiViet(
+            @PathVariable("id") Integer id,
+            @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(value = "tieuDe", required = false) String tieuDe,
+            @RequestParam(value = "chuDe", required = false) String chuDe,
+            @RequestParam(value = "dotVietBaiId", required = false) Integer dotVietBaiId,
+            @RequestParam(value = "displayType", defaultValue = "table") String displayType,
+            Model model) {
+
         String role = "lecturer";
         model.addAttribute("role", role);
+        model.addAttribute("pageNum", pageNum);
 
-        // Lấy chi tiết bài viết từ repository
+        // Thêm các tham số tìm kiếm vào model
+        model.addAttribute("tieuDe", tieuDe);
+        model.addAttribute("chuDe", chuDe);
+        model.addAttribute("dotVietBaiId", dotVietBaiId);
+
+        model.addAttribute("displayType", displayType);
+
+        // Lấy chi tiết bài viết theo ID
         BaiVietDTO baiViet = baiVietRepository.findBaiVietById(id);
         if (baiViet == null) {
             return "redirect:/error";
         }
-
-        // Lấy danh sách album mà bài viết đã thuộc về
-        List<Album> danhSachAlbumDaThuoc = albumRepository.findAlbumsByBaiVietId(id);
         model.addAttribute("baiViet", baiViet);
-        model.addAttribute("danhSachAlbumDaThuoc", danhSachAlbumDaThuoc); // Truyền danh sách album bài viết đã thuộc về
 
-        // Lấy tất cả album để hiển thị trong modal
-        List<Album> danhSachAlbum = albumRepository.findAll();
-        model.addAttribute("danhSachAlbum", danhSachAlbum);
+        // Các phần khác của phương thức
+        // ...
 
         return "giang-vien/quan-ly-danh-sach-bai-viet";
     }
 
 
-
     @GetMapping("/danh-sach-bai-viet/tim-kiem")
     public String searchBaiViet(
+            @RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
             @RequestParam(value = "tieuDe", required = false) String tieuDe,
             @RequestParam(value = "chuDe", required = false) String chuDe,
             @RequestParam(value = "dotVietBaiId", required = false) Integer dotVietBaiId,
+            @RequestParam(value = "displayType", defaultValue = "table") String displayType,
             Model model) {
 
-        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
+        String role = "lecturer";
+        model.addAttribute("role", role);
 
-        // Lấy danh sách bài viết từ repository với các bộ lọc
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
 
-        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiVietByFilters(tieuDe, chuDe, dotVietBaiId);
+        // Thêm các tham số tìm kiếm vào model để trả lại cho view
+        model.addAttribute("tieuDe", tieuDe);
+        model.addAttribute("chuDe", chuDe);
+        model.addAttribute("dotVietBaiId", dotVietBaiId);
+
+        Page<BaiVietDTO> danhSachBaiViet = baiVietRepository.findBaiVietByFilters1(pageable, tieuDe, chuDe, dotVietBaiId);
         model.addAttribute("danhSachBaiViet", danhSachBaiViet);
+
+        List<BaiVietDTO> danhSachBaiViet1 = baiVietRepository.findBaiVietByFilters(tieuDe, chuDe, dotVietBaiId);
+        model.addAttribute("danhSachBaiViet1", danhSachBaiViet1);
 
         List<Album> danhSachAlbum = albumRepository.findAll();
         model.addAttribute("danhSachAlbum", danhSachAlbum);
 
-        return "giang-vien/quan-ly-danh-sach-bai-viet"; // Tên của template chi tiết
+        model.addAttribute("displayType", displayType);
+
+        return "giang-vien/quan-ly-danh-sach-bai-viet";
     }
-
-//    @PostMapping("/danh-sach-bai-viet/luu-album-bai-viet")
-//    public String luuAlbumBaiViet(@RequestParam Integer baiVietId, @RequestParam List<Integer> albumIds) {
-//        // Tìm bài viết theo ID
-//        BaiViet baiViet = baiVietRepository.findById(baiVietId).orElse(null);
-//
-//        if (baiViet != null) {
-//            for (Integer albumId : albumIds) {
-//                // Tìm album theo ID
-//                Album album = albumRepository.findById(albumId).orElse(null);
-//
-//                if (album != null) {
-//                    // Kiểm tra xem bản ghi đã tồn tại hay chưa
-//                    Optional<AlbumBaiViet> existingRecord = albumBaiVietRepository.findByAlbumAndBaiViet(album, baiViet);
-//
-//                    if (existingRecord.isEmpty()) {
-//                        // Tạo đối tượng AlbumBaiViet và lưu vào bảng trung gian
-//                        AlbumBaiViet albumBaiViet = new AlbumBaiViet();
-//                        albumBaiViet.setBaiViet(baiViet);
-//                        albumBaiViet.setAlbum(album);
-//                        albumBaiViet.setTrangThai("Đang hoạt động");  // Trang thái tùy chỉnh
-//                        albumBaiViet.setCreatedAt(LocalDateTime.now());
-//                        albumBaiViet.setUpdatedAt(LocalDateTime.now());
-//
-//                        albumBaiVietRepository.save(albumBaiViet);
-//                    }
-//                }
-//            }
-//        }
-//        return "redirect:/giang-vien/danh-sach-bai-viet";
-//    }
-
 
 }

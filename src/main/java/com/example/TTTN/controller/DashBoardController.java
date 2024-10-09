@@ -55,12 +55,12 @@ public class DashBoardController {
         model.addAttribute("role", role); // Truyền role xuống view
         return "/giang-vien/quan-ly-album";  // Trả về file HTML trong folder templates/admin
     }
-    @GetMapping("/giang-vien/bai-viet-cua-toi")
-    public String baivietct(Model model) {
-        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        return "/giang-vien/quan-ly-bai-viet-cua-toi";  // Trả về file HTML trong folder templates/admin
-    }
+//    @GetMapping("/giang-vien/bai-viet-cua-toi")
+//    public String baivietct(Model model) {
+//        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "/giang-vien/quan-ly-bai-viet-cua-toi";  // Trả về file HTML trong folder templates/admin
+//    }
     @GetMapping("/giang-vien/bai-viet-yeu-thich")
     public String baivietyeuthich(Model model) {
         String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service

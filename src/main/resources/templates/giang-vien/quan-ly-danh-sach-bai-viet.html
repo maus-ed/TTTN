@@ -87,66 +87,88 @@
             </thead>
             <tbody>
             <tr th:each="baiViet, stat : ${danhSachBaiViet}">
-                <td th:text="${stat.count}"></td>
+                <td th:text="${stat.index}"></td>
                 <td th:text="${baiViet.tieuDe}">Tiêu đề bài viết</td>
                 <td th:text="${baiViet.chuDe}">Chủ đề bài viết</td>
-                <td th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">
+                <td th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">
                     Ngày tạo bài viết
                 </td>
                 <td th:text="${baiViet.dot}">Đợt viết bài</td>
                 <td>
                     <h5 class="badge btn disabled" style="border-radius: 100px"
                         th:text="${baiViet.trangThai}"
-                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
                     </h5>
                 </td>
                 <td>
                     <!-- Chuyển hướng tới trang chi tiết bài viết -->
-                    <a th:href="@{/giang-vien/danh-sach-bai-viet/{id}(id=${baiViet.id})}" class="btn btn-sm">
+                    <a th:href="@{/giang-vien/danh-sach-bai-viet/{id}(
+    id=${baiViet.id},
+    pageNum=${danhSachBaiViet.number},
+    tieuDe=${tieuDe},
+    chuDe=${chuDe},
+    dotVietBaiId=${dotVietBaiId})}"
+                       class="btn btn-sm">
                         <i class="fas fa-eye"></i> Xem thêm
                     </a>
+
                 </td>
             </tr>
             </tbody>
         </table>
 
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <p class="text-muted">Hiển thị 1 đến 10 trong 50 mục</p>
+            <p class="text-muted">Hiển thị trang <span th:text="${danhSachBaiViet.number + 1}"></span> trên tổng <span th:text="${danhSachBaiViet.totalPages}"></span> trang</p>
             <nav aria-label="Page navigation">
                 <ul class="pagination">
-                    <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                    <li class="page-item" th:classappend="${danhSachBaiViet.first ? 'disabled' : ''}">
+                        <a class="page-link"
+                           th:href="@{/giang-vien/danh-sach-bai-viet/tim-kiem(pageNum=${danhSachBaiViet.number - 1}, pageSize=${danhSachBaiViet.size}, tieuDe=${tieuDe}, chuDe=${chuDe}, dotVietBaiId=${dotVietBaiId})}">«</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(1, danhSachBaiViet.totalPages)}"
+                        th:classappend="${i == danhSachBaiViet.number + 1} ? 'active' : ''">
+                        <a class="page-link"
+                           th:text="${i}"
+                           th:href="@{/giang-vien/danh-sach-bai-viet/tim-kiem(pageNum=${i - 1}, pageSize=${danhSachBaiViet.size}, tieuDe=${tieuDe}, chuDe=${chuDe}, dotVietBaiId=${dotVietBaiId})}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${danhSachBaiViet.last ? 'disabled' : ''}">
+                        <a class="page-link"
+                           th:href="@{/giang-vien/danh-sach-bai-viet/tim-kiem(pageNum=${danhSachBaiViet.number + 1}, pageSize=${danhSachBaiViet.size}, tieuDe=${tieuDe}, chuDe=${chuDe}, dotVietBaiId=${dotVietBaiId})}">»</a>
+                    </li>
                 </ul>
             </nav>
         </div>
+
     </div>
 
 
     <div id="cardSection" class="mt-4" th:if="${baiViet == null}" style="display: none;">
         <div class="row">
-            <div th:each="baiViet, stat : ${danhSachBaiViet}" class="col-md-6">
+            <div th:each="baiViet, stat : ${danhSachBaiViet1}" class="col-md-6">
                 <div class="card" style="margin-top: 20px;">
                     <div class="card-body">
                         <div class="d-flex">
                             <h5 class="card-title mx-2" th:text="${baiViet.nguoiTao}">Người tạo</h5>
                             <span class="card-text mx-2"
-                                  th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
+                                  th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
                             <h5>⭐
                             </h5>
                             <span class="card-text mx-2" th:text="${baiViet.chuDe}">Chủ đề bài viết</span>
                         </div>
                         <h3 class="card-title" th:text="${baiViet.tieuDe}">Tiêu đề bài viết</h3>
                         <a style="color: gray; text-decoration: underline;"
-                           th:href="@{/giang-vien/danh-sach-bai-viet/{id}(id=${baiViet.id})}">
+                           th:href="@{/giang-vien/danh-sach-bai-viet/{id}(
+       id=${baiViet.id},
+       tieuDe=${tieuDe},
+       chuDe=${chuDe},
+       dotVietBaiId=${dotVietBaiId})}">
                             Xem thêm
                         </a>
+
                         <p class="card-text">
                         <h5 class="badge btn disabled" style="border-radius: 100px"
                             th:text="${baiViet.trangThai}"
-                            th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                            th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
                         </h5>
                         </p>
                         <p class="card-text">
@@ -179,23 +201,23 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form id="albumForm" th:action="@{/giang-vien/danh-sach-bai-viet/luu-album-bai-viet}" method="post">
-                                        <div class="modal-body">
-                                            <!-- Truyền đúng bài viết ID vào form -->
-                                            <input type="hidden" id="baiVietId" name="baiVietId" th:value="${baiViet.id}">
-                                            <!-- Danh sách album -->
-                                            <ul class="list-group">
-                                                <li class="list-group-item" th:each="album : ${danhSachAlbum}">
-                                                    <input type="checkbox" th:id="${album.id}" name="albumIds" th:value="${album.id}">
-                                                    <label th:for="${album.id}" th:text="${album.ten}">Album</label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                            <button type="submit" class="btn btn-primary">Chọn album</button>
-                                        </div>
-                                    </form>
+<!--                                    <form id="albumForm" th:action="@{/giang-vien/danh-sach-bai-viet/luu-album-bai-viet}" method="post">-->
+<!--                                        <div class="modal-body">-->
+<!--                                            &lt;!&ndash; Truyền đúng bài viết ID vào form &ndash;&gt;-->
+<!--                                            <input type="hidden" id="baiVietId" name="baiVietId" th:value="${baiViet.id}">-->
+<!--                                            &lt;!&ndash; Danh sách album &ndash;&gt;-->
+<!--                                            <ul class="list-group">-->
+<!--                                                <li class="list-group-item" th:each="album : ${danhSachAlbum}">-->
+<!--                                                    <input type="checkbox" th:id="${album.id}" name="albumIds" th:value="${album.id}">-->
+<!--                                                    <label th:for="${album.id}" th:text="${album.ten}">Album</label>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                        <div class="modal-footer">-->
+<!--                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>-->
+<!--                                            <button type="submit" class="btn btn-primary">Chọn album</button>-->
+<!--                                        </div>-->
+<!--                                    </form>-->
                                 </div>
                             </div>
                         </div>
@@ -209,13 +231,27 @@
 
     <div id="detailSection" th:if="${baiViet != null}">
         <div class="d-flex justify-content-end">
-            <a th:href="@{/giang-vien/danh-sach-bai-viet}" class="btn btn-sm btn-outline-dark my-2">
+            <!-- Nếu không có tham số tìm kiếm, trở về danh sách bài viết -->
+            <a th:if="${tieuDe == null and chuDe == null and dotVietBaiId == null}"
+               th:href="@{/giang-vien/danh-sach-bai-viet(pageNum=${pageNum})}"
+               class="btn btn-sm btn-outline-dark my-2">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+            <!-- Nếu có tham số tìm kiếm, trở về kết quả tìm kiếm -->
+            <a th:if="${tieuDe != null or chuDe != null or dotVietBaiId != null}"
+               th:href="@{/giang-vien/danh-sach-bai-viet/tim-kiem(
+           pageNum=${pageNum},
+           tieuDe=${tieuDe},
+           chuDe=${chuDe},
+           dotVietBaiId=${dotVietBaiId})}"
+               class="btn btn-sm btn-outline-dark my-2">
                 <i class="fas fa-arrow-left"></i> Quay lại
             </a>
         </div>
+
         <div class="rounded-pill">
             <h3 class="btn btn-outline-success disabled" style="border-radius: 100px"
-                th:text="${baiViet.createdAt != null ? #temporals.format(baiViet.createdAt, 'dd/MM/yyyy') : 'Chưa có'}">
+                th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">
                 Ngày tạo</h3>
             <h3 class="btn btn-outline-success disabled" style="border-radius: 100px" th:text="${baiViet.chuDe}">Chủ
                 đề</h3>
