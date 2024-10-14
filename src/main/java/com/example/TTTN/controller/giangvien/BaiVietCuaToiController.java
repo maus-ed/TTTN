@@ -25,27 +25,22 @@ public class BaiVietCuaToiController {
     private BaiVietRepository baiVietRepository;
 
     @GetMapping("/bai-viet-cua-toi")
-    public String listBaiViet(Model model) {
+    public String listBaiViet(Model model, @RequestParam(value = "id", defaultValue = "2") Integer id,
+                              @RequestParam(value = "trangThai", required = false) String trangThai) {
         String role = "lecturer";
         model.addAttribute("role", role);
 
-        Long tongBaiViet = baiVietRepository.tongBaiViet(2);
-        model.addAttribute("tongBaiViet", tongBaiViet);
+        addBaiVietAttributes(model, id);
 
-        Long baiVietTuChoi = baiVietRepository.baiVietTrangThai(2, "Từ chối");
-        model.addAttribute("baiVietTuChoi", baiVietTuChoi);
+        if (trangThai != null && trangThai.isEmpty()) {
+            trangThai = null;
+        }
 
-        Long baiVietDaDang = baiVietRepository.baiVietTrangThai(2, "Đã đăng");
-        model.addAttribute("baiVietDaDang", baiVietDaDang);
+        List<BaiVietDTO> baiVietYeuThich = baiVietRepository.baiVietCuaToiYeuThich(id);
+        model.addAttribute("baiVietYeuThich", baiVietYeuThich);
 
-        Long baiVietDangXuLy = baiVietRepository.baiVietTrangThai(2, "Đang xử lý");
-        model.addAttribute("baiVietDangXuLy", baiVietDangXuLy);
-
-        Long baiVietKhongDang = baiVietRepository.baiVietTrangThai(2, "Không đăng");
-        model.addAttribute("baiVietKhongDang", baiVietKhongDang);
-
-        Long baiVietDaPheDuyet = baiVietRepository.baiVietTrangThai(2, "Đã phê duyệt");
-        model.addAttribute("baiVietDaPheDuyet", baiVietDaPheDuyet);
+        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.baiVietCuaToiTrangThai(id, trangThai);
+        model.addAttribute("danhSachBaiViet", danhSachBaiViet);
 
         return "giang-vien/quan-ly-bai-viet-cua-toi";
     }
@@ -81,6 +76,10 @@ public class BaiVietCuaToiController {
         if (trangThai != null && trangThai.isEmpty()) {
             trangThai = null;
         }
+
+        List<BaiVietDTO> baiVietYeuThich = baiVietRepository.baiVietCuaToiYeuThich(id);
+        model.addAttribute("baiVietYeuThich", baiVietYeuThich);
+
         // Lấy danh sách bài viết theo trạng thái
         List<BaiVietDTO> danhSachBaiViet = baiVietRepository.baiVietCuaToiTrangThai(id, trangThai);
 
@@ -119,6 +118,9 @@ public class BaiVietCuaToiController {
         if (trangThai != null && trangThai.isEmpty()) {
             trangThai = null;
         }
+
+        List<BaiVietDTO> baiVietYeuThich = baiVietRepository.baiVietCuaToiYeuThich(id);
+        model.addAttribute("baiVietYeuThich", baiVietYeuThich);
         // Lấy danh sách bài viết theo trạng thái
         List<BaiVietDTO> danhSachBaiViet = baiVietRepository.baiVietCuaToiTrangThai(id, trangThai);
 
@@ -134,6 +136,26 @@ public class BaiVietCuaToiController {
 
         // Thêm thông tin khác vào model nếu cần
         return "giang-vien/quan-ly-bai-viet-cua-toi"; // Trả về cùng một view
+    }
+
+    private void addBaiVietAttributes(Model model, Integer id) {
+        Long tongBaiViet = baiVietRepository.tongBaiViet(id);
+        model.addAttribute("tongBaiViet", tongBaiViet);
+
+        Long baiVietTuChoi = baiVietRepository.baiVietTrangThai(id, "Từ chối");
+        model.addAttribute("baiVietTuChoi", baiVietTuChoi);
+
+        Long baiVietDaDang = baiVietRepository.baiVietTrangThai(id, "Đã đăng");
+        model.addAttribute("baiVietDaDang", baiVietDaDang);
+
+        Long baiVietDangXuLy = baiVietRepository.baiVietTrangThai(id, "Đang xử lý");
+        model.addAttribute("baiVietDangXuLy", baiVietDangXuLy);
+
+        Long baiVietKhongDang = baiVietRepository.baiVietTrangThai(id, "Không đăng");
+        model.addAttribute("baiVietKhongDang", baiVietKhongDang);
+
+        Long baiVietDaPheDuyet = baiVietRepository.baiVietTrangThai(id, "Đã phê duyệt");
+        model.addAttribute("baiVietDaPheDuyet", baiVietDaPheDuyet);
     }
 
 

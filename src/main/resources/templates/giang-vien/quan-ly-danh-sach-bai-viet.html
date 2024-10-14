@@ -87,7 +87,7 @@
             </thead>
             <tbody>
             <tr th:each="baiViet, stat : ${danhSachBaiViet}">
-                <td th:text="${stat.index}"></td>
+                <td th:text="${stat.count}"></td>
                 <td th:text="${baiViet.tieuDe}">Tiêu đề bài viết</td>
                 <td th:text="${baiViet.chuDe}">Chủ đề bài viết</td>
                 <td th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">

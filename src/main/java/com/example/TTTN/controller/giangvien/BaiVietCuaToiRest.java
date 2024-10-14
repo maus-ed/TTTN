@@ -20,9 +20,7 @@ public class BaiVietCuaToiRest {
     private BaiVietRepository baiVietRepository;
 
     @GetMapping("/list-cua-toi")
-    public ResponseEntity<?> listBaiViet(@RequestParam(value = "id", defaultValue = "0") Integer id,
-                                      @RequestParam(value = "trangThai", required = false) String trangThai) {
-        System.out.println(trangThai);
-        return ResponseEntity.ok(baiVietRepository.baiVietCuaToiTrangThai(2, trangThai != null ? trangThai : ""));
+    public ResponseEntity<?> listBaiViet() {
+        return ResponseEntity.ok(baiVietRepository.baiVietCuaToiYeuThich(2));
     }
 }
