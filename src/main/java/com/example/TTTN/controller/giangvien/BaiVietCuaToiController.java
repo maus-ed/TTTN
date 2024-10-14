@@ -1,9 +1,11 @@
 package com.example.TTTN.controller.giangvien;
 
 import com.example.TTTN.dto.BaiVietDTO;
+import com.example.TTTN.dto.DotVietBaiCuaToiDTO;
 import com.example.TTTN.entity.Album;
 import com.example.TTTN.repository.AlbumRepository;
 import com.example.TTTN.repository.BaiVietRepository;
+import com.example.TTTN.repository.DotVietBaiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,9 @@ public class BaiVietCuaToiController {
     @Autowired
     private BaiVietRepository baiVietRepository;
 
+    @Autowired
+    private DotVietBaiRepository dotVietBaiRepository;
+
     @GetMapping("/bai-viet-cua-toi")
     public String listBaiViet(Model model, @RequestParam(value = "id", defaultValue = "2") Integer id,
                               @RequestParam(value = "trangThai", required = false) String trangThai) {
@@ -41,6 +46,9 @@ public class BaiVietCuaToiController {
 
         List<BaiVietDTO> danhSachBaiViet = baiVietRepository.baiVietCuaToiTrangThai(id, trangThai);
         model.addAttribute("danhSachBaiViet", danhSachBaiViet);
+
+        List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
+        model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
 
         return "giang-vien/quan-ly-bai-viet-cua-toi";
     }
@@ -85,6 +93,9 @@ public class BaiVietCuaToiController {
 
         // Thêm dữ liệu vào model để Thymeleaf có thể sử dụng
         model.addAttribute("danhSachBaiViet", danhSachBaiViet);
+
+        List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
+        model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
 
         return "giang-vien/quan-ly-bai-viet-cua-toi";
     }
@@ -133,6 +144,9 @@ public class BaiVietCuaToiController {
         }
 
         model.addAttribute("baiViet", baiViet);
+
+        List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
+        model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
 
         // Thêm thông tin khác vào model nếu cần
         return "giang-vien/quan-ly-bai-viet-cua-toi"; // Trả về cùng một view

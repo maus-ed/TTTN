@@ -161,7 +161,17 @@
                 <div class="col-md-4">
                     <div class="info-box">
                         <h3>Đợt viết bài hiện tại</h3>
-                        <p>Không có đợt viết bài nào.</p>
+                        <div>
+                            <ul>
+                                <li th:each="dotBaiViet : ${danhSachDotBaiViet}">
+                                    <span
+                                       style="text-decoration: none; color: #333333"
+                                       th:text="${dotBaiViet.getTen()}">
+                                        Không có đợt viết bài nào...
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -174,6 +184,7 @@
                                     <a th:href="@{/giang-vien/bai-viet-cua-toi/loc/{idbv}(idbv=${baiViet.id},trangThai=${trangThai})}"
                                        style="text-decoration: none; color: #333333"
                                        th:text="${baiViet.tieuDe}">
+                                        Không có bài viết yêu thích nào...
                                     </a>
                                 </li>
                             </ul>
