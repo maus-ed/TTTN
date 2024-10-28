@@ -3,9 +3,11 @@ package com.example.TTTN.controller.giangvien;
 import com.example.TTTN.dto.BaiVietDTO;
 import com.example.TTTN.dto.DotVietBaiCuaToiDTO;
 import com.example.TTTN.entity.Album;
+import com.example.TTTN.entity.NguoiDung;
 import com.example.TTTN.repository.AlbumRepository;
 import com.example.TTTN.repository.BaiVietRepository;
 import com.example.TTTN.repository.DotVietBaiRepository;
+import com.example.TTTN.repository.NguoiDungRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +31,9 @@ public class BaiVietCuaToiController {
     @Autowired
     private DotVietBaiRepository dotVietBaiRepository;
 
+    @Autowired
+    private NguoiDungRepository nguoiDungRepository;
+
     @GetMapping("/bai-viet-cua-toi")
     public String listBaiViet(Model model, @RequestParam(value = "id", defaultValue = "2") Integer id,
                               @RequestParam(value = "trangThai", required = false) String trangThai) {
@@ -49,6 +54,9 @@ public class BaiVietCuaToiController {
 
         List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
         model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
+
+        NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
+        model.addAttribute("nguoiDung", nguoiDung);
 
         return "giang-vien/quan-ly-bai-viet-cua-toi";
     }
@@ -96,6 +104,9 @@ public class BaiVietCuaToiController {
 
         List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
         model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
+
+        NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
+        model.addAttribute("nguoiDung", nguoiDung);
 
         return "giang-vien/quan-ly-bai-viet-cua-toi";
     }
@@ -147,6 +158,9 @@ public class BaiVietCuaToiController {
 
         List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
         model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
+
+        NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
+        model.addAttribute("nguoiDung", nguoiDung);
 
         // Thêm thông tin khác vào model nếu cần
         return "giang-vien/quan-ly-bai-viet-cua-toi"; // Trả về cùng một view

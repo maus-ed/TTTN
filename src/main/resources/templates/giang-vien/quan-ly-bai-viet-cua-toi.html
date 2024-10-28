@@ -86,10 +86,17 @@
 <div class="dashboard-container">
 
     <div class="profile-section">
-        <img src="https://danviet.mediacdn.vn/upload/2-2019/images/2019-04-02/Vi-sao-Kha-Banh-tro-thanh-hien-tuong-dinh-dam-tren-mang-xa-hoi-khabanh-1554192528-width660height597.jpg"
-             alt="Avatar">
-        <h2>thinh dep trai</h2>
+        <div th:each="nguoiDung : ${nguoiDung}"
+             style="display: flex; align-items: center;">
+            <img th:src="${nguoiDung.getHinhAnh()}"
+                 style="width: 200px; height: 200px; margin-right: 10px; border-radius: 50%;">
+            <h2 th:text="${nguoiDung.getTen()}"
+                style="margin: 0;">
+                Không có người dùng
+            </h2>
+        </div>
     </div>
+
     <!-- Tab navigation -->
     <ul th:if="${baiViet == null}" class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
@@ -147,13 +154,6 @@
                                     Tổng số lượng bài viết không đăng: 2
                                 </a>
                             </li>
-                            <li>
-                                <a style="text-decoration: none; color: #333333"
-                                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai='Đã phê duyệt')}"
-                                   th:text="'Tổng số lượng bài viết đã phê duyệt: ' + ${baiVietDaPheDuyet}">
-                                    Tổng số lượng bài viết đã phê duyệt: 2
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -165,8 +165,8 @@
                             <ul>
                                 <li th:each="dotBaiViet : ${danhSachDotBaiViet}">
                                     <span
-                                       style="text-decoration: none; color: #333333"
-                                       th:text="${dotBaiViet.getTen()}">
+                                            style="text-decoration: none; color: #333333"
+                                            th:text="${dotBaiViet.getTen()}">
                                         Không có đợt viết bài nào...
                                     </span>
                                 </li>
@@ -218,7 +218,7 @@
                                     <p class="card-text">
                                     <h5 class="badge btn disabled" style="border-radius: 100px"
                                         th:text="${baiViet.trangThai}"
-                                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
+                                        th:classappend="${baiViet.trangThai.equals('Đã đăng') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
                                     </h5>
                                     </p>
                                 </div>
@@ -234,7 +234,7 @@
                 <!-- Nếu không có tham số tìm kiếm, trở về danh sách bài viết -->
                 <a th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai=${trangThai})}"
                    class="btn btn-sm btn-outline-dark my-2" onclick="handleBack()">
-                    <i class="fas fa-arrow-left"></i> Quay lại
+                    <i class="fas fa-arrow-left"></i>
                 </a>
             </div>
 
