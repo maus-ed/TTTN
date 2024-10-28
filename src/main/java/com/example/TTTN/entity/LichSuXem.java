@@ -30,13 +30,13 @@ public class LichSuXem {
     private String trangThai;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "create_at")
-    private java.util.Date createAt;
+    @Column(name = "created_at")
+    private Date createAt;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "update_at")
-    private java.util.Date updateAt;
+    @Column(name = "updated_at")
+    private Date updateAt;
 
-    @Column(name = "delete_at")
+    @Column(name = "deleted_at")
     private Integer deleteAt;
 }

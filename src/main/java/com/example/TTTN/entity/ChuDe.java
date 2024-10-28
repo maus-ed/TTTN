@@ -1,9 +1,13 @@
 package com.example.TTTN.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -18,26 +22,33 @@ public class ChuDe {
     @Column(name = "ma")
     private String ma;
 
-    @Column(name = "ten")
+    @Column(name = "ten",length = 255)
+    @NotBlank(message = "Tên chủ đề không được để trống")
+    @Size(max = 255, message = "Tên chủ đề không được vượt quá 255 ký tự")
     private String ten;
 
     @Column(name = "nhuan_but")
-    private String nhuanBut;
+    @NotNull(message = "Nhuận bút không được để trống")
+    @Min(value = 0, message = "Nhuận bút phải lớn hơn hoặc bằng 0")
+    private Double nhuanBut;
 
-    @Column(name = "mo_ta")
+    @Column(name = "mo_ta",length = 255)
+    @NotBlank(message = "Mô tả không được để trống")
+    @Size(max = 255, message = "Mô tả không được vượt quá 255 ký tự")
     private String moTa;
 
     @Column(name = "trang_thai")
     private String trangThai;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private Date createAt;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     private Date updateAt;
 
-    @Column(name = "delete_at")
+    @Column(name = "deleted_at")
     private Integer deleteAt;
+
 }

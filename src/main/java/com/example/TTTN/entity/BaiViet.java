@@ -33,13 +33,13 @@ public class BaiViet {
     private DotVietBai dotVietBai;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private Date createAt;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     private Date updateAt;
 
-    @Column(name = "delete_at")
+    @Column(name = "deleted_at")
     private Integer deleteAt;
 }
