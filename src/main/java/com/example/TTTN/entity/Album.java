@@ -5,33 +5,33 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Album")
+@Table(name = "album")
 public class Album {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "ten")
-    private String ten;
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
+
+    @Column(name = "ngay_chinh_sua_cuoi")
+    private Date ngayChinhSuaCuoi;
 
     @Column(name = "trang_thai")
     private String trangThai;
+
+    @Column(name = "tieu_de")
+    private String tieuDe;
+
     @ManyToOne
-    @JoinColumn(name = "giang_vien_id")
-    private NguoiDung GiangVien;
+    @JoinColumn(name = "nguoi_dung_id")
+    private NguoiDung nguoiDung;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @Column(name = "deleted_at")
-    private Boolean deletedAt;
+    // Getters and Setters
 }
+
