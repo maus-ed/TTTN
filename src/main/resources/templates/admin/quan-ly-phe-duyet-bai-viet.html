@@ -4,7 +4,7 @@
     <title>UDPM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
@@ -14,33 +14,34 @@
 <div class="content" style="margin-left: 220px; padding: 20px;">
     <div class="container">
         <!-- Phần bộ lọc -->
-        <div class="filter-container p-4 bg-light rounded mb-4">
+        <div class="filter-container p-4 rounded mb-4" style="background: white">
             <h5 class="mb-4">Bộ lọc</h5>
-            <form class="row g-3">
-                <div class="col-md-4">
-                    <label for="searchTitle" class="form-label">Tiêu đề bài viết</label>
-                    <input type="text" class="form-control" id="searchTitle" placeholder="Tìm kiếm theo tiêu đề bài viết">
+            <form th:action="@{/admin/phe-duyet-bai-viet/hien-thi}" class="row g-3" method="get">
+                <div class="col-md-3">
+                    <label for="searchTitle" class="form-label">Tiêu đề và tác giả</label>
+                    <input type="text" class="form-control" th:value="${tieude}" name="tieude" id="searchTitle"
+                           placeholder="Tìm kiếm theo tiêu đề và tác giả">
                 </div>
-                <div class="col-md-4">
-                    <label for="statusSelect" class="form-label">Trạng thái</label>
-                    <select id="statusSelect" class="form-select">
-                        <option selected>Tất cả trạng thái</option>
-                        <option value="1">Đã phê duyệt</option>
-                        <option value="2">Chờ phê duyệt</option>
-                        <option value="3">Đã từ chối</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="row">
                         <div class="col-md-6">
                             <label for="startDate" class="form-label">Ngày bắt đầu</label>
-                            <input type="text" class="form-control" id="startDate" placeholder="Chọn ngày bắt đầu">
+                            <input type="text" class="form-control" id="startDate" name="startDate"
+                                   placeholder="Chọn ngày bắt đầu">
                         </div>
                         <div class="col-md-6">
                             <label for="endDate" class="form-label">Ngày kết thúc</label>
-                            <input type="text" class="form-control" id="endDate" placeholder="Chọn ngày kết thúc">
+                            <input type="text" class="form-control" id="endDate" name="endDate"
+                                   placeholder="Chọn ngày kết thúc">
                         </div>
                     </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="statusSelect" class="form-label">Chủ đề bài viết</label>
+                    <select name="tencd" id="statusSelect" class="form-select">
+                        <option value="">--chọn chủ đề--</option>
+                        <option th:each="cd: ${chuDe}" th:value="${cd.id}" th:text="${cd.ten}"></option>
+                    </select>
                 </div>
                 <div class="col-12 d-flex justify-content-end mt-3">
                     <button type="reset" class="btn btn-secondary me-2">Làm mới</button>
@@ -58,135 +59,128 @@
                     <th scope="col">#</th>
                     <th scope="col">Tiêu đề</th>
                     <th scope="col">Tác giả</th>
-                    <th scope="col">Thể loại</th>
                     <th scope="col">Ngày tạo</th>
-                    <th scope="col">Ngày thao tác</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Hành động</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Lập trình Java</td>
-                    <td>Vũ Trọng Hiếu PH 4 4 1 7 0</td>
-                    <td>Java Swing</td>
-                    <td>29/08/2024 01:21:39</td>
-                    <td>29/08/2024 01:21:55</td>
-                    <td><span class="badge bg-success">Đã đăng</span></td>
-                    <td><button class="btn btn-outline-secondary btn-sm">✏️</button></td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Lập trình Java</td>
-                    <td>Vũ Trọng Hiếu PH 4 4 1 7 0</td>
-                    <td>Lập trình Java</td>
-                    <td>28/08/2024 23:37:51</td>
-                    <td>28/08/2024 23:38:04</td>
-                    <td><span class="badge bg-success">Đã đăng</span></td>
-                    <td><button class="btn btn-outline-secondary btn-sm">✏️</button></td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Lập trình Java</td>
-                    <td>Vũ Trọng Hiếu PH 4 4 1 7 0</td>
-                    <td>Lập trình Java</td>
-                    <td>28/08/2024 23:34:48</td>
-                    <td>28/08/2024 23:35:35</td>
-                    <td><span class="badge bg-success">Đã đăng</span></td>
-                    <td><button class="btn btn-outline-secondary btn-sm">✏️</button></td>
+                <tr th:each="bv,i:${listbv}">
+                    <td th:text="${i.count}"></td>
+                    <td th:text="${bv.tieuDe}"></td>
+                    <td th:text="${bv.nguoiDung.ten}"></td>
+                    <td th:text="${bv.ngayTao}"></td>
+                    <td th:text="${bv.trangThai}"></td>
+                    <td>
+                        <a th:href="@{/admin/phe-duyet-bai-viet/detail/{id}(id=${bv.id})}">
+                            <button class="btn btn-outline-secondary btn-sm">✏️</button>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
-
             <!-- Phân trang -->
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <p class="text-muted">Hiển thị 1 đến 10 trong 50 mục</p>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">»</a></li>
-                    </ul>
-                </nav>
-            </div>
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <!-- Nút Previous -->
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/admin/phe-duyet-bai-viet/hien-thi(page=${currentPage == 0 ? 0 : currentPage - 1}, tieude=${tieude},tencd=${tencd})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
 
+                <!-- Hiển thị danh sách trang -->
+                <li class="page-item">
+                    <a class="page-link"
+                       th:text="${currentPage +1 }" disabled></a>
+                </li>
+
+                <!-- Nút Next -->
+                <li class="page-item" th:classappend="${currentPage == totalPage - 1} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/admin/phe-duyet-bai-viet/hien-thi(page=${currentPage + 1}, tieude=${tieude},tencd=${tencd})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
-</div>
-<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>--><!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
 
-<!-- jQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<!-- Moment.js -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <!-- Moment.js -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
-<!-- Daterangepicker.js -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- Daterangepicker.js -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-<script type="text/javascript">
-    $(function() {
-        // Khởi tạo Date Range Picker với sự kiện cập nhật 2 ô input
-        $('#startDate, #endDate').daterangepicker({
-            locale: {
-                format: 'DD/MM/YYYY'
-            },
-            autoUpdateInput: false
+    <script type="text/javascript">
+        $(function () {
+            // Khởi tạo Date Range Picker với sự kiện cập nhật 2 ô input
+            $('#startDate, #endDate').daterangepicker({
+                locale: {
+                    format: 'YYYY-MM-DD'
+                },
+                autoUpdateInput: false
+            });
+
+            // Lắng nghe sự kiện 'apply' để cập nhật giá trị cho 2 ô input
+            $('#startDate, #endDate').on('apply.daterangepicker', function (ev, picker) {
+                $('#startDate').val(picker.startDate.format('YYYY-MM-DD'));
+                $('#endDate').val(picker.endDate.format('YYYY-MM-DD'));
+            });
+
+            // Nếu muốn cho phép người dùng xoá trường input khi click vào clear (x)
+            $('#startDate, #endDate').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
         });
+    </script>
 
-        // Lắng nghe sự kiện 'apply' để cập nhật giá trị cho 2 ô input
-        $('#startDate, #endDate').on('apply.daterangepicker', function(ev, picker) {
-            $('#startDate').val(picker.startDate.format('DD/MM/YYYY'));
-            $('#endDate').val(picker.endDate.format('DD/MM/YYYY'));
-        });
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
 
-        // Nếu muốn cho phép người dùng xoá trường input khi click vào clear (x)
-        $('#startDate, #endDate').on('cancel.daterangepicker', function(ev, picker) {
-            $(this).val('');
-        });
-    });
-</script>
+        .filter-container {
+            border: 1px solid #ddd;
+        }
 
-<style>
-    body {
-        background-color: #f5f5f5;
-    }
+        .history-container {
+            border: 1px solid #ddd;
+        }
 
-    .filter-container {
-        border: 1px solid #ddd;
-    }
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
 
-    .history-container {
-        border: 1px solid #ddd;
-    }
+        .badge {
+            padding: 0.5em 0.75em;
+            font-size: 0.875em;
+        }
 
-    .table th,
-    .table td {
-        vertical-align: middle;
-    }
+        .pagination .page-link {
+            color: #333;
+        }
 
-    .badge {
-        padding: 0.5em 0.75em;
-        font-size: 0.875em;
-    }
+        .pagination .page-link:hover {
+            color: #007bff;
+        }
 
-    .pagination .page-link {
-        color: #333;
-    }
-
-    .pagination .page-link:hover {
-        color: #007bff;
-    }
-
-    .pagination .page-item.active .page-link {
-        background-color: #333;
-        border-color: #333;
-    }
-</style>
+        .pagination .page-item.active .page-link {
+            background-color: #333;
+            border-color: #333;
+        }
+    </style>
 </body>
 </html>

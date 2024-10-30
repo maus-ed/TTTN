@@ -55,24 +55,24 @@ public class DashBoardController {
         model.addAttribute("role", role); // Truyền role xuống view
         return "/giang-vien/quan-ly-album";  // Trả về file HTML trong folder templates/admin
     }
-    @GetMapping("/giang-vien/bai-viet-cua-toi")
-    public String baivietct(Model model) {
-        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        return "/giang-vien/quan-ly-bai-viet-cua-toi";  // Trả về file HTML trong folder templates/admin
-    }
+//    @GetMapping("/giang-vien/bai-viet-cua-toi")
+//    public String baivietct(Model model) {
+//        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "/giang-vien/quan-ly-bai-viet-cua-toi";  // Trả về file HTML trong folder templates/admin
+//    }
     @GetMapping("/giang-vien/bai-viet-yeu-thich")
     public String baivietyeuthich(Model model) {
         String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
         model.addAttribute("role", role); // Truyền role xuống view
         return "/giang-vien/quan-ly-bai-viet-yeu-thich";  // Trả về file HTML trong folder templates/admin
     }
-    @GetMapping("/giang-vien/danh-sach-bai-viet")
-    public String dsbv(Model model) {
-        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        return "/giang-vien/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
-    }
+//    @GetMapping("/giang-vien/danh-sach-bai-viet")
+//    public String dsbv(Model model) {
+//        String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "/giang-vien/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
+//    }
     @GetMapping("/giang-vien/lich-su-da-xem")
     public String lsdx(Model model) {
         String role = "lecturer"; // Hoặc lấy giá trị role từ session hoặc service

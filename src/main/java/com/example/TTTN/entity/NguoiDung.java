@@ -12,23 +12,34 @@ public class NguoiDung {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
     private Integer id;
+
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
+
+    @Column(name = "ngay_chinh_sua_cuoi")
+    private Date ngayChinhSuaCuoi;
+
+    @Column(name = "nen")
+    private String nen;
 
     @Column(name = "ma")
     private String ma;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "hinh_anh")
+    private String hinhAnh;
 
     @Column(name = "ten")
     private String ten;
 
     @Column(name = "vai_tro")
-    private String vaiTro;
-
-    @Column(name = "so_dien_thoai")
-    private Integer soDienThoai;
-
-    @Column(name = "chu_de")
-    private String chuDe;
+    private Integer vaiTro;
 
     @Column(name = "trang_thai")
     private String trangThai;
@@ -43,4 +54,11 @@ public class NguoiDung {
 
     @Column(name = "deleted_at")
     private Integer deletedAt;
+    @Column(name = "ma_dang_ky_nguoi_dung")
+    private String maDangKyNguoiDung;
+
+    @Column(name = "ma_co_so_dao_tao_nguoi_dung")
+    private String maCoSoDaoTaoNguoiDung;
+
+    // Getters and Setters
 }
