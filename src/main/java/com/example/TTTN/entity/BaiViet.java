@@ -3,6 +3,7 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -52,6 +53,16 @@ public class BaiViet {
     @JoinColumn(name = "nguoi_dung_id")
     private NguoiDung nguoiDung;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    @Column(name = "deleted_at")
+    private Integer deletedAt;
     @Column(name = "ma_duyet")
     private String maDuyet;
 
