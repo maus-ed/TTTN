@@ -15,32 +15,49 @@
 <div class="content" style="margin-left: 220px; padding: 20px;">
     <!-- Phần progress bar -->
     <div class="progress-container">
-        <div class="progress-step completed">
+        <div th:each="step : ${listLSPDCT}"
+             th:if="${step.trangThai == 'Đang xử lý'}"
+             th:classappend="${step.trangThai == 'Đang xử lý'} ? 'completed' : ''"
+             class="progress-step">
             <div class="step-icon">🔄</div>
-            <div class="step-label">Chờ phê duyệt</div>
-            <div class="step-date">29/08/2024 01:21:39</div>
+            <div th:text="${step.trangThai}" class="step-label"></div>
+            <div th:text="${step.ngayTao}" class="step-date">--/--/----</div>
         </div>
 
-
-        <div class="progress-step completed">
+        <div th:each="step : ${listLSPDCT}"
+             th:if="${step.trangThai == 'Đã phê duyệt'}"
+             th:classappend="${step.trangThai == 'Đã phê duyệt'} ? 'completed' : ''"
+             class="progress-step">
             <div class="step-icon">✅</div>
-            <div class="step-label">Đã phê duyệt</div>
-            <div class="step-date">29/08/2024 01:21:55</div>
+            <div th:text="${step.trangThai}" class="step-label"></div>
+            <div th:text="${step.ngayTao}" class="step-date">--/--/----</div>
         </div>
-        <div class="progress-step completed">
+
+        <div th:each="step : ${listLSPDCT}"
+             th:if="${step.trangThai == 'Đã gửi cho phòng PR'}"
+             th:classappend="${step.trangThai == 'Đã gửi cho phòng PR'} ? 'completed' : ''"
+             class="progress-step">
             <div class="step-icon">➡️</div>
-            <div class="step-label">Đã gửi cho phòng PR</div>
-            <div class="step-date">29/08/2024 01:22:21</div>
+            <div th:text="${step.trangThai}" class="step-label"></div>
+            <div th:text="${step.ngayTao}" class="step-date">--/--/----</div>
         </div>
-        <div class="progress-step">
+
+        <div th:each="step : ${listLSPDCT}"
+             th:if="${step.trangThai == 'Đang chờ đăng'}"
+             th:classappend="${step.trangThai == 'Đang chờ đăng'} ? 'completed' : ''"
+             class="progress-step">
             <div class="step-icon">⏳</div>
-            <div class="step-label">Đang chờ đăng</div>
-            <div class="step-date">--/--/----</div>
+            <div th:text="${step.trangThai}" class="step-label"></div>
+            <div th:text="${step.ngayTao}" class="step-date">--/--/----</div>
         </div>
-        <div class="progress-step">
+
+        <div th:each="step : ${listLSPDCT}"
+             th:if="${step.trangThai == 'Đã đăng'}"
+             th:classappend="${step.trangThai == 'Đã đăng'} ? 'completed' : ''"
+             class="progress-step">
             <div class="step-icon">📢</div>
-            <div class="step-label">Đã đăng</div>
-            <div class="step-date">--/--/----</div>
+            <div th:text="${step.trangThai}" class="step-label"></div>
+            <div th:text="${step.ngayTao}" class="step-date">--/--/----</div>
         </div>
     </div>
 
@@ -87,33 +104,33 @@
         </div>
     </div>
 
-    <div class="progress-bar-container">
-        <div class="progress">
-            <div class="progress-track">
-                <!-- Vòng lặp qua từng trạng thái duyệt bài -->
-                <th:block th:each="step : ${listLSPDCT}">
-                    <!-- Một bước trong quá trình duyệt -->
-                    <div class="progress-step"
-                         th:classappend="${step.trangThai == 'Bị từ chối'} ? 'rejected' :
-                                     (${step.trangThai == 'Chờ chỉnh sửa'} ? 'pending-edit' :
-                                     (${step.trangThai == 'Đã duyệt'} ? 'approved' : ''))">
-                        <!-- Icon và trạng thái hành động -->
-                        <div th:text="${step.trangThai}"></div>
-                        <div class="progress-icon">
-                            <i th:if="${step.trangThai == 'Đã duyệt'}" class="fas fa-check-circle"></i>
-                            <i th:if="${step.trangThai == 'Chờ chỉnh sửa'}" class="fas fa-edit"></i>
-                            <i th:if="${step.trangThai == 'Bị từ chối'}" class="fas fa-times-circle"></i>
-                        </div>
-                        <!-- Thông tin thời gian và hành động -->
-                        <div class="progress-info">
-                            <p th:text="${step.hanhDong}">Yêu cầu chỉnh sửa</p>
-                            <small th:text="${step.ngayChinhSuaCuoi}">17/09/2024</small>
-                        </div>
-                    </div>
-                </th:block>
-            </div>
-        </div>
-    </div>
+<!--    <div class="progress-bar-container">-->
+<!--        <div class="progress">-->
+<!--            <div class="progress-track">-->
+<!--                &lt;!&ndash; Vòng lặp qua từng trạng thái duyệt bài &ndash;&gt;-->
+<!--                <th:block th:each="step : ${listLSPDCT}">-->
+<!--                    &lt;!&ndash; Một bước trong quá trình duyệt &ndash;&gt;-->
+<!--                    <div class="progress-step"-->
+<!--                         th:classappend="${step.trangThai == 'Bị từ chối'} ? 'rejected' :-->
+<!--                                     (${step.trangThai == 'Chờ chỉnh sửa'} ? 'pending-edit' :-->
+<!--                                     (${step.trangThai == 'Đã duyệt'} ? 'approved' : ''))">-->
+<!--                        &lt;!&ndash; Icon và trạng thái hành động &ndash;&gt;-->
+<!--                        <div th:text="${step.trangThai}"></div>-->
+<!--                        <div class="progress-icon">-->
+<!--                            <i th:if="${step.trangThai == 'Đã duyệt'}" class="fas fa-check-circle"></i>-->
+<!--                            <i th:if="${step.trangThai == 'Chờ chỉnh sửa'}" class="fas fa-edit"></i>-->
+<!--                            <i th:if="${step.trangThai == 'Bị từ chối'}" class="fas fa-times-circle"></i>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Thông tin thời gian và hành động &ndash;&gt;-->
+<!--                        <div class="progress-info">-->
+<!--                            <p th:text="${step.hanhDong}">Yêu cầu chỉnh sửa</p>-->
+<!--                            <small th:text="${step.ngayChinhSuaCuoi}">17/09/2024</small>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </th:block>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div class="article-info mt-4">
         <div class="d-flex align-items-center">
