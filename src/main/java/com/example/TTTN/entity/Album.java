@@ -31,16 +31,6 @@ public class Album {
     @JoinColumn(name = "nguoi_dung_id")
     private NguoiDung nguoiDung;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "updated_at")
-    private Date updatedAt;
-
-    @Column(name = "deleted_at")
-    private Integer deletedAt;
 
 }
 

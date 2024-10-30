@@ -108,10 +108,42 @@ public interface BaiVietRepository extends JpaRepository<BaiViet,Integer> {
 """)
     List<BaiVietDTO> baiVietCuaToiTrangThai(@Param("id") Integer id, @Param("trangThai") String trangThai);
 
+
+    @Query("SELECT bv FROM BaiViet bv WHERE "
+            + "(:searchTitle IS NULL OR bv.tieuDe LIKE :searchTitle)"
+            + "AND (:status IS NULL OR bv.trangThai = :status) "
+            + "AND (:startDate IS NULL OR bv.ngayTao >= :startDate) "
+            + "AND (:endDate IS NULL OR bv.ngayTao <= :endDate)")
+    Page<BaiViet> searchArticles(@Param("searchTitle") String searchTitle,
+                                 @Param("status") String status,
+                                 @Param("startDate") Date startDate,
+                                 @Param("endDate") Date endDate,
+                                 Pageable pageable);
+
+    @Query("SELECT COUNT(b) FROM BaiViet b WHERE b.trangThai = :status " +
+            "AND (:startDate IS NULL OR b.ngayTao >= :startDate) " +
+            "AND (:endDate IS NULL OR b.ngayTao <= :endDate)")
+    long countByStatus(@Param("status") String status,
+                       @Param("startDate") Date startDate,
+                       @Param("endDate") Date endDate);
+
+    @Query("SELECT gv.ten, COUNT(b.id) FROM BaiViet b JOIN b.nguoiDung gv " +
+            "WHERE (:startDate IS NULL OR b.ngayTao >= :startDate) " +
+            "AND (:endDate IS NULL OR b.ngayTao <= :endDate) " +
+            "GROUP BY gv.ten")
+    Page<Object[]> thongKeGiangVien(@Param("startDate") Date startDate, @Param("endDate") Date endDate, Pageable pageable);
+
+    @Query("SELECT b FROM BaiViet b " +
+            "WHERE (:startDate IS NULL OR b.ngayTao >= :startDate) " +
+            "AND (:endDate IS NULL OR b.ngayTao <= :endDate)")
+    Page<BaiViet> findByDateRange(@Param("startDate") Date startDate, @Param("endDate") Date endDate, Pageable pageable);
+
+
     @Query("SELECT dm FROM BaiViet dm WHERE " +
             "(?1 IS NULL OR dm.tieuDe LIKE %?1% OR dm.nguoiDung.ten LIKE %?1%) AND " +
             "(?2 IS NULL OR dm.chuDe.id = ?2) AND " +
             "(dm.ngayTao between ?3 and ?4) AND " +
             "dm.trangThai = ?5")
     Page<BaiViet> findBV(String tieude, Integer tencd, Date startDate, Date endDate, String trangThai, Pageable pageable);
+
 }

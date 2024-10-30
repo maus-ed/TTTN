@@ -21,12 +21,12 @@ public class DashBoardController {
         model.addAttribute("role", role); // Truyền role xuống view
         return "/admin/quan-ly-thong-ke";  // Trả về file HTML trong folder templates/admin
     }
-    @GetMapping("/admin/lich-su-phe-duyet")
-    public String ls(Model model) {
-        String role = "admin"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        return "/admin/quan-ly-lich-su-phe-duyet";  // Trả về file HTML trong folder templates/admin
-    }
+//    @GetMapping("/admin/lich-su-phe-duyet")
+//    public String ls(Model model) {
+//        String role = "admin"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "/admin/quan-ly-lich-su-phe-duyet";  // Trả về file HTML trong folder templates/admin
+//    }
     @GetMapping("/admin/kho-luu-tru")
     public String kholt(Model model) {
         String role = "admin"; // Hoặc lấy giá trị role từ session hoặc service
