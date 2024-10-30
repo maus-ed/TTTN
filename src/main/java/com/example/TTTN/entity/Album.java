@@ -3,7 +3,6 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +31,16 @@ public class Album {
     @JoinColumn(name = "nguoi_dung_id")
     private NguoiDung nguoiDung;
 
-    // Getters and Setters
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    @Column(name = "deleted_at")
+    private Integer deletedAt;
+
 }
 

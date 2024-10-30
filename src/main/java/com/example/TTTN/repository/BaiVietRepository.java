@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface BaiVietRepository extends JpaRepository<BaiViet,Integer> {
@@ -106,4 +107,11 @@ public interface BaiVietRepository extends JpaRepository<BaiViet,Integer> {
     AND (:trangThai IS NULL OR bv.trangThai = :trangThai)
 """)
     List<BaiVietDTO> baiVietCuaToiTrangThai(@Param("id") Integer id, @Param("trangThai") String trangThai);
+
+    @Query("SELECT dm FROM BaiViet dm WHERE " +
+            "(?1 IS NULL OR dm.tieuDe LIKE %?1% OR dm.nguoiDung.ten LIKE %?1%) AND " +
+            "(?2 IS NULL OR dm.chuDe.id = ?2) AND " +
+            "(dm.ngayTao between ?3 and ?4) AND " +
+            "dm.trangThai = ?5")
+    Page<BaiViet> findBV(String tieude, Integer tencd, Date startDate, Date endDate, String trangThai, Pageable pageable);
 }
