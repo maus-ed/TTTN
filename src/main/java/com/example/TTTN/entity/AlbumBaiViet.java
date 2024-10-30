@@ -28,16 +28,5 @@ public class AlbumBaiViet {
     @JoinColumn(name = "bai_viet_id")
     private BaiViet baiViet;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "updated_at")
-    private Date updatedAt;
-
-    @Column(name = "deleted_at")
-    private Integer deletedAt;
-
 }
 
