@@ -31,4 +31,6 @@ public class AuthorSwitchController {
             return "redirect:/dashboard"; // Trường hợp không xác định, quay về dashboard
         }
     }
+
+
 }

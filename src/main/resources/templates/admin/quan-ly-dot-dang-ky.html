@@ -7,19 +7,238 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Các style tùy chỉnh có thể được đặt ở đây */
+        .text-success {
+            color: green;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .filter-input {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .filter-input label {
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            margin-right: 5px;
+        }
+
+        .table-container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
     </style>
 </head>
 <body>
-<div th:replace="navbar :: navbar"></div>
-<div th:replace="sidebar :: sidebar"></div>
+<div th:replace="~{navbar :: navbar}"></div>
+<div th:replace="~{sidebar :: sidebar}"></div>
 
 <div class="content" style="margin-left: 220px; padding: 20px;">
-    <h1>Đợt đăng ký</h1>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <div class="container mt-5">
+        <!-- Bộ lọc và bảng -->
+        <div class="filter-input p-3 shadow-sm">
+            <form action="#" th:action="@{/admin/dot-dang-ky/search}" method="get">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="searchName">Tìm kiếm theo tên hoặc mã:</label>
+                        <input type="text" class="form-control" name="ten" id="searchName" placeholder="Tìm kiếm theo tên hoặc mã...">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="status">Trạng thái:</label>
+                        <select id="status" class="form-control" name="trangThai">
+                            <option value="all">-- Tất cả --</option>
+                            <option value="Hoạt động">Mở đăng ký</option>
+                            <option value="Đã kết thúc">Đóng đăng ký</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="startDate">Ngày diễn ra đợt:</label>
+                        <input type="date" class="form-control" name="tuNgay" id="startDate">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="endDate">Ngày kết thúc:</label>
+                        <input type="date" class="form-control" name="denNgay" id="endDate">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-dark btn-custom">Tìm kiếm</button>
+            </form>
+        </div>
+
+        <!-- Danh sách đợt đăng ký -->
+        <div class="table-container shadow-sm mt-4">
+            <div class="btn-container">
+                <div>
+                    <button type="button" class="btn btn-secondary">Lịch sử</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DotDangKi">
+                        Tạo mới đợt đăng kí
+                    </button>
+                    <button type="button" class="btn btn-danger" >
+                        Mở đăng kí
+                    </button>
+                    <button type="button" class="btn btn-success" >
+                        Đóng đăng kí
+                    </button>
+                </div>
+            </div>
+            <!-- Modal cho form nhập thông tin đăng ký -->
+            <div class="modal fade" id="DotDangKi" tabindex="-1" role="dialog" aria-labelledby="DotDangKiLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="DotDangKiLabel">Nhập Thông Tin Đăng Kí</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/admin/dot-dang-ky/add}" method="post">
+                                <!-- Trường Tên -->
+                                <div class="form-group">
+                                    <label for="ten">Tên</label>
+                                    <input type="text" class="form-control" id="ten" name="ten" required>
+                                </div>
+
+                                <!-- Đợt Đăng Kí (tuNgay - denNgay) -->
+                                <div class="form-group">
+                                    <label>Đợt Đăng Kí</label>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <label for="tuNgay">Từ ngày:</label>
+                                            <input type="date" class="form-control" id="tuNgay" name="tuNgay" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="denNgay">Đến ngày:</label>
+                                            <input type="date" class="form-control" id="denNgay" name="denNgay" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Hạn Đăng Kí (ngayBatDauDangKy - ngayKetThucDangKy) -->
+                                <div class="form-group">
+                                    <label>Hạn Đăng Kí</label>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <label for="ngayBatDauDang">Bắt đầu:</label>
+                                            <input type="date" class="form-control" id="ngayBatDauDang" name="ngayBatDauDang" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="ngayKetThucDang">Kết thúc:</label>
+                                            <input type="date" class="form-control" id="ngayKetThucDang" name="ngayKetThucDang" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Bảng hiển thị dữ liệu -->
+            <!-- Form để gửi dữ liệu đã chọn -->
+            <form th:action="@{/admin/change-status}" method="post">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" onclick="toggleSelectAll(this)">
+                        </th>
+                        <th scope="col">#</th>
+                        <th scope="col">Mã</th>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Thời gian</th>
+                        <th scope="col">Thời gian đăng kí</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="x, iterStat : ${list}">
+                        <td>
+                            <input type="checkbox" name="selectedIds" th:value="${x.id}">
+                        </td>
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td th:text="${x.ma}"></td>
+                        <td th:text="${x.ten}"></td>
+                        <td th:text="${x.tuNgay} + ' - ' + ${x.denNgay}"></td>
+                        <td th:text="${x.ngayBatDauDangKy} + ' - ' + ${x.ngayKetThucDangKy}"></td>
+                        <td>
+                            <span class="badge" th:classappend="${x.trangThai == 'Hoạt động' ? 'bg-success' : (x.trangThai == 'pending' ? 'bg-warning' : 'bg-danger')}" th:text="${x.trangThai}"></span>
+                        </td>
+                        <td>
+                            <a href="#"><i class="bi bi-eye"></i></a>
+                            <a th:href="@{/admin/phan-cong-chu-de/{id}(id=${x.id})}">Phân công</a>
+                            <a th:href="@{/admin/chi-tiet-dot-dang-ki/{id}(id=${x.id})}">Chi tiết đợt</a>
+                            <a href="#"><i class="bi bi-trash3"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- Nút thay đổi trạng thái -->
+                <div>
+                    <button type="submit" name="action" value="activate" class="btn btn-success">Hoạt động</button>
+                    <button type="submit" name="action" value="deactivate" class="btn btn-danger">Dừng hoạt động</button>
+                </div>
+            </form>
+
+            <!-- Script để chọn tất cả checkbox -->
+            <script>
+                function toggleSelectAll(source) {
+                    const checkboxes = document.querySelectorAll('input[name="selectedIds"]');
+                    checkboxes.forEach(checkbox => checkbox.checked = source.checked);
+                }
+            </script>
+
+
+            <!-- Phân trang -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/admin/dot-dang-ky/search(page=${currentPage - 1})}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                        <a class="page-link" th:href="@{/admin/dot-dang-ky/search(page=${i - 1})}" th:text="${i}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/admin/dot-dang-ky/search(page=${currentPage + 1})}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao diện ví dụ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <!-- Header Date Range -->
+    <div class="card p-3 mb-4">
+        <h5 class="mb-3"
+            th:text="${dotDangKyDetail.ten}"
+        >
+            <span class="badge bg-success">Mở đăng ký</span></h5>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="code" class="form-label">Mã đợt:</label>
+                <input type="text" class="form-control" id="code" th:value="${dotDangKyDetail.getMa()}" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="registerStartDate" class="form-label">Ngày bắt đầu đăng ký:</label>
+                <input type="text" class="form-control" id="registerStartDate" th:value="${dotDangKyDetail.ngayBatDauDangKy}" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="startDate" class="form-label">Ngày bắt đầu:</label>
+                <input type="text" class="form-control" id="startDate" th:value="${dotDangKyDetail.ngayTao}" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="endDate" class="form-label">Ngày kết thúc:</label>
+                <input type="text" class="form-control" id="endDate" th:value="${dotDangKyDetail.denNgay}" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="minAttempts" class="form-label">Lượt tích tối thiểu:</label>
+                <input type="text" class="form-control" id="minAttempts" th:value="0" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="maxAttempts" class="form-label">Số lượt tích tối đa:</label>
+                <input type="text" class="form-control" id="maxAttempts" th:value="30" readonly>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assignment Table -->
+    <div class="card p-3">
+        <h6 class="mb-3">Phân công chủ đề</h6>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Mã giảng viên</th>
+                <th scope="col">Tên giảng viên / Chủ đề</th>
+                <th scope="col">Design</th>
+                <th scope="col">Review</th>
+            </tr>
+            </thead>
+            <tbody>
+
+<!--            <tr th:each="x,i :${listGianVienChuDe}">-->
+<!--                <td th:text="${x.ma}"></td>-->
+<!--                <td th:text="${x.ten}"></td>-->
+<!--                <td><input type="checkbox"></td>-->
+<!--            </tr>-->
+            </tbody>
+        </table>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between">
+            <a href="/admin/dot-dang-ky" class="btn btn-secondary">Quay lại</a>
+            <div>
+                <button class="btn btn-warning">Import Excel</button>
+                <button class="btn btn-dark">Cập nhật thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

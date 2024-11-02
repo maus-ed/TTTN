@@ -11,7 +11,98 @@
 <div th:replace="sidebar :: sidebar"></div>
 
 <div class="content" style="margin-left: 220px; padding: 20px;">
-    <h1>Kho lưu trữ </h1>
+    <div class="container mt-4">
+        <!-- Filter Section -->
+        <div class="card p-3 mb-4">
+            <h5>Bộ lọc</h5>
+            <form class="form-inline">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Tiêu đề bài viết">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Mã giảng viên">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Tên giảng viên">
+                <select class="form-control mb-2 mr-sm-2">
+                    <option>-- Chọn đợt viết bài --</option>
+                    <option>Đợt 1</option>
+                    <option>Đợt 2</option>
+                </select>
+                <select class="form-control mb-2 mr-sm-2">
+                    <option>-- Chọn chủ đề --</option>
+                    <option>Chủ đề 1</option>
+                    <option>Chủ đề 2</option>
+                </select>
+                <button type="button" class="btn btn-secondary mb-2 mr-2">Làm mới</button>
+                <button type="button" class="btn btn-dark mb-2">Tìm kiếm</button>
+            </form>
+        </div>
+
+        <!-- Status Tabs -->
+        <div class="mb-4">
+            <button class="btn btn-warning mr-2">Đã phê duyệt <span class="badge badge-light"></span></button>
+            <button class="btn btn-secondary mr-2">Đã gửi <span class="badge badge-light"></span></button>
+            <button class="btn btn-info mr-2">Đã đăng <span class="badge badge-light"></span></button>
+            <button class="btn btn-danger mr-2">Không đăng <span class="badge badge-light"></span></button>
+        </div>
+
+        <!-- Table Section -->
+        <div class="card">
+            <div class="card-header">
+                Danh sách bài viết đã phê duyệt
+            </div>
+            <div class="card-body">
+                <button class="btn btn-success btn-sm">Tải bài viết</button>
+                <button class="btn btn-primary btn-sm">Lịch sử</button>
+                <button class="btn btn-dark btn-sm">Đã gửi</button>d
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tiêu đề bài viết</th>
+                        <th>Chủ đề</th>
+                        <th>Giảng viên</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày phê duyệt</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Lập trình Java</td>
+                        <td>Java Swing</td>
+                        <td>Vũ Trọng Hiếu PH 4 4 1 7 0</td>
+                        <td>Đã phê duyệt</td>
+                        <td>29/08/2024 01:21</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            border-radius: 8px;
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .btn {
+            border-radius: 20px;
+        }
+    </style>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
