@@ -3,7 +3,6 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class Album {
 
     @Column(name = "tieu_de")
     private String tieuDe;
-
     @ManyToOne
     @JoinColumn(name = "nguoi_dung_id")
     private NguoiDung nguoiDung;
