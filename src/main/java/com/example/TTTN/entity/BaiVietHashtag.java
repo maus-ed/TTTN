@@ -7,8 +7,8 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "lich_su_xem")
-public class LichSuXem {
+@Table(name = "bai_viet_hashtag")
+public class BaiVietHashtag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,19 +24,9 @@ public class LichSuXem {
     @JoinColumn(name = "bai_viet_id")
     private BaiViet baiViet;
 
-    @Column(name = "ghi_chu")
-    private String ghiChu;
-
-    @Column(name = "trang_thai")
-    private String trangThai;
-
-    @Column(name = "kieu")
-    private String kieu;
-
     @ManyToOne
-    @JoinColumn(name = "nguoi_dung_id")
-    private NguoiDung nguoiDung;
+    @JoinColumn(name = "hashtag_id")
+    private Hashtag hashtag;
 
     // Getters and Setters
 }
-

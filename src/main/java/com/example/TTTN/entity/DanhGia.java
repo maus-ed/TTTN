@@ -7,8 +7,8 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "lich_su_xem")
-public class LichSuXem {
+@Table(name = "danh_gia")
+public class DanhGia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,18 +20,15 @@ public class LichSuXem {
     @Column(name = "ngay_chinh_sua_cuoi")
     private Date ngayChinhSuaCuoi;
 
+    @Column(name = "content")
+    private String content;
+
+    @Column(name = "star")
+    private Integer star;
+
     @ManyToOne
     @JoinColumn(name = "bai_viet_id")
     private BaiViet baiViet;
-
-    @Column(name = "ghi_chu")
-    private String ghiChu;
-
-    @Column(name = "trang_thai")
-    private String trangThai;
-
-    @Column(name = "kieu")
-    private String kieu;
 
     @ManyToOne
     @JoinColumn(name = "nguoi_dung_id")

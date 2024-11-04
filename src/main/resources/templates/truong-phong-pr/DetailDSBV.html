@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/bd9b5e640d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+
+<div th:replace="sidebar :: sidebar"></div>
+<div class="container">
+    <a th:href="@{/danhsachbaiviet/hienthi}">
+        <i class="fa-solid fa-x" style="color: #000000;padding-left: 700px;"></i>
+    </a>
+    <div class="header">
+        <a class="btn btn-success" th:href="@{/danhsachbaiviet/dongy/{id}(id=${id})}">
+            Đăng bài
+        </a><a class="btn btn-danger" th:href="@{/danhsachbaiviet/tuchoi/{id}(id=${id})}">
+        Từ chối
+    </a>
+    </div>
+
+    <div class="content" th:object="${BaiViet}">
+        <input type="text" th:field="*{id}" class="form-control" hidden>
+        <input type="text" th:field="*{tieuDe}">
+        <div class="profile">
+            <img src="https://via.placeholder.com/50" alt="Avatar">
+            <div class="profile-info">
+                <input type="text" th:field="*{nguoiDung.ten}">
+                <input class="time" type="text" th:field="*{ngayTao}">
+            </div>
+        </div>
+        <input type="text" th:field="*{chuDe.ten}">
+    </div>
+</div>
+
+</div>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 50%;
+        margin: 50px auto;
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+        display: flex;
+    }
+
+    .header button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
+
+    }
+
+    .header button:first-child {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .header button:last-child {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .tags {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    .tags div {
+        background-color: #f0f0f0;
+        border-radius: 20px;
+        padding: 5px 10px;
+        margin-right: 10px;
+        font-size: 12px;
+        color: #555;
+    }
+
+    .tags div.green {
+        background-color: #d4edda;
+        color: #28a745;
+    }
+
+    .content {
+        margin-top: 20px;
+    }
+
+    .content h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .profile-info {
+        font-size: 16px;
+    }
+
+    input {
+        border: none;
+        outline: none; /* Ẩn đường viền khi nhấn vào */
+        padding: 5px; /* Thêm khoảng cách bên trong */
+        font-size: 16px; /* Kích thước chữ */
+    }
+
+    .time {
+        margin: 0;
+        font-size: small;
+    }
+
+</style>
+</body>
+</html>

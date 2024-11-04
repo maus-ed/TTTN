@@ -13,37 +13,39 @@ public class DotVietBai {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
+
+    @Column(name = "ngay_chinh_sua_cuoi")
+    private Date ngayChinhSuaCuoi;
+
+    @Column(name = "tu_ngay")
+    private Date tuNgay;
+
+    @Column(name = "ten")
+    private String ten;
+
+    @Column(name = "so_luong_bai_viet")
+    private Integer soLuongBaiViet;
 
     @ManyToOne
     @JoinColumn(name = "dot_dang_ky_id")
     private DotDangKy dotDangKy;
 
-    @Column(name = "ngay_bat_dau")
-    private Date ngayBatDau;
-
-    @Column(name = "ngay_ket_thuc")
-    private Date ngayKetThuc;
-
-    @Column(name = "so_luong_da_nhan")
-    private int soLuongDaNhan;
-
-    @Column(name = "so_nguoi_phan_cong")
-    private int soNguoiPhanCong;
-
     @Column(name = "trang_thai")
     private String trangThai;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "created_at")
-    private Date createAt;
+    @Column(name = "den_ngay")
+    private Date denNgay;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "updated_at")
-    private Date updateAt;
+    @Column(name = "ma_dang_ky_nguoi_dung")
+    private String maDangKyNguoiDung;
 
-    @Column(name = "deleted_at")
-    private Integer deleteAt;
+    @Column(name = "ma_co_so_dao_tao_nguoi_dung")
+    private String maCoSoDaoTaoNguoiDung;
 
+    // Getters and Setters
 }
+
