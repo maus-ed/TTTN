@@ -1,11 +1,8 @@
 package com.example.TTTN.dto;
 
-<<<<<<< HEAD
 import jakarta.persistence.Entity;
-=======
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
->>>>>>> d04c005397b055c7780b48bbb336c31baf500dac
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,23 +17,32 @@ import java.util.Date;
 @NoArgsConstructor
 public class BaiVietDTO {
     private int id;
-    private String tieuDe;
-<<<<<<< HEAD
-    private String tacGia;
-    private String chude;
-    private String noiDung;
-    private Date ngayTao;
-    private Integer idDotVietBai;
-    private Integer trangThai;
-=======
+//    private String tieuDe;
+//    private String tacGia;
+//    private String chude;
+//    private String noiDung;
+//    private Date ngayTao;
+//    private Integer idDotVietBai;
+//    private Integer trangThai;
+
+    @Temporal(TemporalType.DATE)
+    private Date ngayTao; // Thay ngayTao bằng createAt
+
     private String chuDe;
+
+    private String tieuDe;
+
     private String noiDung;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt; // Thay ngayTao bằng createAt
+    private String noiDungMoTa;
+
+    private String moTaNgan;
 
     private String nguoiTao;
-    private int dot;
+
+    private String dot;
+
+    private Integer nhanVienPrId;
+
     private String trangThai;
->>>>>>> d04c005397b055c7780b48bbb336c31baf500dac
 }

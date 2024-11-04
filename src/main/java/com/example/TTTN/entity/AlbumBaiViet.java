@@ -3,8 +3,7 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -28,7 +27,5 @@ public class AlbumBaiViet {
     @ManyToOne
     @JoinColumn(name = "bai_viet_id")
     private BaiViet baiViet;
-
-    // Getters and Setters
 }
 

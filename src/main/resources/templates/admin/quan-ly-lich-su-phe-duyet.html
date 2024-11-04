@@ -3,47 +3,57 @@
 <head>
     <title>UDPM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 </head>
 <body>
-<div th:replace="navbar :: navbar"></div>
+<div th:replace="~{navbar :: navbar}"></div>
 
-<div th:replace="sidebar :: sidebar"></div>
+<div th:replace="~{sidebar :: sidebar}"></div>
 
 <div class="content" style="margin-left: 220px; padding: 20px;">
     <div class="container">
-        <!-- Phần bộ lọc -->
+<!--        <form id="searchForm">-->
+<!--            <input type="text" id="searchInput" placeholder="Search..." onkeyup="performSearch()" autocomplete="off">-->
+<!--            <ul id="suggestions" class="suggestions-list"></ul>-->
+<!--        </form>-->
+
+        Phần bộ lọc
         <div class="filter-container p-4 bg-light rounded mb-4">
             <h5 class="mb-4">Bộ lọc</h5>
-            <form class="row g-3">
+            <form class="row g-3" th:action="@{/admin/lich-su-phe-duyet}" method="get">
                 <div class="col-md-4">
                     <label for="searchTitle" class="form-label">Tiêu đề bài viết</label>
-                    <input type="text" class="form-control" id="searchTitle" placeholder="Tìm kiếm theo tiêu đề bài viết">
+                    <input type="text" class="form-control" id="searchTitle" name="searchTitle"
+                           th:value="${searchTitle}" placeholder="Tìm kiếm theo tiêu đề bài viết">
                 </div>
                 <div class="col-md-4">
                     <label for="statusSelect" class="form-label">Trạng thái</label>
-                    <select id="statusSelect" class="form-select">
-                        <option selected>Tất cả trạng thái</option>
-                        <option value="1">Đã phê duyệt</option>
-                        <option value="2">Chờ phê duyệt</option>
-                        <option value="3">Đã từ chối</option>
+                    <select id="statusSelect" class="form-select" name="status">
+                        <option value="" th:selected="${status == null}">Tất cả trạng thái</option>
+                        <option value="Đã phê duyệt" th:selected="${status == 'Đã phê duyệt'}">Đã phê duyệt</option>
+                        <option value="Đang xử lý" th:selected="${status == 'Đang xử lý'}">Đang xử lý</option>
+                        <option value="Đã từ chối" th:selected="${status == 'Đã từ chối'}">Đã từ chối</option>
+                        <option value="Đã đăng" th:selected="${status == 'Đã đăng'}">Đã đăng</option>
+                        <option value="Không đăng" th:selected="${status == 'Không đăng'}">Không đăng</option>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-6">
                             <label for="startDate" class="form-label">Ngày bắt đầu</label>
-                            <input type="text" class="form-control" id="startDate" placeholder="Chọn ngày bắt đầu">
+                            <input type="text" class="form-control" id="startDate" name="startDate"
+                                   th:value="${startDate}" placeholder="Chọn ngày bắt đầu">
                         </div>
                         <div class="col-md-6">
                             <label for="endDate" class="form-label">Ngày kết thúc</label>
-                            <input type="text" class="form-control" id="endDate" placeholder="Chọn ngày kết thúc">
+                            <input type="text" class="form-control" id="endDate" name="endDate" th:value="${endDate}"
+                                   placeholder="Chọn ngày kết thúc">
                         </div>
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-end mt-3">
-                    <button type="reset" class="btn btn-secondary me-2">Làm mới</button>
+                    <a type="reset" th:href="@{/admin/lich-su-phe-duyet}" class="btn btn-secondary me-2">Làm mới</a>
                     <button type="submit" class="btn btn-dark">Tìm kiếm</button>
                 </div>
             </form>
@@ -66,60 +76,68 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Lập trình Java</td>
-                    <td>Vũ Trọng Hiếu PH 4 4 1 7 0</td>
-                    <td>Java Swing</td>
-                    <td>29/08/2024 01:21:39</td>
-                    <td>29/08/2024 01:21:55</td>
-                    <td><span class="badge bg-success">Đã đăng</span></td>
-                    <td><button class="btn btn-outline-secondary btn-sm">✏️</button></td>
+                <tr th:if="${listBV.totalPages == 0}">
+                    <td colspan="8" class="text-center">Thấy gì không, làm gì có giữ liệu</td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Lập trình Java</td>
-                    <td>Vũ Trọng Hiếu PH 4 4 1 7 0</td>
-                    <td>Lập trình Java</td>
-                    <td>28/08/2024 23:37:51</td>
-                    <td>28/08/2024 23:38:04</td>
-                    <td><span class="badge bg-success">Đã đăng</span></td>
-                    <td><button class="btn btn-outline-secondary btn-sm">✏️</button></td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Lập trình Java</td>
-                    <td>Vũ Trọng Hiếu PH 4 4 1 7 0</td>
-                    <td>Lập trình Java</td>
-                    <td>28/08/2024 23:34:48</td>
-                    <td>28/08/2024 23:35:35</td>
-                    <td><span class="badge bg-success">Đã đăng</span></td>
-                    <td><button class="btn btn-outline-secondary btn-sm">✏️</button></td>
+                <tr th:each="article, stat : ${listBV}" th:unless="${listBV.totalPages == 0}">
+                    <td th:text="${stat.count + listBV.number*3}"></td>
+                    <td th:text="${article.tieuDe}"></td>
+                    <td th:text="${article.nguoiDung.ten}"></td>
+                    <td th:text="${article.chuDe.ten}"></td>
+                    <td th:text="${article.ngayTao}"></td>
+                    <td th:text="${article.ngayChinhSuaCuoi}"></td>
+                    <td>
+                        <span class="badge"
+                              th:classappend="${article.trangThai == 'Phê duyệt' ? 'bg-success' : (article.trangThai == 'pending' ? 'bg-warning' : 'bg-danger')}"
+                              th:text="${article.trangThai}">Đã duyệt</span>
+                    </td>
+                    <td>
+                        <a th:href="@{'/admin/lich-su-phe-duyet/' + ${article.id}}" class="btn btn-outline-secondary"><i
+                                class="fas fa-edit"></i></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
 
             <!-- Phân trang -->
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <p class="text-muted">Hiển thị 1 đến 10 trong 50 mục</p>
+            <div class="d-flex justify-content-between align-items-center mt-3" th:unless="${listBV.totalPages == 0}">
+                <p class="text-muted">Hiển thị trang [[${listBV.number + 1}]] trong số [[${listBV.totalPages}]]
+                    trang</p>
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
-                        <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">»</a></li>
+                        <!-- Nút « cho trang trước -->
+                        <li class="page-item" th:classappend="${listBV.hasPrevious()} ? '' : 'disabled'">
+                            <a class="page-link"
+                               th:href="${listBV.number > 1} ? @{/admin/lich-su-phe-duyet/page/{page}(page=${listBV.number}, searchTitle=${searchTitle}, status=${status}, startDate=${startDate}, endDate=${endDate})} : @{/admin/lich-su-phe-duyet(searchTitle=${searchTitle}, status=${status}, startDate=${startDate}, endDate=${endDate})}"
+                               tabindex="-1">«</a>
+                        </li>
+
+                        <!-- Vòng lặp để hiển thị các số trang -->
+                        <li th:each="i : ${#numbers.sequence(1, listBV.totalPages)}"
+                            th:classappend="${i == listBV.number + 1} ? 'active'">
+                            <a class="page-link"
+                               th:href="${i == 1} ? @{/admin/lich-su-phe-duyet(searchTitle=${searchTitle}, status=${status}, startDate=${startDate}, endDate=${endDate})} : @{/admin/lich-su-phe-duyet/page/{page}(page=${i}, searchTitle=${searchTitle}, status=${status}, startDate=${startDate}, endDate=${endDate})}"
+                               th:text="${i}">1</a>
+                        </li>
+
+                        <!-- Nút » cho trang kế tiếp -->
+                        <li class="page-item" th:classappend="${listBV.hasNext()} ? '' : 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/admin/lich-su-phe-duyet/page/{page}(page=${listBV.number + 2}, searchTitle=${searchTitle}, status=${status}, startDate=${startDate}, endDate=${endDate})}">
+                                »
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-
     </div>
 </div>
+</div>
 <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -131,7 +149,42 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 <script type="text/javascript">
-    $(function() {
+
+    function performSearch() {
+        let searchQuery = document.getElementById("searchInput").value;
+
+        if (searchQuery.length > 0) {
+            fetch(`/admin/search?query=${searchQuery}`)
+                .then(response => response.json())
+                .then(data => {
+                    let suggestionsList = document.getElementById("suggestions");
+                    suggestionsList.innerHTML = "";
+
+                    // Giới hạn số lượng gợi ý hiển thị, ví dụ: 5 phần tử
+                    let limitedData = data.slice(0, 5);
+
+                    if (limitedData.length > 0) {
+                        limitedData.forEach(item => {
+                            let suggestionItem = document.createElement("li");
+                            suggestionItem.innerHTML = item.baiViet.tieuDe;
+                            suggestionItem.onclick = function() {
+                                document.getElementById("searchInput").value = item.baiViet.tieuDe;
+                                suggestionsList.innerHTML = "";
+                            };
+                            suggestionsList.appendChild(suggestionItem);
+                        });
+                    } else {
+                        suggestionsList.innerHTML = "<li>No results found</li>";
+                    }
+                })
+                .catch(error => console.error("Error fetching data:", error));
+        } else {
+            document.getElementById("suggestions").innerHTML = "";
+        }
+    }
+
+
+    $(function () {
         // Khởi tạo Date Range Picker với sự kiện cập nhật 2 ô input
         $('#startDate, #endDate').daterangepicker({
             locale: {
@@ -141,19 +194,43 @@
         });
 
         // Lắng nghe sự kiện 'apply' để cập nhật giá trị cho 2 ô input
-        $('#startDate, #endDate').on('apply.daterangepicker', function(ev, picker) {
+        $('#startDate, #endDate').on('apply.daterangepicker', function (ev, picker) {
             $('#startDate').val(picker.startDate.format('DD/MM/YYYY'));
             $('#endDate').val(picker.endDate.format('DD/MM/YYYY'));
         });
 
         // Nếu muốn cho phép người dùng xoá trường input khi click vào clear (x)
-        $('#startDate, #endDate').on('cancel.daterangepicker', function(ev, picker) {
+        $('#startDate, #endDate').on('cancel.daterangepicker', function (ev, picker) {
             $(this).val('');
         });
     });
 </script>
 
 <style>
+
+    .suggestions-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: white;
+        position: absolute; /* Để hiển thị dưới ô tìm kiếm */
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .suggestions-list li {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .suggestions-list li:hover {
+        background-color: #f0f0f0;
+    }
+
+
     body {
         background-color: #f5f5f5;
     }
