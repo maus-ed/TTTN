@@ -151,6 +151,17 @@ public interface BaiVietRepository extends JpaRepository<BaiViet,Integer> {
 """)
     List<BaiVietDTO> baiVietCuaToiTrangThai(@Param("id") Integer id, @Param("trangThai") String trangThai);
 
+    @Query("""
+    SELECT new com.example.TTTN.dto.BaiVietDTO(bv.id, bv.ngayTao, bv.chuDe.ten, bv.tieuDe, bv.noiDung, bv.noiDungMoTa, bv.moTaNgan, bv.nguoiDung.ten, ddk.ten, bv.nhanVienPrId, bv.trangThai)
+    FROM BaiViet bv
+    join ChuDe cd on bv.chuDe.id = cd.id
+    join NguoiDungDangKy nddk on nddk.chuDe.id = cd.id
+    join DotVietBai dvb on nddk.dotVietBai.id = dvb.id
+    join DotDangKy ddk on dvb.dotDangKy.id = ddk.id
+    join BaiVietYeuThich bvyt on bv.id = bvyt.baiViet.id
+    WHERE bvyt.nguoiDung.id = :id
+""")
+    List<BaiVietDTO> baiVietCuaToiYeuThich(@Param("id") Integer id);
 
     @Query("SELECT bv FROM BaiViet bv WHERE "
             + "(:searchTitle IS NULL OR bv.tieuDe LIKE :searchTitle)"
