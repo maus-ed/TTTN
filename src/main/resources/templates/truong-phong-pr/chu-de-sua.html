@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>UDPM</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="navbar :: navbar"></div>
+
+<!-- Sidebar -->
+<div th:replace="sidebar :: sidebar"></div>
+
+<!-- Main Content -->
+<div class="content" style="margin-left: 220px; padding: 20px;">
+  <h3 class="text-muted">Trang sửa chủ đề</h3>
+
+  <!-- Filter Section -->
+  <div class="card mb-4">
+      <div class="card-header">Sửa chủ đề</div>
+    <div class="card-body">
+      <form th:action="@{/truong-phong-pr/quan-ly-chu-de/update}" method="post" th:object="${chuDe}" class="mb-3">
+        <input type="hidden" name="id" th:value="${listUD.id}"/>
+        <div class="form-group">
+          <label for="filterName">Tên chủ đề:</label>
+          <input type="text" class="form-control" id="filterName" name="ten" th:value="${listUD.ten}" placeholder="Nhập tên chủ đề">
+          <div th:if="${#fields.hasErrors('ten')}" class="text-danger">
+            <p th:errors="*{ten}"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nhuanBut">Nhuận bút:</label>
+          <input type="number" class="form-control" id="nhuanBut" name="nhuanBut" th:value="${listUD.nhuanBut}" placeholder="Nhập nhuận bút">
+          <div th:if="${#fields.hasErrors('nhuanBut')}" class="text-danger">
+            <p th:errors="*{nhuanBut}"></p>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label>Trạng Thái</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="trangThai" value="Hoạt Động"
+                   th:checked="${listUD.trangThai == 'Hoạt Động'}">
+            <label class="form-check-label">
+              Hoạt Động
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="trangThai" value="Ngừng Hoạt Động"
+                   th:checked="${listUD.trangThai == 'Ngừng Hoạt Động'}">
+            <label class="form-check-label">
+              Ngừng Hoạt Động
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="moTa">Mô tả:</label>
+          <input type="text" class="form-control" id="moTa" name="moTa" th:value="${listUD.moTa}" placeholder="Nhập mô tả">
+          <div th:if="${#fields.hasErrors('moTa')}" class="text-danger">
+            <p th:errors="*{moTa}"></p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div>
+            <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Sửa chủ đề</button>
+            <a class="btn btn-danger" th:href="@{/truong-phong-pr/quan-ly-chu-de}"></i> Quay lại</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- JS Scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

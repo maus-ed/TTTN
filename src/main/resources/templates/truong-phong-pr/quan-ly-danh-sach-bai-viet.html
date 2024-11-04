@@ -15,9 +15,115 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<!-- Navbar -->
 <div th:replace="navbar :: navbar"></div>
 
+<!-- Sidebar -->
 <div th:replace="sidebar :: sidebar"></div>
+
+<!-- Main Content -->
+<div class="content" style="margin-left: 220px; padding: 20px;">
+    <!-- Header Section -->
+    <h3 class="text-muted">Danh sách bài viết</h3>
+
+    <!-- Filter Section -->
+    <div class="card mb-4">
+        <div class="card-header">Bộ lọc</div>
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="filterTitle">Tiêu đề và tên tác giả của bài viết:</label>
+                        <input type="text" class="form-control" id="filterTitle" placeholder="Tìm kiếm theo tiêu đề và tên tác giả">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filterAuthor">Tên và mã người phân công:</label>
+                        <input type="text" class="form-control" id="filterAuthor" placeholder="Tên và mã người phân công">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterCategory">Chủ đề:</label>
+                        <select class="form-control" id="filterCategory">
+                            <option>-- Chọn chủ đề --</option>
+                            <option>Java Swing</option>
+                            <option>Lập trình Java</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterStatus">Trạng thái:</label>
+                        <select class="form-control" id="filterStatus">
+                            <option>Tất cả</option>
+                            <option>Đã gửi cho pr</option>
+                            <option>Bài đã đăng</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filterDate">Đợt viết bài:</label>
+                        <input type="text" class="form-control" id="filterDate" placeholder="Tháng 09 (01/09/2024 - 30/09/2024)">
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-dark mr-2"><i class="fas fa-search"></i> Tìm kiếm</button>
+                        <button type="reset" class="btn btn-light"><i class="fas fa-sync-alt"></i> Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Article List Section -->
+    <div class="card">
+        <div class="card-header">Danh sách bài viết</div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tiêu đề</th>
+                    <th>Tác giả</th>
+                    <th>Chủ đề</th>
+                    <th>Ngày tạo</th>
+                    <th>Đợt viết bài</th>
+                    <th>Trạng thái</th>
+                    <th>Phân công</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Lập trình Java</td>
+                    <td>hieuvtph44170</td>
+                    <td>Java Swing</td>
+                    <td>29/08/2024 01:21</td>
+                    <td>Tháng 09 (01/09/2024 - 30/09/2024)</td>
+                    <td><span class="badge badge-success">Đã gửi cho pr</span></td>
+                    <td>Chưa phân công</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-secondary"><i class="fas fa-eye"></i></a>
+                        <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Lập trình Java</td>
+                    <td>hieuvtph44170</td>
+                    <td>Lập trình Java</td>
+                    <td>28/08/2024 23:37</td>
+                    <td>Tháng 09 (01/09/2024 - 30/09/2024)</td>
+                    <td><span class="badge badge-warning">Bài đã đăng</span></td>
+                    <td>PH44170 - Vũ Trọng Hiếu</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-secondary"><i class="fas fa-eye"></i></a>
+                        <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- JS Scripts -->
 <div class="content" style="margin-left: 220px; padding: 20px;">
     <form th:action="@{/danhsachbaiviet/hienthi}" method="get">
         <div class="filter-container">
