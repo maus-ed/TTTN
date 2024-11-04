@@ -1,5 +1,6 @@
 package com.example.TTTN.dto;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class BaiVietDTO {
     private int id;
+//    private String tieuDe;
+//    private String tacGia;
+//    private String chude;
+//    private String noiDung;
+//    private Date ngayTao;
+//    private Integer idDotVietBai;
+//    private Integer trangThai;
 
     @Temporal(TemporalType.DATE)
     private Date ngayTao; // Thay ngayTao bằng createAt

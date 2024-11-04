@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UDPM</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+
+<div th:replace="sidebar :: sidebar"></div>
+
+<div class="content" style="margin-left: 220px; padding: 20px;">
+
+    <form  th:object="${baiviet}" >
+        <div class="post-container">
+            <div class="post-content">
+                <h1 th:text="${baiviet.tieuDe}"></h1> <!-- Tiêu đề hoặc nội dung của bài viết -->
+            </div>
+
+            <div class="post-author">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZYU4p56Lb6cmmqUeuzJKuYMEOkx_TI92kNw&s" alt="Author Avatar" class="avatar">
+                <div class="author-info">
+                    <p class="author-name" th:text="${baiviet.nguoiTao.ten}"></p>
+                    <p class="post-date" th:text="${#dates.format(baiviet.createdAt, 'dd/MM/yyyy HH:mm')}"></p>
+                </div>
+            </div>
+
+            <hr class="post-divider">
+            <p th:text="${baiviet.noiDung}"></p>
+        </div>
+
+    </form>
+</div>
+<style>
+    .post-container {
+        width: 100%;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .post-content h1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .post-author {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .author-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .author-name {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .post-date {
+        font-size: 14px;
+        color: gray;
+    }
+
+    .post-divider {
+        margin-top: 20px;
+        border: none;
+        border-top: 1px solid #ccc;
+    }
+
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

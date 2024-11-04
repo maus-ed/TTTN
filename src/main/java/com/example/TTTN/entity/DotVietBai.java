@@ -3,8 +3,8 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
+
 
 @Data
 @Entity

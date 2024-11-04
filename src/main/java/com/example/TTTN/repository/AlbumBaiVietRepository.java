@@ -1,3 +1,4 @@
+
 package com.example.TTTN.repository;
 
 
@@ -14,4 +15,3 @@ import java.util.Optional;
 public interface AlbumBaiVietRepository extends JpaRepository<AlbumBaiViet, AlbumBaiVietId> {
     Optional<AlbumBaiViet> findByAlbumAndBaiViet(Album album, BaiViet baiViet);
 }
-

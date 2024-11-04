@@ -3,6 +3,7 @@ package com.example.TTTN.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -27,23 +28,15 @@ public class LichSuPheDuyet {
     @Column(name = "hanh_dong")
     private String hanhDong;
 
-    @Column(name = "ngay_thao_tac")
-    private Date ngayThaoTac;
-
-    @Column(name = "ghi_chu", columnDefinition = "TEXT")
+    @Column(name = "ghi_chu")
     private String ghiChu;
 
-    @Column(name = "trangThai")
+    @Column(name = "trang_thai")
     private String trangThai;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @Column(name = "deleted_at")
-    private Boolean deletedAt;
+    @Column(name = "ngay_chinh_sua_cuoi")
+    private Date ngayChinhSuaCuoi;
 }
