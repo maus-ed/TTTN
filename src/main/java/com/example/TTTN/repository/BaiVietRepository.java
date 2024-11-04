@@ -15,6 +15,18 @@ import java.util.Date;
 import java.util.List;
 
 public interface BaiVietRepository extends JpaRepository<BaiViet,Integer> {
+  
+  @Query(value = "SELECT *\n" +
+            "FROM     bai_viet where\n" +
+            "bai_viet.trang_thai like N'%Đã gửi cho pr%'",nativeQuery = true)
+    List<BaiViet> listbv();
+//    Page<BaiViet> findByTieuDe(String keyword,Pageable pageable);
+
+    @Query("SELECT dm FROM BaiViet dm WHERE " +
+            "(?1 IS NULL OR dm.tieuDe LIKE %?1% OR dm.nguoiDung.ten LIKE %?1%) AND " +
+            "(?2 IS NULL OR dm.chuDe.id = ?2) AND " +
+            "dm.trangThai = ?3")
+    Page<BaiViet> findByDV(String tieude, Integer tencd, String trangThai, Pageable pageable);
     @Query("""
     SELECT new com.example.TTTN.dto.BaiVietDTO(bv.id, bv.ngayTao, bv.chuDe.ten, bv.tieuDe, bv.noiDung, bv.noiDungMoTa, bv.moTaNgan, bv.nguoiDung.ten, ddk.ten, bv.nhanVienPrId, bv.trangThai) 
     FROM BaiViet bv
@@ -145,5 +157,4 @@ public interface BaiVietRepository extends JpaRepository<BaiViet,Integer> {
             "(dm.ngayTao between ?3 and ?4) AND " +
             "dm.trangThai = ?5")
     Page<BaiViet> findBV(String tieude, Integer tencd, Date startDate, Date endDate, String trangThai, Pageable pageable);
-
 }

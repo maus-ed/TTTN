@@ -1,4 +1,3 @@
-package com.example.TTTN.service.lmp;
 
 import com.example.TTTN.entity.BaiViet;
 import com.example.TTTN.repository.BaiVietRepository;

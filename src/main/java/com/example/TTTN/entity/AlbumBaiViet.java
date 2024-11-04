@@ -27,6 +27,5 @@ public class AlbumBaiViet {
     @ManyToOne
     @JoinColumn(name = "bai_viet_id")
     private BaiViet baiViet;
-
 }
 
