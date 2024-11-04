@@ -1,5 +1,8 @@
 package com.example.TTTN.service;
 
+import com.example.TTTN.dto.BaiVietDTO;
+import com.example.TTTN.entity.BaiVietCusTomer;
+
 import com.example.TTTN.entity.BaiViet;
 import com.example.TTTN.repository.BaiVietRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,10 @@ public class BaiVietService {
      @Autowired
     BaiVietRepository baiVietRepository;
     private final int size = 5;
+  
+    List<BaiViet> getAll();
+    Page<BaiVietCusTomer> search (String key, Integer idChuDe, String trangThai,
+                                  Integer idDotVietBai, Pageable pageable);
 
     public Page<BaiViet> hienThiBV(int page, String tieude, Integer tencd, String trangThai) {
         if (page < 0) {
@@ -37,5 +44,4 @@ public class BaiVietService {
     public long countByStatus(String status, Date startDate, Date endDate) ;
     public Page<Object[]> thongKeGiangVien(Date startDate, Date endDate, Pageable pageable) ;
         public Page<BaiViet> findByDateRange(Date startDate, Date endDate, Pageable pageable) ;
-
 }

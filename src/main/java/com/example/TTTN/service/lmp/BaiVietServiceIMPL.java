@@ -1,9 +1,12 @@
 
+import com.example.TTTN.dto.BaiVietDTO;
 import com.example.TTTN.entity.BaiViet;
+import com.example.TTTN.entity.BaiVietCusTomer;
 import com.example.TTTN.repository.BaiVietRepository;
 import com.example.TTTN.service.BaiVietService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -24,6 +27,9 @@ public class BaiVietServiceIMPL implements BaiVietService {
     }
 
     @Override
+    public Page<BaiVietCusTomer> search(String key, Integer idChuDe, String trangThai, Integer idDotVietBai, Pageable pageable) {
+
+        return baiVietRepository.search(key, idChuDe, trangThai, idDotVietBai, pageable);
     public Page<BaiViet> getAll1(Pageable pageable) {
         return baiVietRepository.findAll(pageable);
     }

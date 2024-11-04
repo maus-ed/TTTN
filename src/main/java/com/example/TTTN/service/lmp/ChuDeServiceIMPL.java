@@ -16,7 +16,6 @@ public class ChuDeServiceIMPL implements ChuDeService {
     @Autowired
     private ChuDeRepository chuDeRepo;
 
-
     @Override
     public List<ChuDe> getAll() {
         return chuDeRepo.findAll();
