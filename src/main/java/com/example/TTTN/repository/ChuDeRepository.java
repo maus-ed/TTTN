@@ -16,5 +16,4 @@ public interface ChuDeRepository extends JpaRepository<ChuDe,Integer> {
     Page<ChuDe> search(String ten, String trangThai, Double minNhuanBut, Double maxNhuanBut, Pageable pageable);
 
     boolean existsByTen(String ten);
-
 }
