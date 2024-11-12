@@ -26,11 +26,10 @@ public class Album {
 
     @Column(name = "tieu_de")
     private String tieuDe;
-
     @ManyToOne
     @JoinColumn(name = "nguoi_dung_id")
     private NguoiDung nguoiDung;
 
-
+    // Getters and Setters
 }
 

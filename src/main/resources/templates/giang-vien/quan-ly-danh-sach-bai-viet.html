@@ -26,29 +26,19 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="tieuDe" class="form-label">Tiêu đề</label>
-                        <input type="text" class="form-control" id="tieuDe" name="tieuDe" placeholder="Nhập tiêu đề">
+                        <input type="text" class="form-control" id="tieuDe" name="tieuDe" placeholder="Nhập tiêu đề"
+                               th:value="${tieuDe}">
                     </div>
                     <div class="col-md-4">
                         <label for="chuDe" class="form-label">Chủ đề</label>
-                        <input type="text" class="form-control" id="chuDe" name="chuDe" placeholder="Nhập chủ đề">
+                        <input type="text" class="form-control" id="chuDe" name="chuDe" placeholder="Nhập chủ đề"
+                               th:value="${chuDe}">
                     </div>
                     <div class="col-md-4">
                         <label for="dotVietBai" class="form-label">Đợt viết bài</label>
-                        <input type="text" class="form-control" id="dotVietBai" name="dotVietBaiId"
-                               placeholder="Nhập đợt">
+                        <input type="text" class="form-control" id="dotVietBai" name="dotVietBaiId" placeholder="Nhập đợt"
+                               th:value="${dotVietBaiId}">
                     </div>
-                    <!--                    <div class="col-md-4">-->
-                    <!--                        <label for="trangThai" class="form-label">Trạng thái</label>-->
-                    <!--                        <select class="custom-select" id="trangThai" name="trangThai">-->
-                    <!--                            <option value="">Chọn trạng thái bài viết</option>-->
-                    <!--                            <option value="Đã đăng">Đã đăng</option>-->
-                    <!--                            <option value="Ðang x? lý">Đang xử lý</option>-->
-                    <!--                        </select>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="col-md-4">-->
-                    <!--                        <label for="ngayTao" class="form-label">Ngày tạo</label>-->
-                    <!--                        <input type="date" class="form-control" id="ngayTao" name="ngayTao">-->
-                    <!--                    </div>-->
                 </div>
                 <div class="d-flex justify-content-center">
                     <a th:href="@{/giang-vien/danh-sach-bai-viet}">
@@ -60,8 +50,8 @@
                         <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
                     </button>
                 </div>
-
             </form>
+
 
         </div>
     </div>
@@ -87,7 +77,7 @@
             </thead>
             <tbody>
             <tr th:each="baiViet, stat : ${danhSachBaiViet}">
-                <td th:text="${stat.index}"></td>
+                <td th:text="${stat.count}"></td>
                 <td th:text="${baiViet.tieuDe}">Tiêu đề bài viết</td>
                 <td th:text="${baiViet.chuDe}">Chủ đề bài viết</td>
                 <td th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">
@@ -97,7 +87,7 @@
                 <td>
                     <h5 class="badge btn disabled" style="border-radius: 100px"
                         th:text="${baiViet.trangThai}"
-                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
+                        th:classappend="${baiViet.trangThai.equals('Đã đăng') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
                     </h5>
                 </td>
                 <td>
@@ -109,7 +99,7 @@
     chuDe=${chuDe},
     dotVietBaiId=${dotVietBaiId})}"
                        class="btn btn-sm">
-                        <i class="fas fa-eye"></i> Xem thêm
+                        <i class="fas fa-eye"></i>
                     </a>
 
                 </td>
@@ -168,7 +158,7 @@
                         <p class="card-text">
                         <h5 class="badge btn disabled" style="border-radius: 100px"
                             th:text="${baiViet.trangThai}"
-                            th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
+                            th:classappend="${baiViet.trangThai.equals('Đã đăng') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
                         </h5>
                         </p>
                         <p class="card-text">
@@ -235,7 +225,7 @@
             <a th:if="${tieuDe == null and chuDe == null and dotVietBaiId == null}"
                th:href="@{/giang-vien/danh-sach-bai-viet(pageNum=${pageNum})}"
                class="btn btn-sm btn-outline-dark my-2">
-                <i class="fas fa-arrow-left"></i> Quay lại
+                <i class="fas fa-arrow-left"></i>
             </a>
             <!-- Nếu có tham số tìm kiếm, trở về kết quả tìm kiếm -->
             <a th:if="${tieuDe != null or chuDe != null or dotVietBaiId != null}"
@@ -245,7 +235,7 @@
            chuDe=${chuDe},
            dotVietBaiId=${dotVietBaiId})}"
                class="btn btn-sm btn-outline-dark my-2">
-                <i class="fas fa-arrow-left"></i> Quay lại
+                <i class="fas fa-arrow-left"></i>
             </a>
         </div>
 

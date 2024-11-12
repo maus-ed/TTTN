@@ -43,6 +43,8 @@ public class NguoiDung {
 
     @Column(name = "trang_thai")
     private String trangThai;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "ma_dang_ky_nguoi_dung")
     private String maDangKyNguoiDung;

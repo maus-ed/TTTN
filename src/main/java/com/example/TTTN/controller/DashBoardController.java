@@ -87,32 +87,39 @@ public class DashBoardController {
     }
 
     // Danh sách bài viết cho nhân viên PR
-    @GetMapping("/nhan-vien-pr/quan-ly-danh-sach-bai-viet-pr")
-    public String quanlydanhsach(Model model) {
-        String role = "pr-staff"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        return "/nhan-vien-pr/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
-    }
+//    @GetMapping("/nhan-vien-pr/quan-ly-danh-sach-bai-viet-pr")
+//    public String quanlydanhsach(Model model) {
+//        String role = "pr-staff"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "/nhan-vien-pr/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
+//    }
 
     // Quản lý chủ đề cho trưởng phòng
-    @GetMapping("/truong-phong-pr/quan-ly-chu-de")
-    public String quanLyChuDe(Model model) {
-        String role = "pr-head"; // Hoặc lấy giá trị role từ session hoặc service
-        model.addAttribute("role", role); // Truyền role xuống view
-        return "/truong-phong-pr/quan-ly-chu-de";  // Trả về file HTML trong folder templates/admin
-    }
+//    @GetMapping("/truong-phong-pr/quan-ly-chu-de")
+//    public String quanLyChuDe(Model model) {
+//        String role = "pr-head"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "/truong-phong-pr/quan-ly-chu-de";  // Trả về file HTML trong folder templates/admin
+//    }
     @GetMapping("/truong-phong-pr/danh-sach-bai-viet")
+
     public String quanLyChuDe1(Model model) {
         String role = "pr-head"; // Hoặc lấy giá trị role từ session hoặc service
         model.addAttribute("role", role); // Truyền role xuống view
-        return "/truong-phong-pr/quan-ly-danh-sach-bai-viet";  // Trả về file HTML trong folder templates/admin
+        return "redirect:/danhsachbaiviet/hienthi";  // Trả về file HTML trong folder templates/admin
     }
     @GetMapping("/truong-phong-pr/danh-sach-nhan-vien-pr")
     public String quanLyChuDe3(Model model) {
         String role = "pr-head"; // Hoặc lấy giá trị role từ session hoặc service
         model.addAttribute("role", role); // Truyền role xuống view
-        return "/truong-phong-pr/quan-ly-danh-sach-nhan-vien-pr";  // Trả về file HTML trong folder templates/admin
+        return "redirect:/danh-sach-nhan-vien/hienthi";  // Trả về file HTML trong folder templates/admin
     }
+//    @GetMapping("/truong-phong-pr/danh-sach-phan-cong-pr")
+//    public String quanLyChuDe5(Model model) {
+//        String role = "pr-head"; // Hoặc lấy giá trị role từ session hoặc service
+//        model.addAttribute("role", role); // Truyền role xuống view
+//        return "redirect:";  // Trả về file HTML trong folder templates/admin
+//    }
     @GetMapping("/truong-phong-pr/thong-ke")
     public String quanLyChuDe4(Model model) {
         String role = "pr-head"; // Hoặc lấy giá trị role từ session hoặc service
