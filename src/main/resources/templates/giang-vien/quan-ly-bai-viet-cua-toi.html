@@ -9,7 +9,6 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .info-box {
             background-color: white;
             padding: 20px;
@@ -17,7 +16,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-
         .info-box h3 {
             margin-top: 0;
             font-size: 20px;
@@ -25,19 +23,16 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
-
         .info-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
         .info-box ul li {
             padding: 8px 0;
             font-size: 16px;
             color: #555;
         }
-
         .post-list-box {
             background-color: white;
             padding: 20px;
@@ -45,32 +40,27 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-
         .post-title {
             font-weight: bold;
             font-size: 18px;
             color: #333;
         }
-
         .post-status {
             font-size: 14px;
             color: #888;
         }
-
         .profile-section {
             display: flex;
             align-items: center;
             gap: 20px;
             margin-bottom: 40px;
         }
-
         .profile-section img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             background-color: #e0e0e0;
         }
-
         .active-link {
             font-weight: bold;
             color: #007bff;
@@ -86,34 +76,23 @@
 <div class="dashboard-container">
 
     <div class="profile-section">
-        <div th:each="nguoiDung : ${nguoiDung}"
-             style="display: flex; align-items: center;">
-            <img th:src="${nguoiDung.getHinhAnh()}"
-                 style="width: 200px; height: 200px; margin-right: 10px; border-radius: 50%;">
-            <h2 th:text="${nguoiDung.getTen()}"
-                style="margin: 0;">
-                Không có người dùng
-            </h2>
-        </div>
+        <img src="https://danviet.mediacdn.vn/upload/2-2019/images/2019-04-02/Vi-sao-Kha-Banh-tro-thanh-hien-tuong-dinh-dam-tren-mang-xa-hoi-khabanh-1554192528-width660height597.jpg" alt="Avatar">
+        <h2>thinh dep trai</h2>
     </div>
-
     <!-- Tab navigation -->
     <ul th:if="${baiViet == null}" class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="thongtin-tab" data-toggle="tab" href="#thongtin" role="tab"
-               aria-controls="thongtin" aria-selected="true">Thông tin</a>
+            <a class="nav-link active" id="thongtin-tab" data-toggle="tab" href="#thongtin" role="tab" aria-controls="thongtin" aria-selected="true">Thông tin</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="danhsach-tab" data-toggle="tab" href="#danhsach" role="tab" aria-controls="danhsach"
-               aria-selected="false"
+            <a class="nav-link" id="danhsach-tab" data-toggle="tab" href="#danhsach" role="tab" aria-controls="danhsach" aria-selected="false"
                th:text="'Danh sách ' + (${trangThai != null ? trangThai : ''})">Danh sách</a>
         </li>
     </ul>
 
     <div class="tab-content" id="myTabContent">
         <!-- Tab content: Thông tin -->
-        <div th:if="${baiViet == null}" class="tab-pane show active" id="thongtin" role="tabpanel"
-             aria-labelledby="thongtin-tab">
+        <div th:if="${baiViet == null}" class="tab-pane show active" id="thongtin" role="tabpanel" aria-labelledby="thongtin-tab">
             <!-- Sử dụng Bootstrap grid để tạo hàng có 3 cột -->
             <div class="row">
                 <div class="col-md-4">
@@ -154,6 +133,13 @@
                                     Tổng số lượng bài viết không đăng: 2
                                 </a>
                             </li>
+                            <li>
+                                <a style="text-decoration: none; color: #333333"
+                                   th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai='Đã phê duyệt')}"
+                                   th:text="'Tổng số lượng bài viết đã phê duyệt: ' + ${baiVietDaPheDuyet}">
+                                    Tổng số lượng bài viết đã phê duyệt: 2
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -161,34 +147,14 @@
                 <div class="col-md-4">
                     <div class="info-box">
                         <h3>Đợt viết bài hiện tại</h3>
-                        <div>
-                            <ul>
-                                <li th:each="dotBaiViet : ${danhSachDotBaiViet}">
-                                    <span
-                                            style="text-decoration: none; color: #333333"
-                                            th:text="${dotBaiViet.getTen()}">
-                                        Không có đợt viết bài nào...
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
+                        <p>Không có đợt viết bài nào.</p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="info-box">
                         <h3>Danh sách bài viết yêu thích</h3>
-                        <div>
-                            <ul>
-                                <li th:each="baiViet : ${baiVietYeuThich}">
-                                    <a th:href="@{/giang-vien/bai-viet-cua-toi/loc/{idbv}(idbv=${baiViet.id},trangThai=${trangThai})}"
-                                       style="text-decoration: none; color: #333333"
-                                       th:text="${baiViet.tieuDe}">
-                                        Không có bài viết yêu thích nào...
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        <p>Chưa có bài viết yêu thích nào.</p>
                     </div>
                 </div>
             </div>
@@ -205,20 +171,20 @@
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <h5 class="card-title mx-2" th:text="${baiViet.nguoiTao}">Người tạo</h5>
-                                        <span class="card-text mx-2"
-                                              th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
+                                        <span class="card-text mx-2" th:text="${baiViet.ngayTao != null ? #dates.format(baiViet.ngayTao, 'dd/MM/yyyy') : 'Chưa có'}">Ngày tạo bài viết</span>
                                         <h5>⭐</h5>
                                         <span class="card-text mx-2" th:text="${baiViet.chuDe}">Chủ đề bài viết</span>
                                     </div>
                                     <h3 class="card-title" th:text="${baiViet.tieuDe}">Tiêu đề bài viết</h3>
                                     <a style="color: gray; text-decoration: underline;"
-                                       th:href="@{/giang-vien/bai-viet-cua-toi/loc/{id}(id=${baiViet.id},trangThai=${trangThai})}">
+                                       th:href="@{/giang-vien/bai-viet-cua-toi/loc/{id}(id=${baiViet.id},
+           trangThai=${trangThai})}">
                                         Xem thêm
                                     </a>
                                     <p class="card-text">
                                     <h5 class="badge btn disabled" style="border-radius: 100px"
                                         th:text="${baiViet.trangThai}"
-                                        th:classappend="${baiViet.trangThai.equals('Đã đăng') ? 'text-success btn-outline-success' : 'text-danger btn-outline-danger'}">
+                                        th:classappend="${baiViet.trangThai.equals('Đang xử lý') ? 'text-danger btn-outline-danger' : 'text-success btn-outline-success'}">
                                     </h5>
                                     </p>
                                 </div>
@@ -232,9 +198,8 @@
         <div id="detailSection" th:if="${baiViet != null}">
             <div class="d-flex justify-content-end">
                 <!-- Nếu không có tham số tìm kiếm, trở về danh sách bài viết -->
-                <a th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai=${trangThai})}"
-                   class="btn btn-sm btn-outline-dark my-2" onclick="handleBack()">
-                    <i class="fas fa-arrow-left"></i>
+                <a th:href="@{/giang-vien/bai-viet-cua-toi/loc(id=${id}, trangThai=${trangThai})}" class="btn btn-sm btn-outline-dark my-2" onclick="handleBack()">
+                    <i class="fas fa-arrow-left"></i> Quay lại
                 </a>
             </div>
 
@@ -255,18 +220,18 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         // Lấy tất cả các thẻ a trong danh sách
         var links = document.querySelectorAll('.info-box a');
 
         // Lắng nghe sự kiện click trên mỗi thẻ a
-        links.forEach(function (link) {
-            link.addEventListener('click', function (event) {
+        links.forEach(function(link) {
+            link.addEventListener('click', function(event) {
                 // Ngăn chặn hành động mặc định của thẻ a
                 event.preventDefault();
 
                 // Loại bỏ class active-link khỏi tất cả các thẻ a
-                links.forEach(function (item) {
+                links.forEach(function(item) {
                     item.classList.remove('active-link');
                 });
 
@@ -278,7 +243,7 @@
             });
         });
     });
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         // Lưu trạng thái tab vào Local Storage
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             var activeTab = $(e.target).attr('id'); // Lấy ID của tab hiện tại
@@ -291,7 +256,6 @@
             $('#' + activeTab).tab('show'); // Kích hoạt tab đã lưu
         }
     });
-
     function handleBack() {
         var activeTab = localStorage.getItem('activeTab');
         if (activeTab) {

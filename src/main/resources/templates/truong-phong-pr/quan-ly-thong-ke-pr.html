@@ -1,67 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>UDPM - Thống kê PR</title>
+    <title>UDPM</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<!-- Navbar -->
 <div th:replace="navbar :: navbar"></div>
 
-<!-- Sidebar -->
 <div th:replace="sidebar :: sidebar"></div>
 
-<!-- Content -->
 <div class="content" style="margin-left: 220px; padding: 20px;">
-    <h1>Thống kê PR</h1>
-
-    <!-- Row with statistics -->
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Số bài viết đã gửi cho PR</h5>
-                    <p class="card-text text-warning"><i class="fas fa-paper-plane"></i> 0 Bài</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Số bài viết đã đăng</h5>
-                    <p class="card-text text-success"><i class="fas fa-check-circle"></i> 0 Bài</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Số bài viết không đăng</h5>
-                    <p class="card-text text-danger"><i class="fas fa-times-circle"></i> 0 Bài</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Filter by month -->
-    <div class="form-group mt-4">
-        <label for="filter-month">Tháng:</label>
-        <select class="form-control" id="filter-month">
-            <option>Tháng 08 (01/08/2024 - 31/08/2024)</option>
-            <!-- Add more options as needed -->
-        </select>
-    </div>
-
-    <!-- Chart (Placeholder for now) -->
-    <div class="text-center mt-4">
-        <p>Không có dữ liệu</p>
-        <div style="width: 200px; height: 200px; background-color: #f3f3f3; border-radius: 50%; margin: 0 auto;"></div>
-    </div>
+    <h1>Thống kê pr</h1>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

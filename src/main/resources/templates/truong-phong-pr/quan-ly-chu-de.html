@@ -6,114 +6,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
-<!-- Navbar -->
 <div th:replace="navbar :: navbar"></div>
 
-<!-- Sidebar -->
 <div th:replace="sidebar :: sidebar"></div>
 
-<!-- Main Content -->
 <div class="content" style="margin-left: 220px; padding: 20px;">
-    <h3 class="text-muted">Quản lý chủ đề</h3>
-
-    <!-- Filter Section -->
-    <div class="card mb-4">
-        <div class="card-header">Bộ lọc</div>
-        <div class="card-body">
-            <form th:action="@{/truong-phong-pr/quan-ly-chu-de}" method="get" class="mb-3">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="filterName">Tên sản phẩm:</label>
-                        <input type="text" class="form-control" id="filterName" name="ten" th:value="${ten}" placeholder="Nhập tên sản phẩm">
-                    </div>
-                    <div class="col-md-2">
-                        <label for="filterStatus">Trạng thái:</label>
-                        <select class="form-control" id="filterStatus" name="trangThai">
-                            <option value="" th:selected="${trangThai == null}">Chọn Trạng Thái</option>
-                            <option value="Hoạt Động" th:selected="${trangThai == 'Hoạt Động'}">Hoạt Động</option>
-                            <option value="Ngừng Hoạt Động" th:selected="${trangThai == 'Ngừng Hoạt Động'}">Ngừng Hoạt Động</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Nhuận bút:</label>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="filterPayFrom" name="minNhuanBut" th:value="${minNhuanBut}" placeholder="Từ">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="filterPayTo" name="maxNhuanBut" th:value="${maxNhuanBut}" placeholder="Đến">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 d-flex align-items-end">
-                        <button type="submit" class="btn btn-dark mr-2"><i class="fas fa-search"></i> Tìm kiếm</button>
-                        <a type="reset" class="btn btn-light" th:href="@{/truong-phong-pr/quan-ly-chu-de}"><i class="fas fa-sync-alt"></i> Làm mới</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Topic List Section -->
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <span>Danh sách chủ đề</span>
-            <a th:href="@{/truong-phong-pr/quan-ly-chu-de/trang-add}" class="btn btn-dark"><i class="fas fa-plus"></i> Thêm chủ đề</a>
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Mã</th>
-                    <th>Tên chủ đề</th>
-                    <th>Nhuận bút</th>
-                    <th>Mô tả</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="s,i : ${listCD}">
-                    <td th:text="${i.count}"></td>
-                    <td th:text="${s.ma}"></td>
-                    <td th:text="${s.ten}"></td>
-                    <td th:text="${s.nhuanBut}"></td>
-                    <td th:text="${s.moTa}"></td>
-                    <td th:text="${s.trangThai}"></td>
-                    <td>
-                        <a th:href="@{'/truong-phong-pr/quan-ly-chu-de/detail/'+ ${s.id}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="pagination justify-content-center">
-            <ul class="pagination">
-                <li class="page-item" th:classappend="${trangHienTai == 0} ? 'disabled'">
-                    <a class="page-link"
-                       th:href="@{/truong-phong-pr/quan-ly-chu-de(page=${trangHienTai - 1}, ten=${ten}, trangThai=${trangThai})}">Trước</a>
-                </li>
-                <li class="page-item" th:if="${tongSoTrang == 0}">
-                    <span class="page-link">0</span>
-                </li>
-                <li class="page-item" th:each="i : ${#numbers.sequence(0, tongSoTrang - 1)}"
-                    th:unless="${tongSoTrang == 0}"
-                    th:classappend="${i == trangHienTai} ? 'active'">
-                    <a class="page-link" th:href="@{/truong-phong-pr/quan-ly-chu-de(page=${i}, ten=${ten}, trangThai=${trangThai},minNhuanBut=${minNhuanBut},maxNhuanBut=${maxNhuanBut})}"
-                       th:text="${i + 1}">1</a>
-                </li>
-                <li class="page-item" th:classappend="${trangHienTai + 1 == tongSoTrang} ? 'disabled'">
-                    <a class="page-link"
-                       th:href="@{/truong-phong-pr/quan-ly-chu-de(page=${trangHienTai + 1}, ten=${ten}, trangThai=${trangThai})}">Tiếp</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <h1> Chủ để nhân viên pr</h1>
 </div>
-
-<!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
