@@ -1,13 +1,9 @@
 package com.example.TTTN.controller.giangvien;
 
 import com.example.TTTN.dto.BaiVietDTO;
-import com.example.TTTN.dto.DotVietBaiCuaToiDTO;
 import com.example.TTTN.entity.Album;
-import com.example.TTTN.entity.NguoiDung;
 import com.example.TTTN.repository.AlbumRepository;
 import com.example.TTTN.repository.BaiVietRepository;
-import com.example.TTTN.repository.DotVietBaiRepository;
-import com.example.TTTN.repository.NguoiDungRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,35 +24,28 @@ public class BaiVietCuaToiController {
     @Autowired
     private BaiVietRepository baiVietRepository;
 
-    @Autowired
-    private DotVietBaiRepository dotVietBaiRepository;
-
-    @Autowired
-    private NguoiDungRepository nguoiDungRepository;
-
     @GetMapping("/bai-viet-cua-toi")
-    public String listBaiViet(Model model, @RequestParam(value = "id", defaultValue = "2") Integer id,
-                              @RequestParam(value = "trangThai", required = false) String trangThai) {
+    public String listBaiViet(Model model) {
         String role = "lecturer";
         model.addAttribute("role", role);
 
-        addBaiVietAttributes(model, id);
+        Long tongBaiViet = baiVietRepository.tongBaiViet(2);
+        model.addAttribute("tongBaiViet", tongBaiViet);
 
-        if (trangThai != null && trangThai.isEmpty()) {
-            trangThai = null;
-        }
+        Long baiVietTuChoi = baiVietRepository.baiVietTrangThai(2, "Từ chối");
+        model.addAttribute("baiVietTuChoi", baiVietTuChoi);
 
-        List<BaiVietDTO> baiVietYeuThich = baiVietRepository.baiVietCuaToiYeuThich(id);
-        model.addAttribute("baiVietYeuThich", baiVietYeuThich);
+        Long baiVietDaDang = baiVietRepository.baiVietTrangThai(2, "Đã đăng");
+        model.addAttribute("baiVietDaDang", baiVietDaDang);
 
-        List<BaiVietDTO> danhSachBaiViet = baiVietRepository.baiVietCuaToiTrangThai(id, trangThai);
-        model.addAttribute("danhSachBaiViet", danhSachBaiViet);
+        Long baiVietDangXuLy = baiVietRepository.baiVietTrangThai(2, "Đang xử lý");
+        model.addAttribute("baiVietDangXuLy", baiVietDangXuLy);
 
-        List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
-        model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
+        Long baiVietKhongDang = baiVietRepository.baiVietTrangThai(2, "Không đăng");
+        model.addAttribute("baiVietKhongDang", baiVietKhongDang);
 
-        NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
-        model.addAttribute("nguoiDung", nguoiDung);
+        Long baiVietDaPheDuyet = baiVietRepository.baiVietTrangThai(2, "Đã phê duyệt");
+        model.addAttribute("baiVietDaPheDuyet", baiVietDaPheDuyet);
 
         return "giang-vien/quan-ly-bai-viet-cua-toi";
     }
@@ -92,21 +81,11 @@ public class BaiVietCuaToiController {
         if (trangThai != null && trangThai.isEmpty()) {
             trangThai = null;
         }
-
-        List<BaiVietDTO> baiVietYeuThich = baiVietRepository.baiVietCuaToiYeuThich(id);
-        model.addAttribute("baiVietYeuThich", baiVietYeuThich);
-
         // Lấy danh sách bài viết theo trạng thái
         List<BaiVietDTO> danhSachBaiViet = baiVietRepository.baiVietCuaToiTrangThai(id, trangThai);
 
         // Thêm dữ liệu vào model để Thymeleaf có thể sử dụng
         model.addAttribute("danhSachBaiViet", danhSachBaiViet);
-
-        List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
-        model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
-
-        NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
-        model.addAttribute("nguoiDung", nguoiDung);
 
         return "giang-vien/quan-ly-bai-viet-cua-toi";
     }
@@ -140,9 +119,6 @@ public class BaiVietCuaToiController {
         if (trangThai != null && trangThai.isEmpty()) {
             trangThai = null;
         }
-
-        List<BaiVietDTO> baiVietYeuThich = baiVietRepository.baiVietCuaToiYeuThich(id);
-        model.addAttribute("baiVietYeuThich", baiVietYeuThich);
         // Lấy danh sách bài viết theo trạng thái
         List<BaiVietDTO> danhSachBaiViet = baiVietRepository.baiVietCuaToiTrangThai(id, trangThai);
 
@@ -156,34 +132,8 @@ public class BaiVietCuaToiController {
 
         model.addAttribute("baiViet", baiViet);
 
-        List<DotVietBaiCuaToiDTO> danhSachDotBaiViet =dotVietBaiRepository.dotVietBaiCuaToi(id, "Đang mở");
-        model.addAttribute("danhSachDotBaiViet", danhSachDotBaiViet);
-
-        NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
-        model.addAttribute("nguoiDung", nguoiDung);
-
         // Thêm thông tin khác vào model nếu cần
         return "giang-vien/quan-ly-bai-viet-cua-toi"; // Trả về cùng một view
-    }
-
-    private void addBaiVietAttributes(Model model, Integer id) {
-        Long tongBaiViet = baiVietRepository.tongBaiViet(id);
-        model.addAttribute("tongBaiViet", tongBaiViet);
-
-        Long baiVietTuChoi = baiVietRepository.baiVietTrangThai(id, "Từ chối");
-        model.addAttribute("baiVietTuChoi", baiVietTuChoi);
-
-        Long baiVietDaDang = baiVietRepository.baiVietTrangThai(id, "Đã đăng");
-        model.addAttribute("baiVietDaDang", baiVietDaDang);
-
-        Long baiVietDangXuLy = baiVietRepository.baiVietTrangThai(id, "Đang xử lý");
-        model.addAttribute("baiVietDangXuLy", baiVietDangXuLy);
-
-        Long baiVietKhongDang = baiVietRepository.baiVietTrangThai(id, "Không đăng");
-        model.addAttribute("baiVietKhongDang", baiVietKhongDang);
-
-        Long baiVietDaPheDuyet = baiVietRepository.baiVietTrangThai(id, "Đã phê duyệt");
-        model.addAttribute("baiVietDaPheDuyet", baiVietDaPheDuyet);
     }
 
 
